@@ -1,6 +1,8 @@
 {
     "require": {
-        "silex/silex": "~1.2"
+        "silex/silex": "~1.2",
+        "aptoma/silex-extras": "~1.2",
+        "symfony/twig-bridge": "~2.3"
     },
     "autoload": {
         "psr-0": {
