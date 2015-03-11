@@ -1,0 +1,42 @@
+{% extends 'layout.twig' %}
+{% block title %}Password Exchange - View {% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+      {% if userName %}
+        <div class="panel panel-default">
+          <div class="panel-heading">User Name</div>
+          <div class="panel-body">
+            {{ userName }}
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Password</div>
+          <div class="panel-body">
+            {{ password }}
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">This will expire</div>
+          <div class="panel-body">
+            <script>
+              $(document).ready(function() {
+                $('#expires').countdown('{{ expires }}', function(event) {
+                  var $this = $(this).html(event.strftime(''
+                    + '<span>%D</span> days '
+                    + '<span>%H</span> hr '
+                    + '<span>%M</span> min '
+                    + '<span>%S</span> sec'));
+                });
+              });
+            </script>
+            <div id="expires"></div>
+          </div>
+        </div>
+      {% else %}
+        <div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-alert"></span> The requested record has expired!</div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,27 +1,27 @@
 {% extends 'layout.twig' %}
-{% block title %}Password Exchange{% endblock %}
+{% block title %}Password Exchange - Create{% endblock %}
 
 {% block content %}
   <div class="row">
     <div class="col-sm-4 col-sm-offset-4">
       <h1>Password Exchange</h1>
-      <form method="post" action="submit">
+      <form method="post">
         <div class="form-group">
           <label for="userName">User Name</label>
-          <input type="text" class="form-control" id="userName" name="userName" placeholder="User Name">
+          <input type="text" class="form-control" id="userName" name="userName" placeholder="User Name" required="required">
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="required">
         </div>
         <div class="form-group">
           <label for="period">Valid for</label>
             <select class="form-control" id="period" name="period">
-              <option>1 hour</option>
-              <option>4 hours</option>
-              <option>1 day</option>
-              <option>1 week</option>
-              <option>1 month</option>
+              <option value="3600">1 hour</option>
+              <option value="14400">4 hours</option>
+              <option value="86400">1 day</option>
+              <option value="604800">1 week</option>
+              <option value="2419200">1 month</option>
             </select>
         </div>
         <button type="submit" class="btn btn-default">Generate Link</button>

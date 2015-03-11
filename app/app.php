@@ -27,10 +27,12 @@ $app = new App\Silex\Application($config);
 // Register ControllerServicEProvider service
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 
+$app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
+
 // Register default controller
 $app['app.default_controller'] = $app->share(
     function () use ($app) {
-        return new \App\Controller\DefaultController($app['twig'], $app['logger']);
+        return new \App\Controller\DefaultController($app, $app['twig'], $app['logger'], $app['db'], $app['request']);
     }
 );
 

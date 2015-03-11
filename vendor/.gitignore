@@ -1,5 +1,7 @@
 aptoma
+bin
 composer
+doctrine
 monolog
 pimple
 psr
