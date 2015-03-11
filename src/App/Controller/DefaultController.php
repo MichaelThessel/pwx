@@ -15,4 +15,9 @@ class DefaultController
     {
         return $this->twig->render('index.twig');
     }
+
+    public function submitAction()
+    {
+        return $this->twig->render('index.twig');
+    }
 }
