@@ -15,18 +15,17 @@ https://pwx-derthes.rhcloud.com
 Installation
 ============
 
-php composer.phar install
-
-Add the database table:
+Install dependencies
 ```
-CREATE TABLE `credentials` (
-  `hash` varchar(10) NOT NULL DEFAULT '',
-  `userName` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `expires` int(11) NOT NULL,
-  PRIMARY KEY (`hash`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+# php composer.phar install
 ```
 
-Copy app/config.php.sample app/config.php and adjust values according to your
-environment.
+Install the database dump (MySQL):
+```
+# cat install/install.sql | mysql -u [user] -h [host] -p [dbname]
+```
+
+Create configuration file and adjust according to your environment
+```
+# cp app/config.php.sample app/config.php
+```
