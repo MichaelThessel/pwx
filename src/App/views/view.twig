@@ -22,13 +22,7 @@
           <div class="panel-body">
             <script>
               $(document).ready(function() {
-                $('#expires').countdown('{{ expires }}', function(event) {
-                  var $this = $(this).html(event.strftime(''
-                    + '<span>%D</span> days '
-                    + '<span>%H</span> hr '
-                    + '<span>%M</span> min '
-                    + '<span>%S</span> sec'));
-                });
+                $('#expires').countdown('{{ expires }}', countdownCallback);
               });
             </script>
             <div id="expires"></div>
@@ -39,15 +33,6 @@
           <div class="panel-body share-container">
             <span id="share">{{ (app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) }}</span>
             <button type="button" class="btn btn-default" title="Copy to clipboard"><span class="glyphicon glyphicon-copy"></span></button>
-            <script>
-              $(document).ready(function() {
-                $('.share-container button').zclip({
-                  path: '/js/ZeroClipboard.swf',
-                  copy: $('.share-container #share').text(),
-                  afterCopy: function() {}
-                });
-              });
-            </script>
           </div>
         </div>
       {% else %}
