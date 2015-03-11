@@ -20,4 +20,9 @@ class DefaultController
     {
         return $this->twig->render('index.twig');
     }
+
+    public function viewAction($hash)
+    {
+        return $this->twig->render('view.twig');
+    }
 }
