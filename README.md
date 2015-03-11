@@ -11,3 +11,17 @@ Installation
 ============
 
 php composer.phar install
+
+Add the database table:
+```
+CREATE TABLE `credentials` (
+  `hash` varchar(10) NOT NULL DEFAULT '',
+  `userName` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `expires` int(11) NOT NULL,
+  PRIMARY KEY (`hash`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+```
+
+Copy app/config.php.sample app/config.php and adjust values according to your
+environment.
