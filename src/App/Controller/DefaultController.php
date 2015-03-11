@@ -96,7 +96,7 @@ class DefaultController
         return $this->twig->render('view.twig', array(
             'userName' => $credentials['userName'],
             'password' => $credentials['password'],
-            'expires' => strftime('%Y/%m/%d %H:%M:%S', $credentials['expires'])
+            'expires' => $credentials['expires'] * 1000,
         ));
     }
 
