@@ -7,6 +7,11 @@ via a temporary link.
 You will be responsible to secure your environment. The author of this software
 takes no responsiblity for any damage as a result of using this software.
 
+Example
+============
+
+http://pwx.michaelthessel.com
+
 Installation
 ============
 
