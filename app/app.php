@@ -32,7 +32,14 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
 // Register default controller
 $app['app.default_controller'] = $app->share(
     function () use ($app) {
-        return new \App\Controller\DefaultController($app, $app['twig'], $app['logger'], $app['db'], $app['request']);
+        return new \App\Controller\DefaultController($app, $app['twig'], $app['logger'], $app['credential_service'], $app['request']);
+    }
+);
+
+// Register credential service
+$app['credential_service'] = $app->share(
+    function () use ($app) {
+        return new \App\Model\CredentialService($app['db']);
     }
 );
 
