@@ -34,6 +34,22 @@
             <div id="expires"></div>
           </div>
         </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Share this link</div>
+          <div class="panel-body share-container">
+            <span id="share">{{ (app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) }}</span>
+            <button type="button" class="btn btn-default" title="Copy to clipboard"><span class="glyphicon glyphicon-copy"></span></button>
+            <script>
+              $(document).ready(function() {
+                $('.share-container button').zclip({
+                  path: '/js/ZeroClipboard.swf',
+                  copy: $('.share-container #share').text(),
+                  afterCopy: function() {}
+                });
+              });
+            </script>
+          </div>
+        </div>
       {% else %}
         <div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-alert"></span> The requested record has expired!</div>
       {% endif %}

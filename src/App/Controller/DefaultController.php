@@ -75,6 +75,7 @@ class DefaultController
             'userName' => $credentials['userName'],
             'password' => $credentials['password'],
             'expires' => $credentials['expires'] * 1000,
+            'hash' => $hash,
         ));
     }
 }

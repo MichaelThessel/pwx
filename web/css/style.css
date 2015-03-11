@@ -1,3 +1,4 @@
+/* Page */
 .page-container {
   padding: 20px;
 }
@@ -7,6 +8,7 @@ h1 {
   color: rgb(30, 167, 173);
 }
 
+/* Form */
 .btn-default.active, .btn-default.focus, .btn-default:active, .btn-default:focus, .btn-default:hover, .open>.dropdown-toggle.btn-default {
   background-color: rgb(30, 167, 173);
   color: rgb(255, 255, 255);
@@ -21,4 +23,12 @@ h1 {
   border-color: rgb(30, 167, 173);
   webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(30, 167, 173, .6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px  rgba(30, 167, 173, .6);
+}
+
+/* Share link */
+.share-container button {
+  float: right;
+}
+.share-container #share {
+  font-weight: 700;
 }
