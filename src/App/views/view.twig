@@ -35,6 +35,11 @@
             <button type="button" class="btn btn-default" title="Copy to clipboard"><span class="glyphicon glyphicon-copy"></span></button>
           </div>
         </div>
+
+        <form method="post" action="/delete">
+          <button type="submit" class="btn btn-danger" title="Delete this entry"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+          <input type="hidden" name="hash" value="{{ hash }}" />
+        </form>
       {% else %}
         <div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-alert"></span> The requested record has expired!</div>
       {% endif %}

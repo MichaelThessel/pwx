@@ -75,6 +75,25 @@ class CredentialService {
     }
 
     /**
+     * Delete credential
+     *
+     * @param string $hash Identifier for credentials to delete
+     * @return void
+     */
+    public function delete($hash)
+    {
+        $qb = $this->db->createQueryBuilder();
+        $qb->delete($this->table)
+            ->where(
+                $qb->expr()->eq('hash', '?')
+            )
+            ->setParameter(0, $hash)
+            ->execute();
+
+        return $hash;
+    }
+
+    /**
      * Clean expired credentials from the db
      *
      * @return void

@@ -78,4 +78,20 @@ class DefaultController
             'hash' => $hash,
         ));
     }
+
+    /**
+     * Delete an entry
+     *
+     * @return mixed Rendered Twig template
+     */
+    public function deleteAction()
+    {
+        $hash = $this->request->get('hash');
+
+        if ($hash) {
+            $credentials = $this->credentialService->delete($hash);
+        }
+
+        return $this->app->redirect('/');
+    }
 }
