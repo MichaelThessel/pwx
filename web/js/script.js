@@ -1,13 +1,13 @@
 $(document).ready(function() {
     // Enable zclip on the clippboard button
     if (hasFlash()) {
-        $('.share-container button').zclip({
+        $('.link-container button').zclip({
             path: '/js/ZeroClipboard.swf',
-            copy: $('.share-container #share').text(),
+            copy: $('.link-container #link').text(),
             afterCopy: function() {}
         });
     } else {
-        $('.share-container button').hide();
+        $('.link-container button').hide();
     }
 
 });

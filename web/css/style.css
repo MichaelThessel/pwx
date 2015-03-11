@@ -26,9 +26,9 @@ h1 {
 }
 
 /* Share link */
-.share-container button {
+.link-container button {
   float: right;
 }
-.share-container #share {
+.link-container #share {
   font-weight: 700;
 }
