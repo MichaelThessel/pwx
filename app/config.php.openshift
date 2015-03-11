@@ -1,0 +1,6 @@
+<?php
+$config['db.options']['driver'] = 'pdo_mysql';
+$config['db.options']['host'] = getenv('OPENSHIFT_MYSQL_DB_HOST');
+$config['db.options']['dbname'] = getenv('OPENSHIFT_GEAR_NAME');
+$config['db.options']['user'] = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
+$config['db.options']['password'] = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');

@@ -1,0 +1,7 @@
+cd $OPENSHIFT_REPO_DIR
+
+echo "Creating configuration file"
+cp app/config.php.openshift app/config.php
+
+echo "Installing dependencies"
+php composer.phar install
