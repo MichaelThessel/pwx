@@ -10,7 +10,7 @@ takes no responsiblity for any damage as a result of using this software.
 Example
 ============
 
-https://pwx-derthes.rhcloud.com
+https://pwx.michaelthessel.com
 
 Installation
 ============
