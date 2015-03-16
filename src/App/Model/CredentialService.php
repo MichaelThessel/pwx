@@ -19,7 +19,7 @@ class CredentialService {
     public function __construct(DoctrineConnection $db, $config)
     {
         // Encrypt passwords with AES if secret is set
-        if (isset($config['secret']) and !empty($config['secret'])) {
+        if (isset($config['secret']) && !empty($config['secret'])) {
             $this->cipher = new Crypt_AES(CRYPT_AES_MODE_ECB);
             $this->cipher->setKey($config['secret']);
         }
@@ -67,7 +67,7 @@ class CredentialService {
      */
     public function save($userName, $password, $comment, $expires)
     {
-        if ($expires < 60 * 60 or $expires > 60 * 60 * 24 * 30) {
+        if ($expires < 60 * 60 || $expires > 60 * 60 * 24 * 30) {
             $expires = 60 * 60;
         }
         $expires = time() + $expires;
