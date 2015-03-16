@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c5bf230fb90eac33cde10bd7e2dfff82",
+    "hash": "36533b9e649e29e4a7243d1babcfc9c4",
     "packages": [
         {
             "name": "aptoma/silex-extras",

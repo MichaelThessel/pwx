@@ -1,4 +1,6 @@
 {
+    "name": "PWX",
+    "description": "Online password exchange service",
     "require": {
         "silex/silex": "~1.2",
         "aptoma/silex-extras": "~1.2",
