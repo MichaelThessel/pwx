@@ -17,7 +17,7 @@ class DefaultController
      * Constructor
      *
      * @param mixed $app
-     * @param \Twig_Environment $twig
+     * @param Twig_Environment $twig
      * @param DoctrineConnection $db
      * @param Request $request
      * @return void
