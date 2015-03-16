@@ -101,7 +101,7 @@ class DefaultController
         $hash = $this->request->get('hash');
 
         if ($hash) {
-            $credentials = $this->credentialService->delete($hash);
+            $this->credentialService->delete($hash);
         }
 
         return $this->app->redirect('/');
