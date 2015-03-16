@@ -2,15 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\HttpFoundation\Request;
 use App\Model\CredentialService;
+use Twig_Environment;
 
 class DefaultController
 {
     protected $app;
     protected $twig;
-    protected $logger;
     protected $credentialService;
     protected $request;
 
@@ -19,16 +18,14 @@ class DefaultController
      *
      * @param mixed $app
      * @param \Twig_Environment $twig
-     * @param Logger $logger
      * @param DoctrineConnection $db
      * @param Request $request
      * @return void
      */
-    public function __construct($app, \Twig_Environment $twig, Logger $logger, CredentialService $credentialService, Request $request)
+    public function __construct($app, Twig_Environment $twig, CredentialService $credentialService, Request $request)
     {
         $this->app = $app;
         $this->twig = $twig;
-        $this->logger = $logger;
         $this->credentialService = $credentialService;
         $this->request = $request;
 
