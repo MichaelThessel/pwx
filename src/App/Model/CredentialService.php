@@ -48,7 +48,9 @@ class CredentialService {
             ->fetch();
 
         if ($this->cipher) {
+            $credentials['userName'] = $this->cipher->decrypt($credentials['userName']);
             $credentials['password'] = $this->cipher->decrypt($credentials['password']);
+            $credentials['comment'] = $this->cipher->decrypt($credentials['comment']);
         }
 
         return $credentials;
@@ -73,7 +75,9 @@ class CredentialService {
         $hash = substr(md5(uniqid() . rand()), 0, 10);
 
         if ($this->cipher) {
+            $userName = $this->cipher->encrypt($userName);
             $password = $this->cipher->encrypt($password);
+            $comment = $this->cipher->encrypt($comment);
         }
 
         $qb = $this->db->createQueryBuilder();
