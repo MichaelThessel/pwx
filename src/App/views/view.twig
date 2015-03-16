@@ -8,32 +8,27 @@
         <div class="panel panel-default">
           <div class="panel-heading">User Name</div>
           <div class="panel-body">
-            {{ userName | e }}
+            {{ userName }}
           </div>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">Password</div>
           <div class="panel-body">
-            {{ password | e }}
+            {{ password }}
           </div>
         </div>
         {% if comment %}
           <div class="panel panel-default">
             <div class="panel-heading">Comment</div>
             <div class="panel-body">
-              {{ comment | e | nl2br }}
+              {{ comment | nl2br }}
             </div>
           </div>
         {% endif %}
         <div class="panel panel-default">
           <div class="panel-heading">This will expire in</div>
           <div class="panel-body">
-            <script>
-              $(document).ready(function() {
-                $('#expires').countdown('{{ expires }}', countdownCallback);
-              });
-            </script>
-            <div id="expires"></div>
+            <div id="expires" data-expires={{ expires }}></div>
           </div>
         </div>
         <div class="panel panel-default">
