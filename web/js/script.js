@@ -10,11 +10,17 @@ $(document).ready(function() {
         $('.link-container button').hide();
     }
 
+    // Click event handler for password generation
+    $('.password-length').click(function(e) {
+        e.stopPropagation();
+        var length = parseInt($(this).text());
+        $('#password').val(generatePassword(length));
+    });
 });
 
 // Callback function for the countdown timer
-countdownCallback = function(event) {
-  $(this).html(event.strftime('' + '<span>%D</span> days ' + '<span>%H</span> hr ' + '<span>%M</span> min ' + '<span>%S</span> sec'));
+countdownCallback = function(e) {
+  $(this).html(e.strftime('' + '<span>%D</span> days ' + '<span>%H</span> hr ' + '<span>%M</span> min ' + '<span>%S</span> sec'));
 };
 
 // Detect if flash is enabled (http://stackoverflow.com/a/20095467)
@@ -37,3 +43,21 @@ hasFlash = function() {
 
     return hasFlash;
 };
+
+// Generate random password string
+function generatePassword(length) {
+    var i, password,
+        possibleChars = 'abcdefghijklmnopqrstuvwxyz';
+    possibleChars += 'ABCDEFGHIJKLMNOPQSTUVWXYZ';
+    possibleChars += '0123456789';
+    possibleChars += '!@#$%^&*()_+-=[]{};"\'<>,./?\\';
+
+    length = length || 24;
+
+    password = '';
+    for (i = 0; i < length; i++) {
+        password += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+    }
+
+    return password;
+}

@@ -13,6 +13,15 @@
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="required" maxlength="255">
+          <span>
+            Insert random
+            {% for i in 6..36 %}
+              {% if i is divisible by(6) %}
+                <a class="password-length">{{i}}</a>{% if i != 36 %},{% endif %}
+              {% endif %}
+            {% endfor %}
+            character password
+          </span>
         </div>
         <div class="form-group">
           <label for="period">Valid for</label>
