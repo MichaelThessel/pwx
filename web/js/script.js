@@ -16,7 +16,7 @@ var Pwx = {
             $(this).append(button);
             button.zclip({
                 path: '/js/ZeroClipboard.swf',
-                copy: $(this).text(),
+                copy: $(this).data('clipboard'),
                 afterCopy: function() {}
             });
         });

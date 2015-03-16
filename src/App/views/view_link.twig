@@ -1,5 +1,6 @@
 {% extends 'layout.twig' %}
 {% block title %}Password Exchange - View {% endblock %}
+{% set url = (app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) %}
 
 {% block content %}
   <div class="row">
@@ -8,7 +9,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Share this link</div>
         <div class="panel-body">
-          <span data-clipboard="true">{{ (app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) }}</span>
+          <span data-clipboard="{{ url }}"><a href="//{{ url }}">{{ url }}</a></span>
         </div>
       </div>
     </div>
