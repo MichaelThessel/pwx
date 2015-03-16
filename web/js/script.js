@@ -2,7 +2,13 @@ var Pwx = {
 
     // Initialize app
     init: function() {
-        // Enable zclip on the clippboard button
+        this.initClipboard();
+        this.initCountdown();
+        this.initPasswordGenerator();
+    },
+
+    // Enable zclip on the clippboard button
+    initClipboard: function() {
         if (this.hasFlash()) {
             $('.link-container button').zclip({
                 path: '/js/ZeroClipboard.swf',
@@ -12,15 +18,20 @@ var Pwx = {
         } else {
             $('.link-container button').hide();
         }
+    },
 
-        // Click event handler for password generation
+    // Init countdown
+    initCountdown: function() {
+        $('#expires').countdown($('#expires').data('expires'), this.countdownCallback);
+    },
+
+    // Click event handler for password generation
+    initPasswordGenerator: function() {
         $('.password-length').click($.proxy(function(e) {
             e.stopPropagation();
             var length = parseInt($(e.target).text());
             $('#password').val(this.generatePassword(length));
         }, this));
-
-        $('#expires').countdown($('#expires').data('expires'), this.countdownCallback);
     },
 
     // Callback function for the countdown timer
