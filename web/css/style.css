@@ -20,8 +20,12 @@ h1 {
   margin-bottom: 1em;
 }
 
-h1, a {
+h1, a, a:hover, a:visited {
   color: rgb(30, 167, 173);
+}
+
+a, a:hover, a:visited {
+  text-decoration: none;
 }
 
 /* Form */

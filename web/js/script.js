@@ -5,6 +5,7 @@ var Pwx = {
         this.initClipboard();
         this.initCountdown();
         this.initPasswordGenerator();
+        this.initShowPassword();
     },
 
     // Enable zclip on all elements with the data-clipboard attribute
@@ -30,10 +31,30 @@ var Pwx = {
     // Click event handler for password generation
     initPasswordGenerator: function() {
         $('.password-length').click($.proxy(function(e) {
-            e.stopPropagation();
             var length = parseInt($(e.target).text());
             $('#password').val(this.generatePassword(length));
+
+            e.stopPropagation();
         }, this));
+    },
+
+    // Init show/hide password link
+    initShowPassword: function() {
+        $('[data-show-password]').click(function(e) {
+            var toggle = $(this).data('show-password');
+
+            if (toggle) {
+                $(this).data('show-password', false);
+                $(this).html($(this).data('show-password-text-show'));
+            } else {
+                $(this).data('show-password', true);
+                $(this).html($(this).data('show-password-text-hide'));
+            }
+
+            $('#password').togglePassword();
+
+            e.stopPropagation();
+        });
     },
 
     // Callback function for the countdown timer
