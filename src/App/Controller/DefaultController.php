@@ -48,8 +48,8 @@ class DefaultController
             $password = $this->request->get('password');
             $comment = $this->request->get('comment');
 
-            // Exit if we got no username or password
-            if (empty($userName) or empty($password)) {
+            // Exit if we got no password
+            if (empty($password)) {
                 return $this->twig->render('index.twig');
             }
 

@@ -70,7 +70,7 @@ class CredentialService {
         }
         $expires = time() + $expires;
 
-        $hash = substr(md5(uniqid() . $userName), 0, 10);
+        $hash = substr(md5(uniqid() . rand()), 0, 10);
 
         if ($this->cipher) {
             $password = $this->cipher->encrypt($password);
