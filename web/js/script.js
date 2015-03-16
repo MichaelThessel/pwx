@@ -7,17 +7,19 @@ var Pwx = {
         this.initPasswordGenerator();
     },
 
-    // Enable zclip on the clippboard button
+    // Enable zclip on all elements with the data-clipboard attribute
     initClipboard: function() {
-        if (this.hasFlash()) {
-            $('.link-container button').zclip({
+        if (!this.hasFlash()) return;
+
+        $('[data-clipboard]').each(function() {
+            var button = $('<button></button>').addClass('btn btn-default').html($('<span></span>').addClass('glyphicon glyphicon-copy'));
+            $(this).append(button);
+            button.zclip({
                 path: '/js/ZeroClipboard.swf',
-                copy: $('.link-container #link').text(),
+                copy: $(this).text(),
                 afterCopy: function() {}
             });
-        } else {
-            $('.link-container button').hide();
-        }
+        });
     },
 
     // Init countdown

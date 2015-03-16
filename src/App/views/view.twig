@@ -8,13 +8,13 @@
         <div class="panel panel-default">
           <div class="panel-heading">User Name</div>
           <div class="panel-body">
-            {{ userName }}
+            <span data-clipboard="true">{{ userName }}</span>
           </div>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">Password</div>
           <div class="panel-body">
-            {{ password }}
+            <span data-clipboard="true">{{ password }}</span>
           </div>
         </div>
         {% if comment %}
@@ -33,9 +33,8 @@
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">Share this link</div>
-          <div class="panel-body link-container">
-            <span id="link">{{ (app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) }}</span>
-            <button type="button" class="btn btn-default" title="Copy to clipboard"><span class="glyphicon glyphicon-copy"></span></button>
+          <div class="panel-body">
+            <span data-clipboard="true">{{ (app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) }}</span>
           </div>
         </div>
 

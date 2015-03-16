@@ -29,9 +29,6 @@ h1, a {
 }
 
 /* Share link */
-.link-container button {
+.panel-body button {
   float: right;
-}
-.link-container #share {
-  font-weight: 700;
 }
