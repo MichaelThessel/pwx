@@ -14,8 +14,8 @@ DROP TABLE IF EXISTS `credentials`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `credentials` (
   `hash` varchar(10) NOT NULL DEFAULT '',
-  `userName` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `userName` text NOT NULL,
+  `password` text NOT NULL,
   `comment` text NOT NULL,
   `expires` int(11) NOT NULL,
   PRIMARY KEY (`hash`)
