@@ -6,3 +6,5 @@ $config['db.options']['host'] = 'localhost';
 $config['db.options']['dbname'] = '';
 $config['db.options']['user'] = '';
 $config['db.options']['password'] = '';
+
+$config['secret'] = 'yourPasswordEncryptionKey';

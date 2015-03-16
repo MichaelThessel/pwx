@@ -38,8 +38,8 @@ $app['app.default_controller'] = $app->share(
 
 // Register credential service
 $app['credential_service'] = $app->share(
-    function () use ($app) {
-        return new \App\Model\CredentialService($app['db']);
+    function () use ($app, $config) {
+        return new \App\Model\CredentialService($app['db'], $config);
     }
 );
 

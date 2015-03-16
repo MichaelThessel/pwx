@@ -3,19 +3,27 @@
 namespace App\Model;
 
 use Doctrine\DBAL\Connection as DoctrineConnection;
+use Crypt_AES;
 
 class CredentialService {
 
     protected $db;
     protected $table = 'credentials';
+    protected $cipher;
 
     /**
      * Constructor
      *
      * @param DoctrineConnection $db
      */
-    public function __construct(DoctrineConnection $db)
+    public function __construct(DoctrineConnection $db, $config)
     {
+        // Encrypt passwords with AES if secret is set
+        if (isset($config['secret']) and !empty($config['secret'])) {
+            $this->cipher = new Crypt_AES(CRYPT_AES_MODE_ECB);
+            $this->cipher->setKey($config['secret']);
+        }
+
         $this->db = $db;
     }
 
@@ -28,7 +36,7 @@ class CredentialService {
     public function get($hash)
     {
         $qb = $this->db->createQueryBuilder();
-        return $qb->select('userName', 'password', 'comment', 'expires')
+        $credentials = $qb->select('userName', 'password', 'comment', 'expires')
             ->from($this->table)
             ->where($qb->expr()->andX(
                  $qb->expr()->eq('hash', '?'),
@@ -38,6 +46,12 @@ class CredentialService {
             ->setParameter(1, time())
             ->execute()
             ->fetch();
+
+        if ($this->cipher) {
+            $credentials['password'] = $this->cipher->decrypt($credentials['password']);
+        }
+
+        return $credentials;
     }
 
     /**
@@ -57,6 +71,10 @@ class CredentialService {
         $expires = time() + $expires;
 
         $hash = substr(md5(uniqid() . $userName), 0, 10);
+
+        if ($this->cipher) {
+            $password = $this->cipher->encrypt($password);
+        }
 
         $qb = $this->db->createQueryBuilder();
         $qb->insert($this->table)

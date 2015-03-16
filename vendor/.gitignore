@@ -3,6 +3,7 @@ bin
 composer
 doctrine
 monolog
+phpseclib
 pimple
 psr
 silex

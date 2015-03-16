@@ -3,7 +3,8 @@
         "silex/silex": "~1.2",
         "aptoma/silex-extras": "~1.2",
         "symfony/twig-bridge": "~2.3",
-        "doctrine/dbal": "~2.2"
+        "doctrine/dbal": "~2.2",
+        "phpseclib/phpseclib": "0.3.10"
     },
     "autoload": {
         "psr-0": {
