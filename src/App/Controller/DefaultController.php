@@ -46,6 +46,7 @@ class DefaultController
         if ($this->request->getMethod() == 'POST') {
             $userName = $this->request->get('userName');
             $password = $this->request->get('password');
+            $comment = $this->request->get('comment');
 
             // Exit if we got no username or password
             if (empty($userName) or empty($password)) {
@@ -53,7 +54,7 @@ class DefaultController
             }
 
             $period = $this->request->get('period', 60 * 60);
-            $hash = $this->credentialService->save($userName, $password, $period);
+            $hash = $this->credentialService->save($userName, $password, $comment, $period);
 
             return $this->app->redirect('/pw/' . $hash);
         }
@@ -74,6 +75,7 @@ class DefaultController
         return $this->twig->render('view.twig', array(
             'userName' => $credentials['userName'],
             'password' => $credentials['password'],
+            'comment' => $credentials['comment'],
             'expires' => $credentials['expires'] * 1000,
             'hash' => $hash,
         ));

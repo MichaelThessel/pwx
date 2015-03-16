@@ -17,6 +17,14 @@
             {{ password | e }}
           </div>
         </div>
+        {% if comment %}
+          <div class="panel panel-default">
+            <div class="panel-heading">Comment</div>
+            <div class="panel-body">
+              {{ comment | e | nl2br }}
+            </div>
+          </div>
+        {% endif %}
         <div class="panel panel-default">
           <div class="panel-heading">This will expire in</div>
           <div class="panel-body">

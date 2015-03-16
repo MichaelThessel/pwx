@@ -28,7 +28,7 @@ class CredentialService {
     public function get($hash)
     {
         $qb = $this->db->createQueryBuilder();
-        return $qb->select('userName', 'password', 'expires')
+        return $qb->select('userName', 'password', 'comment', 'expires')
             ->from($this->table)
             ->where($qb->expr()->andX(
                  $qb->expr()->eq('hash', '?'),
@@ -43,12 +43,13 @@ class CredentialService {
     /**
      * Save credentials
      *
-     * @param mixed $userName User name
-     * @param mixed $password Password
-     * @param mixed $expires Expiry period
+     * @param string $userName User name
+     * @param string $password Password
+     * @param string $comment Comment
+     * @param int $expires Expiry period
      * @return string Hash to identify saved credentials
      */
-    public function save($userName, $password, $expires)
+    public function save($userName, $password, $comment, $expires)
     {
         if ($expires < 60 * 60 or $expires > 60 * 60 * 24 * 30) {
             $expires = 60 * 60;
@@ -63,12 +64,14 @@ class CredentialService {
                 'hash' => '?',
                 'userName' => '?',
                 'password' => '?',
+                'comment' => '?',
                 'expires' => '?',
             ))
             ->setParameter(0, $hash)
             ->setParameter(1, $userName)
             ->setParameter(2, $password)
-            ->setParameter(3, $expires)
+            ->setParameter(3, $comment)
+            ->setParameter(4, $expires)
             ->execute();
 
         return $hash;

@@ -16,6 +16,7 @@ CREATE TABLE `credentials` (
   `hash` varchar(10) NOT NULL DEFAULT '',
   `userName` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `comment` text NOT NULL,
   `expires` int(11) NOT NULL,
   PRIMARY KEY (`hash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
