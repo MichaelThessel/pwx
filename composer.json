@@ -1,5 +1,5 @@
 {
-    "name": "PWX",
+    "name": "michaelthessel/pwx",
     "description": "Online password exchange service",
     "license": "MIT",
     "require": {
