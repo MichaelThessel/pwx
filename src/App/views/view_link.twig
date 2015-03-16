@@ -1,0 +1,16 @@
+{% extends 'layout.twig' %}
+{% block title %}Password Exchange - View {% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-sm-12 col-md-4 col-md-offset-4 page-container">
+      <h1>Password Exchange</h1>
+      <div class="panel panel-default">
+        <div class="panel-heading">Share this link</div>
+        <div class="panel-body">
+          <span data-clipboard="true">{{ (app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

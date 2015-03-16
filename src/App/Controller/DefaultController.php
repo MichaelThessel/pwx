@@ -53,10 +53,23 @@ class DefaultController
             $period = $this->request->get('period', 60 * 60);
             $hash = $this->credentialService->save($userName, $password, $comment, $period);
 
-            return $this->app->redirect('/pw/' . $hash);
+            return $this->app->redirect('/link/' . $hash);
         }
 
         return $this->twig->render('index.twig');
+    }
+
+    /**
+     * View the share link
+     *
+     * @param mixed $hash Hash that identifies the entry
+     * @return mixed Rendered Twig template
+     */
+    public function viewLinkAction($hash)
+    {
+        return $this->twig->render('view_link.twig', array(
+            'hash' => $hash,
+        ));
     }
 
     /**
@@ -65,11 +78,11 @@ class DefaultController
      * @param mixed $hash Hash that identifies the entry
      * @return mixed Rendered Twig template
      */
-    public function viewAction($hash)
+    public function viewPasswordAction($hash)
     {
         $credentials = $this->credentialService->get($hash);
 
-        return $this->twig->render('view.twig', array(
+        return $this->twig->render('view_password.twig', array(
             'userName' => $credentials['userName'],
             'password' => $credentials['password'],
             'comment' => $credentials['comment'],
