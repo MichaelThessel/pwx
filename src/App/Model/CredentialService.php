@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Doctrine\DBAL\Connection as DoctrineConnection;
 use Crypt_AES;
+use Crypt_RSA;
 
 class CredentialService {
 
@@ -72,7 +73,10 @@ class CredentialService {
         }
         $expires = time() + $expires;
 
-        $hash = substr(md5(uniqid() . rand()), 0, 10);
+        // Use RSA 1024 bit private key to create random hash
+        $rsa = new Crypt_RSA();
+        $key = $rsa->createKey();
+        $hash = substr(md5($key['privatekey']), 0, 10);
 
         if ($this->cipher) {
             $userName = $this->cipher->encrypt($userName);
