@@ -24,9 +24,10 @@ if (file_exists(__DIR__ . '/config.php')) {
 // Initialize Silex
 $app = new App\Silex\Application($config);
 
-// Register ControllerServicEProvider service
+// Register ControllerServiceProvider service
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 
+// Register DoctrineServiceProvider service
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
 
 // Register default controller
