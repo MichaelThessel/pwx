@@ -27,4 +27,4 @@ view_link.share: Diesen Link versenden
 view_password.view: Passwort Anzeigen
 view_password.period: Dieser Eintrag erlischt in
 view_password.delete: Löschen
-view_password.expired: Dieser eintrag ist erloschen!
+view_password.expired: Dieser Eintrag ist erloschen!
