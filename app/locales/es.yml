@@ -1,31 +1,30 @@
-app.poweredby: Powered by
-app.name: Passwort Austausch
+app.poweredby: Funciona con 
+app.name: Intercambio de contraseñas
 
-app.data.username: User Name
-app.data.password: Password
-app.data.comment: Comment
-app.data.period: Valid for
-app.data.seconds: seconds
-app.data.minutes: minutes
-app.data.hour: hour
-app.data.hours: hours
-app.data.day: day
-app.data.days: days
-app.data.week: week
-app.data.month: month
+app.data.username: Nombre de usuario
+app.data.password: Contraseña
+app.data.comment: Comentario
+app.data.period: Válido por 
+app.data.seconds: segundos
+app.data.minutes: minutos
+app.data.hour: hora
+app.data.hours: horas
+app.data.day: día 
+app.data.days: días
+app.data.week: semana
+app.data.month: mes 
 
-index.generate: Generate
-index.insert_password_start: Insert random
-index.insert_password_end: character password
-index.show_password: Show Password
-index.hide_password: Hide Password
-index.generate_link: Generate Link
+index.generate: Generar
+index.insert_password_start: Crear una contraseña de
+index.insert_password_end: caracteres al azar
+index.show_password: Mostrar contraseña
+index.hide_password: Ocultar contraseña
+index.generate_link: Generar enlace
 
-view_link.view: View Link
-view_link.share: Share this link
+view_link.view: Ver enlace
+view_link.share: Compartir este enlace
 
-view_password.view: View Password
-view_password.period: This listing will be removed in
-view_password.delete: Delete
-view_password.expired: The requested record has expired!
-
+view_password.view: Ver contraseña
+view_password.period: Este listado se eliminará en
+view_password.delete: Eliminar
+view_password.expired: ¡El registro solicitado ha expirado!
