@@ -30,6 +30,25 @@ $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 // Register DoctrineServiceProvider service
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
 
+// Register translation service
+$translationConfig = array(
+    'locale_fallbacks' => array('en'),
+);
+if (isset($config['locale'])) {
+    $translationConfig['locale'] = $config['locale'];
+}
+$app->register(new Silex\Provider\TranslationServiceProvider(), $translationConfig);
+
+// Register the yaml translations
+$app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
+    $translator->addLoader('yaml', new Symfony\Component\Translation\Loader\YamlFileLoader());
+
+    $translator->addResource('yaml', __DIR__ . '/locales/en.yml', 'en');
+    $translator->addResource('yaml', __DIR__ . '/locales/de.yml', 'de');
+
+    return $translator;
+}));
+
 // Register default controller
 $app['app.default_controller'] = $app->share(
     function () use ($app) {

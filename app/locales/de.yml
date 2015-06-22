@@ -1,0 +1,27 @@
+app.poweredby: Powered by
+app.name: Passwort Austausch
+
+app.data.username: Nutzername
+app.data.password: Passwort
+app.data.comment: Kommentar
+app.data.period: Gültig für
+app.data.hour: Stunde
+app.data.hours: Stunden
+app.data.day: Tag
+app.data.week: Woche
+app.data.month: Monat
+
+index.generate: Generieren
+index.insert_password_start: Zufälliges
+index.insert_password_end: Zeichen langes Passwort einfügen
+index.show_password: Passwort anzeigen
+index.hide_password: Passwort nicht anzeigen
+index.generate_link: Link generieren
+
+view_link.view: Link Anzeigen
+view_link.share: Diesen Link versenden
+
+view_password.view: Passwort Anzeigen
+view_password.period: Dieser Eintrag erlischt in
+view_password.delete: Löschen
+view_password.expired: Dieser eintrag ist erloschen!

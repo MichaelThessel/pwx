@@ -1,46 +1,46 @@
 {% extends 'layout.twig' %}
-{% block title %}Password Exchange - Create{% endblock %}
+{% block title %}{{ 'app.name'|trans }} - {{ 'index.generate'|trans }}{% endblock %}
 
 {% block content %}
   <div class="row">
     <div class="col-sm-12 col-md-4 col-md-offset-4 page-container">
-      <h1>Password Exchange</h1>
+      <h1>{{ 'app.name'|trans }}</h1>
       <form method="post">
         <div class="form-group">
-          <label for="userName">User Name</label>
-          <input type="text" class="form-control" id="userName" name="userName" placeholder="User Name" maxlength="255">
+          <label for="userName">{{ 'app.data.username'|trans }}</label>
+          <input type="text" class="form-control" id="userName" name="userName" placeholder="{{ 'app.data.username'|trans }}" maxlength="255">
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="required" maxlength="255">
+          <label for="password">{{ 'app.data.password'|trans }}</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="{{ 'app.data.password'|trans }}" required="required" maxlength="255">
           <div>
-            Insert random
+            {{ 'index.insert_password_start'|trans }}
             {% for i in 6..36 %}
               {% if i is divisible by(6) %}
                 <a href="#" class="password-length">{{i}}</a>{% if i != 36 %},{% endif %}
               {% endif %}
             {% endfor %}
-            character password
+            {{ 'index.insert_password_end'|trans }}
           </div>
           <div>
-            <a href="#" data-show-password="false" data-show-password-text-show="Show Password" data-show-password-text-hide="Hide Password">Show Password</a>
+            <a href="#" data-show-password="false" data-show-password-text-show="{{ 'index.show_password'|trans }}" data-show-password-text-hide="{{ 'index.hide_password'|trans }}">{{ 'index.show_password'|trans }}</a>
           </div>
         </div>
         <div class="form-group">
-          <label for="period">Comment</label>
+          <label for="period">{{ 'app.data.comment'|trans }}</label>
           <textarea class="form-control" id="comment" name="comment" rows="5"></textarea>
         </div>
         <div class="form-group">
-          <label for="period">Valid for</label>
+          <label for="period">{{ 'app.data.period'|trans }}</label>
             <select class="form-control" id="period" name="period">
-              <option value="3600">1 hour</option>
-              <option value="14400">4 hours</option>
-              <option value="86400">1 day</option>
-              <option value="604800">1 week</option>
-              <option value="2592000">1 month</option>
+              <option value="3600">1 {{ 'app.data.hour'|trans }}</option>
+              <option value="14400">4 {{ 'app.data.hours'|trans }}</option>
+              <option value="86400">1 {{ 'app.data.day'|trans }}</option>
+              <option value="604800">1 {{ 'app.data.week'|trans }}</option>
+              <option value="2592000">1 {{ 'app.data.month'|trans }}</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-default">Generate Link</button>
+        <button type="submit" class="btn btn-default">{{ 'index.generate_link'|trans }}</button>
       </form>
     </div>
   </div>

@@ -7,7 +7,10 @@
         "aptoma/silex-extras": "~1.2",
         "symfony/twig-bridge": "~2.3",
         "doctrine/dbal": "~2.2",
-        "phpseclib/phpseclib": "0.3.10"
+        "phpseclib/phpseclib": "0.3.10",
+        "symfony/translation": "~2.7",
+        "symfony/config": "~2.7",
+        "symfony/yaml": "~2.7"
     },
     "autoload": {
         "psr-0": {

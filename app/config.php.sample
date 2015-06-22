@@ -8,3 +8,5 @@ $config['db.options']['user'] = '';
 $config['db.options']['password'] = '';
 
 $config['secret'] = 'yourPasswordEncryptionKey';
+
+$config['locale'] = 'en';

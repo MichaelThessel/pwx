@@ -1,13 +1,13 @@
 {% extends 'layout.twig' %}
-{% block title %}Password Exchange - View {% endblock %}
+{% block title %}{{ 'app.name'|trans }} - {{ 'view_link.view'|trans }}{% endblock %}
 {% set url = (app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) %}
 
 {% block content %}
   <div class="row">
     <div class="col-sm-12 col-md-4 col-md-offset-4 page-container">
-      <h1>Password Exchange</h1>
+      <h1>{{ 'app.name'|trans }}</h1>
       <div class="panel panel-default">
-        <div class="panel-heading">Share this link</div>
+        <div class="panel-heading">{{ 'view_link.share'|trans }}</div>
         <div class="panel-body">
           <span data-clipboard="{{ url }}"><a href="//{{ url }}">{{ url }}</a></span>
         </div>
