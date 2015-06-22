@@ -1,18 +1,18 @@
-app.poweredby: Funciona con 
+app.poweredby: Funciona con
 app.name: Intercambio de contraseñas
 
 app.data.username: Nombre de usuario
 app.data.password: Contraseña
 app.data.comment: Comentario
-app.data.period: Válido por 
+app.data.period: Válido por
 app.data.seconds: segundos
 app.data.minutes: minutos
 app.data.hour: hora
 app.data.hours: horas
-app.data.day: día 
+app.data.day: día
 app.data.days: días
 app.data.week: semana
-app.data.month: mes 
+app.data.month: mes
 
 index.generate: Generar
 index.insert_password_start: Crear una contraseña de
