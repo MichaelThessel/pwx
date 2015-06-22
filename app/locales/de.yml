@@ -5,9 +5,12 @@ app.data.username: Nutzername
 app.data.password: Passwort
 app.data.comment: Kommentar
 app.data.period: Gültig für
+app.data.seconds: Sekunden
+app.data.minutes: Minuten
 app.data.hour: Stunde
 app.data.hours: Stunden
 app.data.day: Tag
+app.data.days: Tage
 app.data.week: Woche
 app.data.month: Monat
 

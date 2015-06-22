@@ -59,7 +59,7 @@ var Pwx = {
 
     // Callback function for the countdown timer
     countdownCallback: function(e) {
-      $(this).html(e.strftime('' + '<span>%D</span> days ' + '<span>%H</span> hr ' + '<span>%M</span> min ' + '<span>%S</span> sec'));
+      $(this).html(e.strftime('<span>%D</span> ' + LOCALE.app.data.days + ' ' + '<span>%H</span> ' + LOCALE.app.data.hours + ' ' + '<span>%M</span> ' + LOCALE.app.data.minutes + ' ' + '<span>%S</span> ' + LOCALE.app.data.seconds));
     },
 
     // Detect if flash is enabled (http://stackoverflow.com/a/20095467)
