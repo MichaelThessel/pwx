@@ -31,3 +31,15 @@ Create configuration file and adjust according to your environment:
 ```
 # cp app/config.php.sample app/config.php
 ```
+
+Translations
+============
+
+Currently:
+
+ * English (en)
+ * Spanish (es)
+ * and German (de)
+
+are supported by PWX. Please set locale according to your requirements in the
+configuration. I'm happy to accept pull requests for additional translations.
