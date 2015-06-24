@@ -40,7 +40,7 @@ if (isset($config['locale'])) {
 $app->register(new Silex\Provider\TranslationServiceProvider(), $translationConfig);
 
 // Register the yaml translations
-$app['translator'] = $app->share($app->extend('translator', function($translator, $app) {
+$app['translator'] = $app->share($app->extend('translator', function(\Silex\Translator $translator, $app) {
     $translator->addLoader('yaml', new Symfony\Component\Translation\Loader\YamlFileLoader());
 
     $translator->addResource('yaml', __DIR__ . '/locales/en.yml', 'en');
