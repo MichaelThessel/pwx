@@ -1,3 +1,4 @@
+{% set baseUrl = (app.request.scheme ~ '://' ~ app.request.host ~ app.request.baseUrl) %}
 <!doctype html>
 <html lang="en-us">
   <head>
@@ -19,6 +20,11 @@
   </head>
   <body>
     <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-4 col-md-offset-4 page-container">
+          <h1><a href="{{ baseUrl }}">{{ 'app.name'|trans }}</a></h1>
+        </div>
+      </div>
       {% block content %}{% endblock %}
     </div>
     <footer>
