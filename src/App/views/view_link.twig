@@ -1,6 +1,6 @@
 {% extends 'layout.twig' %}
 {% block title %}{{ 'app.name'|trans }} - {{ 'view_link.view'|trans }}{% endblock %}
-{% set url = (app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) %}
+{% set url = (app.request.scheme ~ '://' ~ app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) %}
 
 {% block content %}
   <div class="row">
@@ -9,7 +9,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">{{ 'view_link.share'|trans }}</div>
         <div class="panel-body">
-          <span data-clipboard="{{ url }}"><a href="//{{ url }}">{{ url }}</a></span>
+          <span data-clipboard="{{ url }}"><a href="{{ url }}">{{ url }}</a></span>
         </div>
       </div>
     </div>
