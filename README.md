@@ -9,6 +9,8 @@ via a temporary link.
 You will be responsible to secure your environment. The author of this software
 takes no responsiblity for any damage as a result of using this software.
 
+For more information please check out my [blog](http://michaelthessel.com/tag/pwx/)
+
 Example
 ============
 
