@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use App\Model\CredentialService;
+use App\Model\ForceSSLService;
 use Twig_Environment;
 
 class DefaultController
@@ -11,6 +13,7 @@ class DefaultController
     protected $app;
     protected $twig;
     protected $credentialService;
+    protected $forceSSLService;
     protected $request;
 
     /**
@@ -18,15 +21,16 @@ class DefaultController
      *
      * @param mixed $app
      * @param Twig_Environment $twig
-     * @param DoctrineConnection $db
+     * @param CredentialService $credentialService
+     * @param ForceSSLService $forceSSLService
      * @param Request $request
-     * @return void
      */
-    public function __construct($app, Twig_Environment $twig, CredentialService $credentialService, Request $request)
+    public function __construct(Application $app, Twig_Environment $twig, CredentialService $credentialService, ForceSSLService $forceSSLService, Request $request)
     {
         $this->app = $app;
         $this->twig = $twig;
         $this->credentialService = $credentialService;
+        $this->forceSSLService = $forceSSLService;
         $this->request = $request;
 
         // Clean the db on every request (workaround to not have to add cronjobs)
@@ -40,6 +44,8 @@ class DefaultController
      */
     public function indexAction()
     {
+        $this->forceSSLService->forceSSLIfSet();
+
         if ($this->request->getMethod() == 'POST') {
             $userName = $this->request->get('userName');
             $password = $this->request->get('password');
@@ -67,6 +73,8 @@ class DefaultController
      */
     public function viewLinkAction($hash)
     {
+        $this->forceSSLService->forceSSLIfSet();
+
         return $this->twig->render('view_link.twig', array(
             'hash' => $hash,
         ));
@@ -80,6 +88,8 @@ class DefaultController
      */
     public function viewPasswordAction($hash)
     {
+        $this->forceSSLService->forceSSLIfSet();
+
         $credentials = $this->credentialService->get($hash);
 
         return $this->twig->render('view_password.twig', array(

@@ -7,6 +7,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 // Config
 $config = array(
     'debug' => true,
+    'forceSSL' => false,
     'timer.start' => $startTime,
     'monolog.name' => 'pwx',
     'monolog.level' => \Monolog\Logger::DEBUG,
@@ -53,7 +54,7 @@ $app['translator'] = $app->share($app->extend('translator', function(\Silex\Tran
 // Register default controller
 $app['app.default_controller'] = $app->share(
     function () use ($app) {
-        return new \App\Controller\DefaultController($app, $app['twig'], $app['credential_service'], $app['request']);
+        return new \App\Controller\DefaultController($app, $app['twig'], $app['credential_service'], $app['forceSSL_service'], $app['request']);
     }
 );
 
@@ -61,6 +62,13 @@ $app['app.default_controller'] = $app->share(
 $app['credential_service'] = $app->share(
     function () use ($app, $config) {
         return new \App\Model\CredentialService($app['db'], $config);
+    }
+);
+
+// Register forceSSL service
+$app['forceSSL_service'] = $app->share(
+    function () use ($app, $config) {
+        return new \App\Model\ForceSSLService($config);
     }
 );
 
