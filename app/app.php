@@ -7,6 +7,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 // Config
 $config = array(
     'debug' => true,
+    'requireHttps' => false,
     'timer.start' => $startTime,
     'monolog.name' => 'pwx',
     'monolog.level' => \Monolog\Logger::DEBUG,
@@ -56,6 +57,11 @@ $app['app.default_controller'] = $app->share(
         return new \App\Controller\DefaultController($app, $app['twig'], $app['credential_service'], $app['request']);
     }
 );
+
+if ($config['requireHttps']) {
+    $app['controllers']->requireHttps();
+}
+
 
 // Register credential service
 $app['credential_service'] = $app->share(

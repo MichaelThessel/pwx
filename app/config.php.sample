@@ -1,5 +1,6 @@
 <?php
 $config['debug'] = false;
+$config['requireHttps'] = true;
 
 $config['db.options']['driver'] = 'pdo_mysql';
 $config['db.options']['host'] = 'localhost';
