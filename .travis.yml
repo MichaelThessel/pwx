@@ -1,0 +1,23 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+
+before_install:
+  # Install composer dependencies
+  - composer self-update
+  - composer update
+
+  # Add the TravisCI config file
+  - cp app/config.php.travisci app/config.php
+
+  # Set up the database
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS `pwx`;' -u root
+  - mysql -e 'GRANT ALL ON `pwx`.* TO `pwx`@`localhost` IDENTIFIED BY "pwx";' -u root
+  - cat install/install.sql | mysql pwx -u root
+
+script:
+ # Run phpunit
+  - vendor/bin/phpunit
