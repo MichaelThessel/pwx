@@ -3,9 +3,13 @@ bin
 composer
 doctrine
 monolog
+phpdocumentor
 phpseclib
+phpspec
+phpunit
 pimple
 psr
+sebastian
 silex
 symfony
 twig
