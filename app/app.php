@@ -58,10 +58,10 @@ $app['app.default_controller'] = $app->share(
     }
 );
 
+// Force to use SSL
 if ($config['requireHttps']) {
     $app['controllers']->requireHttps();
 }
-
 
 // Register credential service
 $app['credential_service'] = $app->share(
