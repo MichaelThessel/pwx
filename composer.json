@@ -10,7 +10,8 @@
         "phpseclib/phpseclib": "0.3.10",
         "symfony/translation": "~2.7",
         "symfony/config": "~2.7",
-        "symfony/yaml": "~2.7"
+        "symfony/yaml": "~2.7",
+        "phpunit/phpunit": "4.8.*"
     },
     "autoload": {
         "psr-0": {
