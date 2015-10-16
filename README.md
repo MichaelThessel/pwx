@@ -1,4 +1,4 @@
-![Build Status](https://travis-ci.org/MichaelThessel/pwx.svg)
+[![Build Status](https://travis-ci.org/MichaelThessel/pwx.svg)](https://travis-ci.org/MichaelThessel/pwx)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/0b168ab7-9e4e-4b31-bbf6-e05a52360209/mini.png)](https://insight.sensiolabs.com/projects/0b168ab7-9e4e-4b31-bbf6-e05a52360209)
 
 About
