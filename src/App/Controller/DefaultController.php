@@ -11,23 +11,19 @@ class DefaultController
     protected $app;
     protected $twig;
     protected $credentialService;
-    protected $request;
 
     /**
      * Constructor
      *
      * @param mixed $app
      * @param Twig_Environment $twig
-     * @param DoctrineConnection $db
-     * @param Request $request
-     * @return void
+     * @param CredentialService $credentialService
      */
-    public function __construct($app, Twig_Environment $twig, CredentialService $credentialService, Request $request)
+    public function __construct($app, Twig_Environment $twig, CredentialService $credentialService)
     {
         $this->app = $app;
         $this->twig = $twig;
         $this->credentialService = $credentialService;
-        $this->request = $request;
 
         // Clean the db on every request (workaround to not have to add cronjobs)
         $this->credentialService->clean();
@@ -40,23 +36,30 @@ class DefaultController
      */
     public function indexAction()
     {
-        if ($this->request->getMethod() == 'POST') {
-            $userName = $this->request->get('userName');
-            $password = $this->request->get('password');
-            $comment = $this->request->get('comment');
+        return $this->twig->render('index.twig');
+    }
 
-            // Exit if we got no password
-            if (empty($password)) {
-                return $this->twig->render('index.twig');
-            }
+    /**
+     * Submit new data
+     *
+     * @param Request $request
+     * @return mixed Rendered Twig template
+     */
+    public function indexPostAction(Request $request)
+    {
+        $userName = $request->get('userName');
+        $password = $request->get('password');
+        $comment = $request->get('comment');
 
-            $period = $this->request->get('period', 60 * 60);
-            $hash = $this->credentialService->save($userName, $password, $comment, $period);
-
-            return $this->app->redirect('/link/' . $hash);
+        // Exit if we got no password
+        if (empty($password)) {
+            return $this->twig->render('index.twig');
         }
 
-        return $this->twig->render('index.twig');
+        $period = $request->get('period', 60 * 60);
+        $hash = $this->credentialService->save($userName, $password, $comment, $period);
+
+        return $this->app->redirect('/link/' . $hash);
     }
 
     /**
@@ -94,11 +97,12 @@ class DefaultController
     /**
      * Delete an entry
      *
+     * @param Request $request
      * @return mixed Rendered Twig template
      */
-    public function deleteAction()
+    public function deleteAction(Request $request)
     {
-        $hash = $this->request->get('hash');
+        $hash = $request->get('hash');
 
         if ($hash) {
             $this->credentialService->delete($hash);
