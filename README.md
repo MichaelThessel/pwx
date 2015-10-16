@@ -50,6 +50,12 @@ Currently:
 are supported by PWX. Please set locale according to your requirements in the
 configuration. I'm happy to accept pull requests for additional translations.
 
+Themes
+======
+
+PWX supports all [Bootswatch](https://bootswatch.com/) themes. You can adjust
+the appearance of the application to your liking by a simple config switch.
+
 Warning
 =======
 
