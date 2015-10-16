@@ -4,7 +4,7 @@
 About
 =====
 
-Pwx allows you to set up your own password exchange service to share passwords
+PWX allows you to set up your own password exchange service to share passwords
 via a temporary link.
 
 For more information please check out my [blog](http://michaelthessel.com/tag/pwx/)
