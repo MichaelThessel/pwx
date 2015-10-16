@@ -7,12 +7,12 @@
     <title>PWX - {% block title %}No Title{% endblock %}</title>
     {% block head %}{% endblock %}
 
-    <link href="{{ app['baseUrl'] }}/css/themes/bootstrap.{{ app['theme'] }}.min.css" rel="stylesheet">
+    <link href="{{ app['baseUrl'] }}/css/bootstrap.{{ app['theme'] }}.min.css" rel="stylesheet">
     <link href="{{ app['baseUrl'] }}/css/style.css" rel="stylesheet">
 
     {% include 'jslocale.twig' %}
     <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script src="{{ app['baseUrl'] }}/css/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ app['baseUrl'] }}/js/bootstrap.min.js"></script>
     <script src="{{ app['baseUrl'] }}/js/jquery.countdown.min.js"></script>
     <script src="{{ app['baseUrl'] }}/js/jquery.zclip.min.js"></script>
     <script src="{{ app['baseUrl'] }}/js/hideShowPassword.min.js"></script>
