@@ -7,7 +7,7 @@
     <title>PWX - {% block title %}No Title{% endblock %}</title>
     {% block head %}{% endblock %}
 
-    <link href="{{ app['baseUrl'] }}/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ app['baseUrl'] }}/css/themes/bootstrap.{{ app['theme'] }}.min.css" rel="stylesheet">
     <link href="{{ app['baseUrl'] }}/css/style.css" rel="stylesheet">
 
     {% include 'jslocale.twig' %}

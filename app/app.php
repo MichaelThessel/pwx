@@ -8,6 +8,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 $config = array(
     'debug' => true,
     'baseUrl' => '',
+    'theme' => 'yeti',
     'requireHttps' => false,
     'timer.start' => $startTime,
     'monolog.name' => 'pwx',
