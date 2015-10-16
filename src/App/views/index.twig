@@ -13,11 +13,11 @@
         <input style="display:none" type="password" name="fakepasswordremembered"/>
         <div class="form-group">
           <label for="userName">{{ 'app.data.username'|trans }}</label>
-          <input type="text" class="form-control" id="userName" name="userName" placeholder="{{ 'app.data.username'|trans }}" maxlength="255" autocomplete="off">
+          <input type="text" class="form-control" id="userName" name="userName" placeholder="{{ 'app.data.username'|trans }}" maxlength="255" autocomplete="off" tabindex="1" autofocus>
         </div>
         <div class="form-group">
           <label for="password">{{ 'app.data.password'|trans }}</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="{{ 'app.data.password'|trans }}" required="required" maxlength="255" autocomplete="off">
+          <input type="password" class="form-control" id="password" name="password" placeholder="{{ 'app.data.password'|trans }}" required="required" maxlength="255" autocomplete="off" tabindex="2">
           <div class="insert-password">
             <div>
               {{ 'index.insert_password_start'|trans }}
@@ -35,11 +35,11 @@
         </div>
         <div class="form-group">
           <label for="period">{{ 'app.data.comment'|trans }}</label>
-          <textarea class="form-control" id="comment" name="comment" rows="5"></textarea>
+          <textarea class="form-control" id="comment" name="comment" rows="5" tabindex="3"></textarea>
         </div>
         <div class="form-group">
           <label for="period">{{ 'app.data.period'|trans }}</label>
-            <select class="form-control" id="period" name="period">
+            <select class="form-control" id="period" name="period" tabindex="4">
               <option value="3600">1 {{ 'app.data.hour'|trans }}</option>
               <option value="14400">4 {{ 'app.data.hours'|trans }}</option>
               <option value="86400">1 {{ 'app.data.day'|trans }}</option>
@@ -47,7 +47,7 @@
               <option value="2592000">1 {{ 'app.data.month'|trans }}</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-default">{{ 'index.generate_link'|trans }}</button>
+        <button type="submit" class="btn btn-default" tabindex="5">{{ 'index.generate_link'|trans }}</button>
       </form>
     </div>
   </div>
