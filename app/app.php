@@ -7,6 +7,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 // Config
 $config = array(
     'debug' => true,
+    'baseUrl' => '',
     'requireHttps' => false,
     'timer.start' => $startTime,
     'monolog.name' => 'pwx',
