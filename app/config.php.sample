@@ -1,23 +1,30 @@
 <?php
-$config['debug'] = false;
-
-$config['requireHttps'] = true;
-
-// Only needs to be set if installed outside of web root
+// Base URL only needs to be set if installed outside of web root
 // i.e. http://example.com/pwx
 //
 // don't use a trailing slash
 //
 // if you run both SSL and non-SSL environments use a protocol neutral url
 // i.e. //example.com/pwx
+// a SSL environment is highly recommended though
 $config['baseUrl'] = '';
 
+// Force redirect to SSL if non SSL page is requested
+$config['requireHttps'] = true;
+
+// Database settings
 $config['db.options']['driver'] = 'pdo_mysql';
 $config['db.options']['host'] = 'localhost';
 $config['db.options']['dbname'] = '';
 $config['db.options']['user'] = '';
 $config['db.options']['password'] = '';
 
+// Add your secret key here. This is used to encrypt database content
 $config['secret'] = 'yourPasswordEncryptionKey';
 
+// Set your locale
+// supported locales: en, es, de
 $config['locale'] = 'en';
+
+// Debug mode
+$config['debug'] = false;
