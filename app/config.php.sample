@@ -26,5 +26,11 @@ $config['secret'] = 'yourPasswordEncryptionKey';
 // supported locales: en, es, de
 $config['locale'] = 'en';
 
+// Theme
+// PWX uses themes from https://bootswatch.com/
+// the following themes are supported:
+// cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex slate spacelab superhero united yeti
+$config['theme'] = 'yeti';
+
 // Debug mode
 $config['debug'] = false;
