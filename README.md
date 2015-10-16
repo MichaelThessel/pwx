@@ -36,7 +36,9 @@ Tests
 =====
 
 To run the integrated test suite please run
-vendor/bin/phpunit
+```
+# vendor/bin/phpunit
+```
 
 Translations
 ============
