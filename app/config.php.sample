@@ -3,6 +3,15 @@ $config['debug'] = false;
 
 $config['requireHttps'] = true;
 
+// Only needs to be set if installed outside of web root
+// i.e. http://example.com/pwx
+//
+// don't use a trailing slash
+//
+// if you run both SSL and non-SSL environments use a protocol neutral url
+// i.e. //example.com/pwx
+$config['baseUrl'] = '';
+
 $config['db.options']['driver'] = 'pdo_mysql';
 $config['db.options']['host'] = 'localhost';
 $config['db.options']['dbname'] = '';
