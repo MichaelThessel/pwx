@@ -40,23 +40,30 @@ class DefaultController
      */
     public function indexAction()
     {
-        if ($this->request->getMethod() == 'POST') {
-            $userName = $this->request->get('userName');
-            $password = $this->request->get('password');
-            $comment = $this->request->get('comment');
+        return $this->twig->render('index.twig');
+    }
 
-            // Exit if we got no password
-            if (empty($password)) {
-                return $this->twig->render('index.twig');
-            }
+    /**
+     * Submit new data
+     *
+     * @param Request $request
+     * @return mixed Rendered Twig template
+     */
+    public function indexPostAction(Request $request)
+    {
+        $userName = $request->get('userName');
+        $password = $request->get('password');
+        $comment = $request->get('comment');
 
-            $period = $this->request->get('period', 60 * 60);
-            $hash = $this->credentialService->save($userName, $password, $comment, $period);
-
-            return $this->app->redirect('/link/' . $hash);
+        // Exit if we got no password
+        if (empty($password)) {
+            return $this->twig->render('index.twig');
         }
 
-        return $this->twig->render('index.twig');
+        $period = $this->request->get('period', 60 * 60);
+        $hash = $this->credentialService->save($userName, $password, $comment, $period);
+
+        return $this->app->redirect('/link/' . $hash);
     }
 
     /**
