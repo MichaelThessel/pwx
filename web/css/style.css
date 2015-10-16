@@ -29,3 +29,9 @@ a, a:hover, a:visited {
 .panel-body button {
   float: right;
 }
+
+/* Link creation form */
+.insert-password {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+}
