@@ -10,7 +10,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $app = require __DIR__.'/../../../app/app.php';
 
-        $app['debug'] = true;
+        $app['debug'] = false;
 
         unset($app['exception_handler']);
 
@@ -30,5 +30,22 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('textarea[name="comment"]')->count());
         $this->assertEquals(1, $crawler->filter('select[name="period"]')->count());
         $this->assertEquals(1, $crawler->filter('button[type="submit"]')->count());
+    }
+
+    public function testPostIndex()
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/');
+        $form = $crawler->filter('#passwordSubmitForm')->form();
+        $form->setValues(array(
+            'userName' => 'nameOfUser',
+            'password' => 'passwordOfUser',
+            'comment' => 'commentOfUser',
+            'period' => 3600));
+
+        $client->submit($form);
+        $newCrawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertContains('/pw/', $newCrawler->filter('#passwordlink')->text());
     }
 }
