@@ -33,22 +33,28 @@ $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 // Register DoctrineServiceProvider service
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
 
-// Register translation service
+$validLocales = array('en', 'es', 'de');
 $translationConfig = array(
     'locale_fallbacks' => array('en'),
 );
-if (isset($config['locale'])) {
+
+// Load language from cookie if cookie is not set load from config
+if (isset($_COOKIE['locale']) && in_array($_COOKIE['locale'], $validLocales)) {
+    $translationConfig['locale'] = $_COOKIE['locale'];
+} elseif (isset($config['locale'])) {
     $translationConfig['locale'] = $config['locale'];
 }
+
+// Register translation service
 $app->register(new Silex\Provider\TranslationServiceProvider(), $translationConfig);
 
 // Register the yaml translations
-$app['translator'] = $app->share($app->extend('translator', function(\Silex\Translator $translator, $app) {
+$app['translator'] = $app->share($app->extend('translator', function(\Silex\Translator $translator, $app) use ($validLocales) {
     $translator->addLoader('yaml', new Symfony\Component\Translation\Loader\YamlFileLoader());
 
-    $translator->addResource('yaml', __DIR__ . '/locales/en.yml', 'en');
-    $translator->addResource('yaml', __DIR__ . '/locales/de.yml', 'de');
-    $translator->addResource('yaml', __DIR__ . '/locales/es.yml', 'es');
+    foreach ($validLocales as $locale) {
+        $translator->addResource('yaml', __DIR__ . '/locales/' . $locale . '.yml', $locale);
+    }
 
     return $translator;
 }));
