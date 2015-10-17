@@ -3,6 +3,7 @@ var Pwx = {
     // Initialize app
     init: function() {
         this.initLanguageSelector();
+        this.initThemeSelector();
         this.initClipboard();
         this.initCountdown();
         this.initPasswordGenerator();
@@ -13,6 +14,14 @@ var Pwx = {
     initLanguageSelector: function() {
         $('#language-selector li a').click(function() {
             Cookies.set('locale', $(this).data('locale'), { expires: 365 });
+            location.href = location.href;
+        });
+    },
+
+    // Init theme selector
+    initThemeSelector: function() {
+        $('#theme-selector li a').click(function() {
+            Cookies.set('theme', $(this).data('theme'), { expires: 365 });
             location.href = location.href;
         });
     },
