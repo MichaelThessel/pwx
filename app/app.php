@@ -7,6 +7,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 // Config
 $config = array(
     'debug' => true,
+    'locale' => 'en',
     'baseUrl' => '',
     'theme' => 'yeti',
     'requireHttps' => false,
@@ -33,20 +34,12 @@ $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 // Register DoctrineServiceProvider service
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
 
-$validLocales = array('en', 'es', 'de');
-$translationConfig = array(
-    'locale_fallbacks' => array('en'),
-);
-
-// Load language from cookie if cookie is not set load from config
-if (isset($_COOKIE['locale']) && in_array($_COOKIE['locale'], $validLocales)) {
-    $translationConfig['locale'] = $_COOKIE['locale'];
-} elseif (isset($config['locale'])) {
-    $translationConfig['locale'] = $config['locale'];
-}
-
 // Register translation service
-$app->register(new Silex\Provider\TranslationServiceProvider(), $translationConfig);
+$validLocales = array('en', 'es', 'de');
+$app->register(new Silex\Provider\TranslationServiceProvider(), array(
+    'locale_fallbacks'  => array('en'),
+    'locale' => isset($_COOKIE['locale']) && in_array($_COOKIE['locale'], $validLocales) ?  $_COOKIE['locale'] : $config['locale'],
+));
 
 // Register the yaml translations
 $app['translator'] = $app->share($app->extend('translator', function(\Silex\Translator $translator, $app) use ($validLocales) {
