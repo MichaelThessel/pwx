@@ -24,6 +24,17 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <ul class="nav navbar-nav navbar-right">
+          <li id="theme-selector" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'app.theme'|trans }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% for theme in app['validThemes'] %}
+                <li><a href="#" data-theme="{{ theme }}">{{ theme|capitalize }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
           <li id="language-selector" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'app.language'|trans }} <span class="caret"></span></a>
             <ul class="dropdown-menu">
