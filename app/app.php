@@ -78,30 +78,13 @@ $app['credential_service'] = $app->share(
     }
 );
 
-// Register valid themes
-$app['validThemes'] = array(
-    'cerulean',
-    'cosmo',
-    'cyborg',
-    'darkly',
-    'flatly',
-    'journal',
-    'lumen',
-    'paper',
-    'readable',
-    'sandstone',
-    'simplex',
-    'slate',
-    'spacelab',
-    'superhero',
-    'united',
-    'yeti',
+// Register theme service & set user theme
+$app['theme_service'] = $app->share(
+    function () use ($app){
+        return new \App\Model\ThemeService($app);
+    }
 );
-
-// Load theme from cookie if cookie is set and valid
-if (isset($_COOKIE['theme']) && in_array($_COOKIE['theme'], $app['validThemes'])) {
-    $app['theme'] = $_COOKIE['theme'];
-}
+$app['theme_service']->setUserTheme();
 
 // Map routes to controllers
 include __DIR__ . '/routing.php';

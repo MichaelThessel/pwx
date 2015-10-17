@@ -27,7 +27,7 @@
           <li id="theme-selector" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'app.theme'|trans }} <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              {% for theme in app['validThemes'] %}
+              {% for theme in app['theme_service'].getValidThemes() %}
                 <li><a href="#" data-theme="{{ theme }}">{{ theme|capitalize }}</a></li>
               {% endfor %}
             </ul>
