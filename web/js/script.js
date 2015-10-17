@@ -2,10 +2,19 @@ var Pwx = {
 
     // Initialize app
     init: function() {
+        this.initLanguageSelector();
         this.initClipboard();
         this.initCountdown();
         this.initPasswordGenerator();
         this.initShowPassword();
+    },
+
+    // Init language selector
+    initLanguageSelector: function() {
+        $('#language-selector li a').click(function() {
+            Cookies.set('locale', $(this).data('locale'), { expires: 365 });
+            location.href = location.href;
+        });
     },
 
     // Enable zclip on all elements with the data-clipboard attribute

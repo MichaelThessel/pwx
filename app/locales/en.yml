@@ -14,6 +14,11 @@ app.data.days: days
 app.data.week: week
 app.data.month: month
 
+app.language: Language
+app.language.english: English
+app.language.spanish: Español
+app.language.german: Deutsch
+
 index.generate: Generate
 index.insert_password_start: Insert random
 index.insert_password_end: character password

@@ -15,10 +15,27 @@
     <script src="{{ app['baseUrl'] }}/js/bootstrap.min.js"></script>
     <script src="{{ app['baseUrl'] }}/js/jquery.countdown.min.js"></script>
     <script src="{{ app['baseUrl'] }}/js/jquery.zclip.min.js"></script>
+    <script src="{{ app['baseUrl'] }}/js/js.cookie.min.js"></script>
     <script src="{{ app['baseUrl'] }}/js/hideShowPassword.min.js"></script>
     <script src="{{ app['baseUrl'] }}/js/script.js"></script>
   </head>
   <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="language-selector" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'app.language'|trans }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" data-locale="en">{{ 'app.language.english'|trans }}</a></li>
+              <li><a href="#" data-locale="es">{{ 'app.language.spanish'|trans }}</a></li>
+              <li><a href="#" data-locale="de">{{ 'app.language.german'|trans }}</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
     <div class="container">
       <div class="row">
         <div class="col-sm-12 col-md-6 col-md-offset-3 page-header">
