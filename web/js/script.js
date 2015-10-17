@@ -12,7 +12,9 @@ var Pwx = {
 
     // Init language selector
     initLanguageSelector: function() {
-        $('#language-selector li a').click(function() {
+        $('#language-selector li a').click(function(e) {
+            e.preventDefault();
+            if ($(this).closest('li').hasClass('active')) { return; }
             Cookies.set('locale', $(this).data('locale'), { expires: 365 });
             location.href = location.href;
         });
@@ -20,7 +22,9 @@ var Pwx = {
 
     // Init theme selector
     initThemeSelector: function() {
-        $('#theme-selector li a').click(function() {
+        $('#theme-selector li a').click(function(e) {
+            e.preventDefault();
+            if ($(this).closest('li').hasClass('active')) { return; }
             Cookies.set('theme', $(this).data('theme'), { expires: 365 });
             location.href = location.href;
         });
