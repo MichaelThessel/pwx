@@ -6,7 +6,7 @@ use Doctrine\Mapping as ORM;
 /**
  * UserCredentials
  *
- * @Table(name="credentials")
+ * @Table(name="entity_credentials_table")
  * @Entity(repositoryClass="App\Entity\CredentialsRepository")
  */
 class Credentials
