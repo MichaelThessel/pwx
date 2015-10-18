@@ -20,13 +20,12 @@ $config = array(
     'twig.options' => array(
         'cache' => __DIR__ . '/../cache/twig',
     ),
-    'orm.proxies_dir' => __DIR__ . "/../cache/doctrine/proxy",
     'orm.em.options' => array(
         'mappings' => array(
             array(
                 'type' => 'annotation',
                 'namespace' => 'App\Entity',
-                "path" => __DIR__."/../src/App/Entity",
+                'path' => __DIR__. '/../src/App/Entity',
             ),
         ),
     ),

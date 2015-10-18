@@ -1,30 +1,29 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Mapping as ORM;
 /**
  * UserCredentials
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\UserCredentialsRepository")
+ * @Table()
+ * @Entity(repositoryClass="App\Entity\UserCredentialsRepository")
  */
 class UserCredentials
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @Column(name="id", type="integer")
+     * @Id
+     * @GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="hash", type="string", length=255)
+     * @Column(name="hash", type="string", length=255)
      */
     private $hash;
 
@@ -36,7 +35,7 @@ class UserCredentials
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @Column(name="username", type="string", length=255)
      */
     private $username;
 
@@ -48,7 +47,7 @@ class UserCredentials
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @Column(name="password", type="string", length=255)
      */
     private $password;
 
@@ -60,7 +59,7 @@ class UserCredentials
     /**
      * @var string
      *
-     * @ORM\Column(name="comment", type="string", length=255)
+     * @Column(name="comment", type="string", length=255)
      */
     private $comment;
 
@@ -72,28 +71,28 @@ class UserCredentials
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @Column(name="email", type="string", length=255)
      */
     private $email;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="expired", type="boolean")
+     * @Column(name="expired", type="boolean")
      */
     private $expired;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="expiresAt", type="datetime")
+     * @Column(name="expiresAt", type="datetime")
      */
     private $expiresAt;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="oneTimeView", type="boolean")
+     * @Column(name="oneTimeView", type="boolean")
      */
     private $oneTimeView;
 
