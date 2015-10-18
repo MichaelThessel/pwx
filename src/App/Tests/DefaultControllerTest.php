@@ -10,7 +10,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $app = require __DIR__.'/../../../app/app.php';
 
-        $app['debug'] = false;
+        $app['debug'] = true;
 
         unset($app['exception_handler']);
 

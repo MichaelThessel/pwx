@@ -1,4 +1,5 @@
 <?php
+
 $startTime = microtime(true);
 
 // Bootstrap
@@ -19,6 +20,16 @@ $config = array(
     'twig.options' => array(
         'cache' => __DIR__ . '/../cache/twig',
     ),
+    'orm.proxies_dir' => __DIR__ . "/../cache/doctrine/proxy",
+    'orm.em.options' => array(
+        'mappings' => array(
+            array(
+                'type' => 'annotation',
+                'namespace' => 'App\Entity',
+                "path" => __DIR__."/../src/App/Entity",
+            ),
+        ),
+    ),
 );
 
 if (file_exists(__DIR__ . '/config.php')) {
@@ -33,6 +44,9 @@ $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 
 // Register DoctrineServiceProvider service
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
+
+// Register DoctrineOrmServiceProvider service
+$app->register(new \Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), $config);
 
 // Register translation service
 $validLocales = array('en', 'es', 'de');
