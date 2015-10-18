@@ -10,7 +10,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $app = require __DIR__.'/../../../app/app.php';
 
-        $app['debug'] = false;
+        $app['debug'] = true;
 
         unset($app['exception_handler']);
 
@@ -44,8 +44,17 @@ class DefaultControllerTest extends WebTestCase
             'period' => 3600));
 
         $client->submit($form);
-        $newCrawler = $client->followRedirect();
+
+        $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
-        $this->assertContains('/pw/', $newCrawler->filter('#passwordlink')->text());
+        $this->assertContains('/pw/', $crawler->filter('#passwordlink')->text());
+
+        $link = $crawler->filter('#passwordlink')->link();
+        $crawler = $client->click($link);
+
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertEquals('nameOfUser', trim(strip_tags($crawler->filter('#userName')->text())));
+        $this->assertEquals('passwordOfUser', trim(strip_tags($crawler->filter('#password')->text())));
+        $this->assertEquals('commentOfUser', trim(strip_tags($crawler->filter('#comment')->text())));
     }
 }
