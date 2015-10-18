@@ -6,10 +6,10 @@ use Doctrine\Mapping as ORM;
 /**
  * UserCredentials
  *
- * @Table()
- * @Entity(repositoryClass="App\Entity\UserCredentialsRepository")
+ * @Table(name="credentials")
+ * @Entity(repositoryClass="App\Entity\CredentialsRepository")
  */
-class UserCredentials
+class Credentials
 {
     /**
      * @var integer
