@@ -56,7 +56,7 @@ $app['db.event_manager']->addEventListener(array(
 $app->register(new \Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), $config);
 
 // Register translation service
-$validLocales = array('en', 'es', 'de');
+$validLocales = array('de', 'en', 'eo', 'es');
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(
     'locale_fallbacks'  => array('en'),
     'locale' => isset($_COOKIE['locale']) && in_array($_COOKIE['locale'], $validLocales) ?  $_COOKIE['locale'] : $config['locale'],
