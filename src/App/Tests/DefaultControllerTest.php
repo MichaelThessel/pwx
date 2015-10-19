@@ -6,6 +6,9 @@ use Silex\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
+
+    protected $credentials;
+
     public function createApplication()
     {
         $app = require __DIR__.'/../../../app/app.php';
@@ -16,6 +19,19 @@ class DefaultControllerTest extends WebTestCase
 
         return $app;
     }
+
+    /**
+     * @before
+     */
+    public function setCredentials()
+    {
+        $this->credentials = array(
+            'userName' => 'nameOfUser',
+            'password' => 'passwordOfUser',
+            'comment' => 'commentOfUser',
+            'period' => 3600);
+    }
+
 
     public function testIndex()
     {
@@ -32,29 +48,49 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('button[type="submit"]')->count());
     }
 
-    public function testPostIndex()
+    public function testSubmitViewAndDeleteCredentials()
     {
         $client = $this->createClient();
         $crawler = $client->request('GET', '/');
-        $form = $crawler->filter('#passwordSubmitForm')->form();
-        $form->setValues(array(
-            'userName' => 'nameOfUser',
-            'password' => 'passwordOfUser',
-            'comment' => 'commentOfUser',
-            'period' => 3600));
+        $form = $crawler->filter('#submitCredentialsForm')->form();
 
+        $form->setValues($this->credentials);
         $client->submit($form);
-
         $crawler = $client->followRedirect();
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertContains('/pw/', $crawler->filter('#passwordlink')->text());
 
+        // Test URI and Link-Url
+        $hash = substr(strrchr($crawler->filter('#passwordlink')->text(), '/'),1);
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertContains('/link/'.$hash, $client->getRequest()->getUri());
+        $this->assertContains('/pw/'.$hash, $crawler->filter('#passwordlink')->text());
+
+        // Get and follow the link to revealed passwords
         $link = $crawler->filter('#passwordlink')->link();
         $crawler = $client->click($link);
 
         $this->assertTrue($client->getResponse()->isOk());
-        $this->assertEquals('nameOfUser', trim(strip_tags($crawler->filter('#userName')->text())));
-        $this->assertEquals('passwordOfUser', trim(strip_tags($crawler->filter('#password')->text())));
-        $this->assertEquals('commentOfUser', trim(strip_tags($crawler->filter('#comment')->text())));
+        $this->assertEquals($this->credentials['userName'], trim(strip_tags($crawler->filter('#userName')->text())));
+        $this->assertEquals($this->credentials['password'], trim(strip_tags($crawler->filter('#password')->text())));
+        $this->assertEquals($this->credentials['comment'], trim(strip_tags($crawler->filter('#comment')->text())));
+
+        // Delete entry with redirect to '/'
+        $form = $crawler->filter('#deleteCredentialsForm')->form();
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isOk());
+
+        // Repeating the Assertions from testIndex
+        // Smells a bit ugly
+        // better is to get the Route from the framework or add an unique ID or title to home
+        $this->assertEquals(1, $crawler->filter('input[name="userName"]')->count());
+        $this->assertEquals(1, $crawler->filter('input[name="password"]')->count());
+        $this->assertEquals(1, $crawler->filter('textarea[name="comment"]')->count());
+        $this->assertEquals(1, $crawler->filter('select[name="period"]')->count());
+        $this->assertEquals(1, $crawler->filter('button[type="submit"]')->count());
+
+        // Go again to the password-link page
+        // The password is expired
+        $crawler = $client->request('GET', '/pw/'.$hash);
+        $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
     }
 }
