@@ -3,6 +3,7 @@
 namespace AppBundle\Tests\Controller;
 
 use Silex\WebTestCase;
+use Symfony\Component\DomCrawler\Link;
 
 class DefaultControllerTest extends WebTestCase
 {
@@ -48,7 +49,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('button[type="submit"]')->count());
     }
 
-    public function testSubmitViewAndDeleteCredentials()
+    public function testSubmitCredentialsAndRedirectToLinkPage()
     {
         $client = $this->createClient();
         $crawler = $client->request('GET', '/');
@@ -59,19 +60,44 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
 
         // Test URI and Link-Url
-        $hash = substr(strrchr($crawler->filter('#passwordlink')->text(), '/'),1);
-        $this->assertTrue($client->getResponse()->isOk());
-        $this->assertContains('/link/'.$hash, $client->getRequest()->getUri());
-        $this->assertContains('/pw/'.$hash, $crawler->filter('#passwordlink')->text());
+        $hash = substr(strrchr($crawler->filter('#passwordlink')->text(), '/'), 1);
 
         // Get and follow the link to revealed passwords
         $link = $crawler->filter('#passwordlink')->link();
+
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertContains('/link/' . $hash, $client->getRequest()->getUri());
+        $this->assertContains('/pw/' . $hash, $crawler->filter('#passwordlink')->text());
+
+        return $link;
+    }
+
+    /**
+     * @param Link $link
+     *
+     * @depends testSubmitCredentialsAndRedirectToLinkPage
+     */
+    public function testRevealCredentialsPage($link)
+    {
+        $client = $this->createClient();
         $crawler = $client->click($link);
 
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName  > span')->text());
         $this->assertEquals($this->credentials['password'], $crawler->filter('#password  > span')->text());
         $this->assertEquals($this->credentials['comment'], trim($crawler->filter('#comment')->text()));
+    }
+
+    /**
+     * @param Link $link
+     *
+     * @depends testSubmitCredentialsAndRedirectToLinkPage
+     */
+    public function testClickOnDeleteCredentials($link)
+    {
+        $client = $this->createClient();
+        $crawler = $client->click($link);
+        $hash = substr(strrchr($link->getUri(), '/'), 1);
 
         // Delete entry with redirect to '/'
         $form = $crawler->filter('#deleteCredentialsForm')->form();
