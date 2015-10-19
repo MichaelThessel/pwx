@@ -59,7 +59,7 @@ class DefaultController
         $period = $request->get('period', 60 * 60);
         $hash = $this->credentialService->save($userName, $password, $comment, $period);
 
-        return $this->app->redirect('/link/' . $hash);
+        return $this->app->redirect($this->app['baseUrl'] . '/link/' . $hash);
     }
 
     /**
@@ -108,6 +108,6 @@ class DefaultController
             $this->credentialService->delete($hash);
         }
 
-        return $this->app->redirect('/');
+        return $this->app->redirect($this->app['baseUrl'] . '/');
     }
 }
