@@ -35,7 +35,7 @@ $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
 
 // Register translation service
-$validLocales = array('en', 'es', 'de');
+$validLocales = array('de', 'en', 'eo', 'es');
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(
     'locale_fallbacks'  => array('en'),
     'locale' => isset($_COOKIE['locale']) && in_array($_COOKIE['locale'], $validLocales) ?  $_COOKIE['locale'] : $config['locale'],
