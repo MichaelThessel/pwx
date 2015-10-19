@@ -13,7 +13,7 @@ class Credentials
     /**
      * @var string
      *
-     * @Column(name="hash", type="string", length=10)
+     * @Column(name="hash", type="string", length=10, options={"default" = ""})
      * @Id
      * @GeneratedValue(strategy="NONE")
      */
