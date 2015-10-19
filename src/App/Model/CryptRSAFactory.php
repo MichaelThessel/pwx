@@ -11,7 +11,7 @@ class CryptRSAFactory {
      *
      * @return string
      */
-    public function createHash($length)
+    public function createHash($length = 10)
     {
         $rsa = new Crypt_RSA();
         $key = $rsa->createKey();
