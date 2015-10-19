@@ -3,14 +3,23 @@
 namespace AppBundle\Tests\Controller;
 
 use Silex\WebTestCase;
+use Symfony\Component\DomCrawler\Link;
 
 class DefaultControllerTest extends WebTestCase
 {
+
+    protected $credentials = array(
+            'userName' => 'nameOfUser',
+            'password' => 'passwordOfUser',
+            'comment' => 'commentOfUser',
+            'period' => 3600
+    );
+
     public function createApplication()
     {
         $app = require __DIR__.'/../../../app/app.php';
 
-        $app['debug'] = false;
+        $app['debug'] = true;
 
         unset($app['exception_handler']);
 
@@ -32,20 +41,69 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('button[type="submit"]')->count());
     }
 
-    public function testPostIndex()
+    public function testSubmitCredentialsAndRedirectToLinkPage()
     {
         $client = $this->createClient();
         $crawler = $client->request('GET', '/');
-        $form = $crawler->filter('#passwordSubmitForm')->form();
-        $form->setValues(array(
-            'userName' => 'nameOfUser',
-            'password' => 'passwordOfUser',
-            'comment' => 'commentOfUser',
-            'period' => 3600));
+        $form = $crawler->filter('#submitCredentialsForm')->form();
 
+        $form->setValues($this->credentials);
         $client->submit($form);
-        $newCrawler = $client->followRedirect();
+        $crawler = $client->followRedirect();
+
+        // Test URI and Link-Url
+        $hash = substr(strrchr($crawler->filter('#passwordlink')->text(), '/'), 1);
+
+        // Get and follow the link to revealed passwords
+        $link = $crawler->filter('#passwordlink')->link();
+
         $this->assertTrue($client->getResponse()->isOk());
-        $this->assertContains('/pw/', $newCrawler->filter('#passwordlink')->text());
+
+        $this->assertContains('/link/' . $hash, $client->getRequest()->getUri());
+        $this->assertContains('/pw/' . $hash, $crawler->filter('#passwordlink')->text());
+
+        return $link;
+    }
+
+    /**
+     * @param Link $link
+     *
+     * @depends testSubmitCredentialsAndRedirectToLinkPage
+     */
+    public function testRevealCredentialsPage($link)
+    {
+        $client = $this->createClient();
+        $crawler = $client->click($link);
+
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName > span')->text());
+        $this->assertEquals($this->credentials['password'], $crawler->filter('#password > span')->text());
+        $this->assertEquals($this->credentials['comment'], trim($crawler->filter('#comment')->text()));
+    }
+
+    /**
+     * @param Link $link
+     *
+     * @depends testSubmitCredentialsAndRedirectToLinkPage
+     */
+    public function testClickOnDeleteCredentials($link)
+    {
+        $client = $this->createClient();
+        $crawler = $client->click($link);
+        $hash = substr(strrchr($link->getUri(), '/'), 1);
+
+        // Delete entry with redirect to '/'
+        $form = $crawler->filter('#deleteCredentialsForm')->form();
+        $client->submit($form);
+        $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isOk());
+
+        // Test if redirects to home '/'
+        $this->assertEquals('/', $client->getRequest()->getRequestUri());
+
+        // Go again to the password-link page
+        // The password is expired
+        $crawler = $client->request('GET', '/pw/' . $hash);
+        $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
     }
 }
