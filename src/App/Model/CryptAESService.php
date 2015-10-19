@@ -35,9 +35,11 @@ class CryptAESService {
     public function decrypt(Credentials $credentials)
     {
         if ($this->cipher && $credentials) {
-            $credentials['userName'] = $this->cipher->decrypt($credentials['userName']);
-            $credentials['password'] = $this->cipher->decrypt($credentials['password']);
-            $credentials['comment'] = $this->cipher->decrypt($credentials['comment']);
+            $credentials->setUsername($this->cipher->decrypt($credentials->getUsername()));
+            $credentials->setPassword($this->cipher->decrypt($credentials->getPassword()));
+            $credentials->setComment($this->cipher->decrypt($credentials->getComment()));
+        } else {
+            // Throw exception??
         }
 
         return $credentials;

@@ -2,26 +2,40 @@
 
 namespace AppBundle\Tests\Model;
 
-use App\Model\CryptRSAFactory;
+use App\Entity\Credentials;
+use App\Model\CryptAESService;
 
-class CryptRSAFactoryTest extends \PHPUnit_Framework_TestCase
+class CryptAESFactoryTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
-     * @var CryptRSAFactory
+     * @var CryptAESService
      */
-    protected $rsa;
+    protected $aes;
 
-    public function setUp()
+    protected $config = array(
+        'secret' => "ThisIsTheSecretForTesting"
+    );
+
+    public function setup()
     {
-        $this->rsa = new CryptRSAFactory();
+        $this->aes = new CryptAESService($this->config);
     }
 
-    public function testLengthHash()
+    public function testEncryptCredentials()
     {
-        $hash = $this->rsa->createHash(10);
-        $this->assertEquals(10, strlen($hash));
-        $hash = $this->rsa->createHash(32);
-        $this->assertEquals(32, strlen($hash));
+        $credentials = new Credentials();
+        $credentials->setUsername('testUser');
+        $credentials->setPassword('testPassword');
+        $credentials->setComment('testComment');
+        $credentials->setExpires('3600');
+
+        $encryptedCredentials = $this->aes->encrypt(clone $credentials);
+        $decryptedCredentials = $this->aes->decrypt(clone $encryptedCredentials);
+
+        var_dump($credentials);
+        var_dump($encryptedCredentials);
+        var_dump($decryptedCredentials);
     }
+
+
 }
