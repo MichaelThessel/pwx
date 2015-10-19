@@ -69,9 +69,9 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->click($link);
 
         $this->assertTrue($client->getResponse()->isOk());
-        $this->assertEquals($this->credentials['userName'], trim(strip_tags($crawler->filter('#userName')->text())));
-        $this->assertEquals($this->credentials['password'], trim(strip_tags($crawler->filter('#password')->text())));
-        $this->assertEquals($this->credentials['comment'], trim(strip_tags($crawler->filter('#comment')->text())));
+        $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName  > span')->text());
+        $this->assertEquals($this->credentials['password'], $crawler->filter('#password  > span')->text());
+        $this->assertEquals($this->credentials['comment'], trim($crawler->filter('#comment')->text()));
 
         // Delete entry with redirect to '/'
         $form = $crawler->filter('#deleteCredentialsForm')->form();
