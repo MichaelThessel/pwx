@@ -1,0 +1,34 @@
+app.poweredby: Funkcianta per
+app.name: Pasvort-interŝanĝo
+
+app.data.username: Salutnomo
+app.data.password: Pasvorto
+app.data.comment: Noto
+app.data.period: Valida por
+app.data.seconds: sekundoj
+app.data.minutes: minutoj
+app.data.hour: horo
+app.data.hours: horoj
+app.data.day: tago
+app.data.days: tagoj
+app.data.week: semajno
+app.data.month: monato
+
+app.language: Lingvo
+
+app.theme: Etoso
+
+index.generate: Krei
+index.insert_password_start: Krei pasvorton el
+index.insert_password_end: hazardaj signoj
+index.show_password: Montri pasvorton
+index.hide_password: Kaŝi pasvorton
+index.generate_link: Krei ligilon
+
+view_link.view: Vidi ligilon
+view_link.share: Kundividi ĉi tiun ligilon
+
+view_password.view: Vidi pasvorton
+view_password.period: Ĉi tiu rikordo malaperos post
+view_password.delete: Malaperigi
+view_password.expired: La petita rikordo eksvalidiĝis!
