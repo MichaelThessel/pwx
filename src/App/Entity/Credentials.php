@@ -43,9 +43,9 @@ class Credentials
     /**
      * @var \DateTime
      *
-     * @Column(name="expiresAt", type="datetime")
+     * @Column(name="expires", type="integer")
      */
-    private $expiresAt;
+    private $expires;
 
     /**
      * Set hash
@@ -142,12 +142,12 @@ class Credentials
     /**
      * Set expiresAt
      *
-     * @param \DateTime $expiresAt
+     * @param integer $expires
      * @return Credentials
      */
-    public function setExpiresAt($expiresAt)
+    public function setExpires($expires)
     {
-        $this->expiresAt = $expiresAt;
+        $this->expires = $expires;
 
         return $this;
     }
@@ -155,10 +155,10 @@ class Credentials
     /**
      * Get expiresAt
      *
-     * @return \DateTime 
+     * @return integer
      */
-    public function getExpiresAt()
+    public function getExpires()
     {
-        return $this->expiresAt;
+        return $this->expires;
     }
 }
