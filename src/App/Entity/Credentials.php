@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Mapping as ORM;
 /**
  * UserCredentials
  *
@@ -12,75 +11,34 @@ use Doctrine\Mapping as ORM;
 class Credentials
 {
     /**
-     * @var integer
-     *
-     * @Column(name="id", type="integer")
-     * @Id
-     * @GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * @var string
      *
-     * @Column(name="hash", type="string", length=255)
+     * @Column(name="hash", type="string", length=10)
+     * @Id
+     * @GeneratedValue(strategy="NONE")
      */
     private $hash;
 
     /**
      * @var string
-     */
-    private $usernamePlainText;
-
-    /**
-     * @var string
      *
-     * @Column(name="username", type="string", length=255)
+     * @Column(name="username", type="text", length=65535)
      */
     private $username;
 
     /**
      * @var string
-     */
-    private $passwordPlainText;
-
-    /**
-     * @var string
      *
-     * @Column(name="password", type="string", length=255)
+     * @Column(name="password", type="text", length=65535)
      */
     private $password;
 
     /**
      * @var string
-     */
-    private $commentPlainText;
-
-    /**
-     * @var string
      *
-     * @Column(name="comment", type="string", length=255)
+     * @Column(name="comment", type="text", length=65535)
      */
     private $comment;
-
-    /**
-     * @var string
-     */
-    private $emailPlainText;
-
-    /**
-     * @var string
-     *
-     * @Column(name="email", type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @var boolean
-     *
-     * @Column(name="expired", type="boolean")
-     */
-    private $expired;
 
     /**
      * @var \DateTime
@@ -90,28 +48,10 @@ class Credentials
     private $expiresAt;
 
     /**
-     * @var boolean
-     *
-     * @Column(name="oneTimeView", type="boolean")
-     */
-    private $oneTimeView;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set hash
      *
      * @param string $hash
-     * @return UserCredentials
+     * @return Credentials
      */
     public function setHash($hash)
     {
@@ -131,33 +71,10 @@ class Credentials
     }
 
     /**
-     * Set usernamePlainText
-     *
-     * @param string $usernamePlainText
-     * @return UserCredentials
-     */
-    public function setUsernamePlainText($usernamePlainText)
-    {
-        $this->usernamePlainText = $usernamePlainText;
-
-        return $this;
-    }
-
-    /**
-     * Get usernamePlainText
-     *
-     * @return string 
-     */
-    public function getUsernamePlainText()
-    {
-        return $this->usernamePlainText;
-    }
-
-    /**
      * Set username
      *
      * @param string $username
-     * @return UserCredentials
+     * @return Credentials
      */
     public function setUsername($username)
     {
@@ -177,33 +94,10 @@ class Credentials
     }
 
     /**
-     * Set passwordPlainText
-     *
-     * @param string $passwordPlainText
-     * @return UserCredentials
-     */
-    public function setPasswordPlainText($passwordPlainText)
-    {
-        $this->passwordPlainText = $passwordPlainText;
-
-        return $this;
-    }
-
-    /**
-     * Get passwordPlainText
-     *
-     * @return string 
-     */
-    public function getPasswordPlainText()
-    {
-        return $this->passwordPlainText;
-    }
-
-    /**
      * Set password
      *
      * @param string $password
-     * @return UserCredentials
+     * @return Credentials
      */
     public function setPassword($password)
     {
@@ -223,33 +117,10 @@ class Credentials
     }
 
     /**
-     * Set commentPlainText
-     *
-     * @param string $commentPlainText
-     * @return UserCredentials
-     */
-    public function setCommentPlainText($commentPlainText)
-    {
-        $this->commentPlainText = $commentPlainText;
-
-        return $this;
-    }
-
-    /**
-     * Get commentPlainText
-     *
-     * @return string 
-     */
-    public function getCommentPlainText()
-    {
-        return $this->commentPlainText;
-    }
-
-    /**
      * Set comment
      *
      * @param string $comment
-     * @return UserCredentials
+     * @return Credentials
      */
     public function setComment($comment)
     {
@@ -269,79 +140,10 @@ class Credentials
     }
 
     /**
-     * Set emailPlainText
-     *
-     * @param string $emailPlainText
-     * @return UserCredentials
-     */
-    public function setEmailPlainText($emailPlainText)
-    {
-        $this->emailPlainText = $emailPlainText;
-
-        return $this;
-    }
-
-    /**
-     * Get emailPlainText
-     *
-     * @return string 
-     */
-    public function getEmailPlainText()
-    {
-        return $this->emailPlainText;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return UserCredentials
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set expired
-     *
-     * @param boolean $expired
-     * @return UserCredentials
-     */
-    public function setExpired($expired)
-    {
-        $this->expired = $expired;
-
-        return $this;
-    }
-
-    /**
-     * Get expired
-     *
-     * @return boolean 
-     */
-    public function getExpired()
-    {
-        return $this->expired;
-    }
-
-    /**
      * Set expiresAt
      *
      * @param \DateTime $expiresAt
-     * @return UserCredentials
+     * @return Credentials
      */
     public function setExpiresAt($expiresAt)
     {
@@ -358,28 +160,5 @@ class Credentials
     public function getExpiresAt()
     {
         return $this->expiresAt;
-    }
-
-    /**
-     * Set oneTimeView
-     *
-     * @param boolean $oneTimeView
-     * @return UserCredentials
-     */
-    public function setOneTimeView($oneTimeView)
-    {
-        $this->oneTimeView = $oneTimeView;
-
-        return $this;
-    }
-
-    /**
-     * Get oneTimeView
-     *
-     * @return boolean 
-     */
-    public function getOneTimeView()
-    {
-        return $this->oneTimeView;
     }
 }
