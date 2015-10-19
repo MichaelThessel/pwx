@@ -26,6 +26,11 @@ class DefaultControllerTest extends WebTestCase
         return $app;
     }
 
+    /**
+     * Test credential creation
+     *
+     * @return void
+     */
     public function testIndex()
     {
         $client = $this->createClient();
@@ -41,6 +46,12 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('button[type="submit"]')->count());
     }
 
+    /**
+     * Test redirect after credential creation, test if link on password share
+     * page leads to password view page
+     *
+     * @return void
+     */
     public function testSubmitCredentialsAndRedirectToLinkPage()
     {
         $client = $this->createClient();
@@ -66,7 +77,9 @@ class DefaultControllerTest extends WebTestCase
     }
 
     /**
-     * @param Link $link
+     * Test credential viewing
+     *
+     * @param Symfony\Component\DomCrawler\Link $link Link to test
      *
      * @depends testSubmitCredentialsAndRedirectToLinkPage
      */
@@ -82,7 +95,9 @@ class DefaultControllerTest extends WebTestCase
     }
 
     /**
-     * @param Link $link
+     * Test credential deletion
+     *
+     * @param Symfony\Component\DomCrawler\Link $link Link to test
      *
      * @depends testSubmitCredentialsAndRedirectToLinkPage
      */
@@ -90,20 +105,19 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = $this->createClient();
         $crawler = $client->click($link);
-        $hash = substr(strrchr($link->getUri(), '/'), 1);
 
-        // Delete entry with redirect to '/'
+        // Delete credential
         $form = $crawler->filter('#deleteCredentialsForm')->form();
         $client->submit($form);
         $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
 
-        // Test if redirects to home '/'
+        // Test if redirects to '/'
         $this->assertEquals('/', $client->getRequest()->getRequestUri());
 
-        // Go again to the password-link page
-        // The password is expired
-        $crawler = $client->request('GET', '/pw/' . $hash);
+        // Visit the link page again and see of the entry is deleted
+        $client = $this->createClient();
+        $crawler = $client->click($link);
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
     }
 }
