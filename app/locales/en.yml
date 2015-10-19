@@ -16,8 +16,9 @@ app.data.month: month
 
 app.language: Language
 app.language.english: English
-app.language.spanish: Español
+app.language.esperanto: Esperanto
 app.language.german: Deutsch
+app.language.spanish: Español
 
 app.theme: Theme
 

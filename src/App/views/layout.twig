@@ -44,6 +44,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'app.language'|trans }} <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li {% if app['locale'] == 'en' %}class="active"{% endif %}><a href="#" data-locale="en">{{ 'app.language.english'|trans }}</a></li>
+                <li {% if app['locale'] == 'eo' %}class="active"{% endif %}><a href="#" data-locale="eo">{{ 'app.language.esperanto'|trans }}</a></li>
                 <li {% if app['locale'] == 'es' %}class="active"{% endif %}><a href="#" data-locale="es">{{ 'app.language.spanish'|trans }}</a></li>
                 <li {% if app['locale'] == 'de' %}class="active"{% endif %}><a href="#" data-locale="de">{{ 'app.language.german'|trans }}</a></li>
               </ul>
