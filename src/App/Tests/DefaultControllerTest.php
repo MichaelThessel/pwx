@@ -8,7 +8,12 @@ use Symfony\Component\DomCrawler\Link;
 class DefaultControllerTest extends WebTestCase
 {
 
-    protected $credentials;
+    protected $credentials = array(
+            'userName' => 'nameOfUser',
+            'password' => 'passwordOfUser',
+            'comment' => 'commentOfUser',
+            'period' => 3600
+    );
 
     public function createApplication()
     {
@@ -20,19 +25,6 @@ class DefaultControllerTest extends WebTestCase
 
         return $app;
     }
-
-    /**
-     * @before
-     */
-    public function setCredentials()
-    {
-        $this->credentials = array(
-            'userName' => 'nameOfUser',
-            'password' => 'passwordOfUser',
-            'comment' => 'commentOfUser',
-            'period' => 3600);
-    }
-
 
     public function testIndex()
     {
@@ -66,6 +58,7 @@ class DefaultControllerTest extends WebTestCase
         $link = $crawler->filter('#passwordlink')->link();
 
         $this->assertTrue($client->getResponse()->isOk());
+
         $this->assertContains('/link/' . $hash, $client->getRequest()->getUri());
         $this->assertContains('/pw/' . $hash, $crawler->filter('#passwordlink')->text());
 
@@ -83,8 +76,8 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->click($link);
 
         $this->assertTrue($client->getResponse()->isOk());
-        $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName  > span')->text());
-        $this->assertEquals($this->credentials['password'], $crawler->filter('#password  > span')->text());
+        $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName > span')->text());
+        $this->assertEquals($this->credentials['password'], $crawler->filter('#password > span')->text());
         $this->assertEquals($this->credentials['comment'], trim($crawler->filter('#comment')->text()));
     }
 
@@ -102,21 +95,15 @@ class DefaultControllerTest extends WebTestCase
         // Delete entry with redirect to '/'
         $form = $crawler->filter('#deleteCredentialsForm')->form();
         $client->submit($form);
-        $crawler = $client->followRedirect();
+        $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
 
-        // Repeating the Assertions from testIndex
-        // Smells a bit ugly
-        // better is to get the Route from the framework or add an unique ID or title to home
-        $this->assertEquals(1, $crawler->filter('input[name="userName"]')->count());
-        $this->assertEquals(1, $crawler->filter('input[name="password"]')->count());
-        $this->assertEquals(1, $crawler->filter('textarea[name="comment"]')->count());
-        $this->assertEquals(1, $crawler->filter('select[name="period"]')->count());
-        $this->assertEquals(1, $crawler->filter('button[type="submit"]')->count());
+        // Test if redirects to home '/'
+        $this->assertEquals('/', $client->getRequest()->getRequestUri());
 
         // Go again to the password-link page
         // The password is expired
-        $crawler = $client->request('GET', '/pw/'.$hash);
+        $crawler = $client->request('GET', '/pw/' . $hash);
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
     }
 }
