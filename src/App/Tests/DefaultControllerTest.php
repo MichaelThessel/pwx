@@ -64,6 +64,9 @@ class DefaultControllerTest extends WebTestCase
 
         // Follow redirect to share link page
         $crawler = $client->followRedirect();
+
+        // Test URI and Link-Url
+        $hash = substr(strrchr($crawler->filter('#passwordlink')->text(), '/'),1);
         $this->assertTrue($client->getResponse()->isOk());
 
         return $crawler->filter('#passwordlink')->link();
