@@ -49,9 +49,9 @@ class CredentialService {
             ->fetch();
 
         if ($this->cipher && $credentials) {
-            $credentials['userName'] = $this->cipher->decrypt($credentials['userName']);
-            $credentials['password'] = $this->cipher->decrypt($credentials['password']);
-            $credentials['comment'] = $this->cipher->decrypt($credentials['comment']);
+            $credentials['userName'] = !empty($credentials['userName']) ? $this->cipher->decrypt($credentials['userName']) : '';
+            $credentials['password'] = !empty($credentials['password']) ? $this->cipher->decrypt($credentials['password']) : '';
+            $credentials['comment'] = !empty($credentials['comment']) ? $this->cipher->decrypt($credentials['comment']) : '';
         }
 
         return $credentials;
