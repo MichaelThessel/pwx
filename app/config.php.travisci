@@ -1,5 +1,5 @@
 <?php
-$config['debug'] = false;
+$config['debug'] = true;
 
 $config['requireHttps'] = false;
 
