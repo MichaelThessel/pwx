@@ -66,7 +66,11 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
 
-        return $crawler->filter('#passwordlink')->link();
+        $link = $crawler->filter('#passwordlink')->link()->getUri();
+        $hash = array();
+        $this->assertEquals(1, preg_match('/pw\/(.*)$/', $link, $hash));
+
+        return '/pw/' . $hash[1];
     }
 
     /**
@@ -79,7 +83,7 @@ class DefaultControllerTest extends WebTestCase
     public function testViewCredentials($link)
     {
         $client = $this->createClient();
-        $crawler = $client->request('GET', $link->getUri());
+        $crawler = $client->request('GET', $link);
 
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName > span')->text());
@@ -97,7 +101,7 @@ class DefaultControllerTest extends WebTestCase
     public function testDeleteCredentials($link)
     {
         $client = $this->createClient();
-        $crawler = $client->request('GET', $link->getUri());
+        $crawler = $client->request('GET', $link);
 
         // Delete credential
         $form = $crawler->filter('#deleteCredentialsForm')->form();
@@ -110,7 +114,7 @@ class DefaultControllerTest extends WebTestCase
 
         // Visit the link page again and see of the entry is deleted
         $client = $this->createClient();
-        $crawler = $client->request('GET', $link->getUri());
+        $crawler = $client->request('GET', $link);
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
     }
 }
