@@ -21,7 +21,7 @@ class CryptAESFactoryTest extends \PHPUnit_Framework_TestCase
         $this->aes = new CryptAESService($this->config);
     }
 
-    public function testEncryptCredentials()
+    public function testEncryptDecryptCredentials()
     {
         $credentials = new Credentials();
         $credentials->setUsername('testUser');
@@ -32,9 +32,12 @@ class CryptAESFactoryTest extends \PHPUnit_Framework_TestCase
         $encryptedCredentials = $this->aes->encrypt(clone $credentials);
         $decryptedCredentials = $this->aes->decrypt(clone $encryptedCredentials);
 
-        var_dump($credentials);
-        var_dump($encryptedCredentials);
-        var_dump($decryptedCredentials);
+        $this->assertNotEquals($credentials->getUsername(), $encryptedCredentials->getUsername());
+        $this->assertNotEquals($credentials->getPassword(), $encryptedCredentials->getPassword());
+        $this->assertNotEquals($credentials->getComment(), $encryptedCredentials->getComment());
+        $this->assertEquals($credentials->getUsername(), $decryptedCredentials->getUsername());
+        $this->assertEquals($credentials->getPassword(), $decryptedCredentials->getPassword());
+        $this->assertEquals($credentials->getComment(), $decryptedCredentials->getComment());
     }
 
 
