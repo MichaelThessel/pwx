@@ -12,4 +12,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class CredentialsRepository extends EntityRepository
 {
+    public function clean()
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb ->delete()
+            ->where($qb->expr()->lt('c.expires', '?1'))
+            ->setParameter(1, time())
+            ->getQuery()
+            ->execute()
+        ;
+    }
+
+    public function findNotExpiredByHash($hash)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb ->select('c')
+            ->where($qb->expr()->andX(
+                $qb->expr()->eq('c.hash', '?1'),
+                $qb->expr()->gt('c.expires', '?2')
+            ))
+            ->setParameter(1, $hash)
+            ->setParameter(2, time())
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

@@ -68,7 +68,7 @@ $app['translator'] = $app->share($app->extend('translator', function(\Silex\Tran
 // Register default controller
 $app['app.default_controller'] = $app->share(
     function () use ($app) {
-        return new \App\Controller\DefaultController($app, $app['twig'], $app['credential_service'], $app['request']);
+        return new \App\Controller\DefaultController($app, $app['twig'], $app['credential_service_em'], $app['request']);
     }
 );
 
@@ -81,6 +81,20 @@ if ($config['requireHttps']) {
 $app['credential_service'] = $app->share(
     function () use ($app, $config) {
         return new \App\Model\CredentialService($app['db'], $config);
+    }
+);
+
+// Register credentialEM service
+$app['credential_service_em'] = $app->share(
+    function () use ($app, $config) {
+        return new \App\Model\CredentialServiceEM($app['orm.em'], $app['crypt_aes_service']);
+    }
+);
+
+// Register cryptAES service
+$app['crypt_aes_service'] = $app->share(
+    function () use ($app, $config) {
+        return new \App\Model\CryptAESService($config);
     }
 );
 

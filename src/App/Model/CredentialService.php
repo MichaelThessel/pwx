@@ -6,7 +6,8 @@ use Doctrine\DBAL\Connection as DoctrineConnection;
 use Crypt_AES;
 use Crypt_RSA;
 
-class CredentialService {
+class CredentialService implements CredentialServiceInterface
+{
 
     protected $db;
     protected $table = 'credentials';

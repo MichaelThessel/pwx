@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\CredentialServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
-use App\Model\CredentialService;
 use Twig_Environment;
 
 class DefaultController
@@ -17,9 +17,9 @@ class DefaultController
      *
      * @param mixed $app
      * @param Twig_Environment $twig
-     * @param CredentialService $credentialService
+     * @param CredentialServiceInterface $credentialService
      */
-    public function __construct($app, Twig_Environment $twig, CredentialService $credentialService)
+    public function __construct($app, Twig_Environment $twig, CredentialServiceInterface $credentialService)
     {
         $this->app = $app;
         $this->twig = $twig;
