@@ -80,7 +80,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = $this->createClient();
         $crawler = $client->request('GET', $link->getUri());
-
+        var_dump($client->getResponse()->getContent());
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName > span')->text());
         $this->assertEquals($this->credentials['password'], $crawler->filter('#password > span')->text());
