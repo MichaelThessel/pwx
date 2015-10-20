@@ -47,33 +47,26 @@ class DefaultControllerTest extends WebTestCase
     }
 
     /**
-     * Test redirect after credential creation, test if link on password share
-     * page leads to password view page
+     * Test redirect after credential creation
      *
      * @return void
      */
-    public function testSubmitCredentialsAndRedirectToLinkPage()
+    public function testSaveCredentialsAndRedirectToSharePage()
     {
+        // Load index page
         $client = $this->createClient();
         $crawler = $client->request('GET', '/');
-        $form = $crawler->filter('#submitCredentialsForm')->form();
 
+        // Save credentials
+        $form = $crawler->filter('#submitCredentialsForm')->form();
         $form->setValues($this->credentials);
         $client->submit($form);
+
+        // Follow redirect to share link page
         $crawler = $client->followRedirect();
-
-        // Test URI and Link-Url
-        $hash = substr(strrchr($crawler->filter('#passwordlink')->text(), '/'), 1);
-
-        // Get and follow the link to revealed passwords
-        $link = $crawler->filter('#passwordlink')->link();
-
         $this->assertTrue($client->getResponse()->isOk());
 
-        $this->assertContains('/link/' . $hash, $client->getRequest()->getUri());
-        $this->assertContains('/pw/' . $hash, $crawler->filter('#passwordlink')->text());
-
-        return $link;
+        return $crawler->filter('#passwordlink')->link();
     }
 
     /**
@@ -81,12 +74,12 @@ class DefaultControllerTest extends WebTestCase
      *
      * @param Symfony\Component\DomCrawler\Link $link Link to test
      *
-     * @depends testSubmitCredentialsAndRedirectToLinkPage
+     * @depends testSaveCredentialsAndRedirectToSharePage
      */
-    public function testRevealCredentialsPage($link)
+    public function testViewCredentials($link)
     {
         $client = $this->createClient();
-        $crawler = $client->click($link);
+        $crawler = $client->request('GET', $link->getUri());
 
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName > span')->text());
@@ -99,12 +92,12 @@ class DefaultControllerTest extends WebTestCase
      *
      * @param Symfony\Component\DomCrawler\Link $link Link to test
      *
-     * @depends testSubmitCredentialsAndRedirectToLinkPage
+     * @depends testSaveCredentialsAndRedirectToSharePage
      */
-    public function testClickOnDeleteCredentials($link)
+    public function testDeleteCredentials($link)
     {
         $client = $this->createClient();
-        $crawler = $client->click($link);
+        $crawler = $client->request('GET', $link->getUri());
 
         // Delete credential
         $form = $crawler->filter('#deleteCredentialsForm')->form();
@@ -117,7 +110,7 @@ class DefaultControllerTest extends WebTestCase
 
         // Visit the link page again and see of the entry is deleted
         $client = $this->createClient();
-        $crawler = $client->click($link);
+        $crawler = $client->request('GET', $link->getUri());
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
     }
 }
