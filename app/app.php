@@ -35,6 +35,10 @@ if (file_exists(__DIR__ . '/config.php')) {
     include __DIR__ . '/config.php';
 }
 
+// Make the app secret globally available
+// this is necessary to allow for entity level encryption
+define('APP_SECRET', isset($config['secret']) && !empty($config['secret']) ? $config['secret'] : false);
+
 // Initialize Silex
 $app = new App\Silex\Application($config);
 
@@ -44,16 +48,8 @@ $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 // Register DoctrineServiceProvider service
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
 
-// Register eventlistener to doctrine events
-$app['db.event_manager']->addEventListener(array(
-        \Doctrine\ORM\Events::prePersist,
-        \Doctrine\ORM\Events::postLoad
-    ),
-    new \App\EventListener\AESCrypter($config)
-);
-
 // Register DoctrineOrmServiceProvider service
-$app->register(new \Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), $config);
+$app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), $config);
 
 // Register translation service
 $validLocales = array('de', 'en', 'eo', 'es');
@@ -63,7 +59,7 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
 ));
 
 // Register the yaml translations
-$app['translator'] = $app->share($app->extend('translator', function(\Silex\Translator $translator, $app) use ($validLocales) {
+$app['translator'] = $app->share($app->extend('translator', function(Silex\Translator $translator, $app) use ($validLocales) {
     $translator->addLoader('yaml', new Symfony\Component\Translation\Loader\YamlFileLoader());
 
     foreach ($validLocales as $locale) {
@@ -73,10 +69,23 @@ $app['translator'] = $app->share($app->extend('translator', function(\Silex\Tran
     return $translator;
 }));
 
+// Register Credentials factory
+$app['credentials_factory'] = $app->share(
+    function () use ($app, $config) {
+        return new App\Model\CredentialsFactory();
+    }
+);
+
 // Register default controller
 $app['app.default_controller'] = $app->share(
     function () use ($app) {
-        return new \App\Controller\DefaultController($app, $app['twig'], $app['request']);
+        return new App\Controller\DefaultController(
+            $app,
+            $app['twig'],
+            $app['orm.em'],
+            $app['credentials_factory'],
+            $app['orm.em']->getRepository('App\Entity\Credentials')
+        );
     }
 );
 
@@ -85,17 +94,10 @@ if ($config['requireHttps']) {
     $app['controllers']->requireHttps();
 }
 
-// Register cryptAES service
-$app['crypt_aes_service'] = $app->share(
-    function () use ($app, $config) {
-        return new \App\Model\CryptAESService($config);
-    }
-);
-
 // Register theme service & set user theme
 $app['theme_service'] = $app->share(
     function () use ($app){
-        return new \App\Model\ThemeService($app);
+        return new App\Model\ThemeService($app);
     }
 );
 $app['theme_service']->setUserTheme();

@@ -7,29 +7,11 @@ use App\Entity\Credentials;
 class CredentialsFactory {
 
     /**
-     * Constructor
+     * Get Credentials instance
      *
-     * @param $userName
-     * @param $password
-     * @param $comment
-     * @param $period
-     *
-     * @return Credentials
+     * @return Credentials Initialized credentials instance
      */
-    public static function createCredentials($userName = "", $password = "", $comment = "", $period = 0) {
-
-        $credentials = new Credentials();
-
-        $credentials->setUsername($userName);
-        $credentials->setPassword($password);
-        $credentials->setComment($comment);
-
-        if ($period < 60 * 60 || $period > 60 * 60 * 24 * 30) {
-            $period = 60 * 60;
-        }
-
-        $credentials->setExpires(time() + $period);
-
-        return $credentials;
+    public function getInstance() {
+        return new Credentials();
     }
 }

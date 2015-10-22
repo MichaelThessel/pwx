@@ -2,68 +2,78 @@
 
 namespace App\Entity;
 
+use Crypt_RSA;
+
 /**
  * UserCredentials
  *
- * @Table()
+ * @Table(name="credentials")
  * @Entity(repositoryClass="App\Entity\CredentialsRepository")
+ * @HasLifecycleCallbacks()
  */
-class Credentials
+class Credentials extends AbstractCryptedEntity
 {
     /**
-     * @var string
-     *
      * @Column(name="hash", type="string", length=10, options={"default" = ""})
      * @Id
      * @GeneratedValue(strategy="NONE")
      */
-    private $hash;
+    protected $hash;
 
     /**
-     * @var string
-     *
      * @Column(name="username", type="text", length=65535)
      */
-    private $username;
+    protected $username;
 
     /**
-     * @var string
-     *
      * @Column(name="password", type="text", length=65535)
      */
-    private $password;
+    protected $password;
 
     /**
-     * @var string
-     *
      * @Column(name="comment", type="text", length=65535)
      */
-    private $comment;
+    protected $comment;
 
     /**
-     * @var \DateTime
-     *
      * @Column(name="expires", type="integer")
      */
-    private $expires;
+    protected $expires;
+
+    protected $cryptedProperties = array(
+        'username',
+        'password',
+        'comment',
+    );
 
     /**
      * Set hash
      *
      * @param string $hash
-     * @return Credentials
+     * @return void
      */
     public function setHash($hash)
     {
         $this->hash = $hash;
+    }
 
-        return $this;
+    /**
+     * Initialize hash
+     * @PrePersist
+     *
+     * @return void
+     */
+    public function initHash()
+    {
+        $rsa = new Crypt_RSA();
+        $key = $rsa->createKey();
+        $this->hash = substr(md5($key['privatekey']), 0, 10);
     }
 
     /**
      * Get hash
      *
-     * @return string 
+     * @return string
      */
     public function getHash()
     {
@@ -74,19 +84,17 @@ class Credentials
      * Set username
      *
      * @param string $username
-     * @return Credentials
+     * @return void
      */
     public function setUsername($username)
     {
         $this->username = $username;
-
-        return $this;
     }
 
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -97,19 +105,17 @@ class Credentials
      * Set password
      *
      * @param string $password
-     * @return Credentials
+     * @return void
      */
     public function setPassword($password)
     {
         $this->password = $password;
-
-        return $this;
     }
 
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -120,19 +126,17 @@ class Credentials
      * Set comment
      *
      * @param string $comment
-     * @return Credentials
+     * @return void
      */
     public function setComment($comment)
     {
         $this->comment = $comment;
-
-        return $this;
     }
 
     /**
      * Get comment
      *
-     * @return string 
+     * @return string
      */
     public function getComment()
     {
@@ -140,20 +144,24 @@ class Credentials
     }
 
     /**
-     * Set expiresAt
+     * Set expires
      *
      * @param integer $expires
-     * @return Credentials
+     * @return void
      */
     public function setExpires($expires)
     {
-        $this->expires = $expires;
+        if ($expires < 60 * 60 || $expires > 60 * 60 * 24 * 30) {
+            $expires = 60 * 60;
+        }
 
-        return $this;
+        $expires = time() + $expires;
+
+        $this->expires = $expires;
     }
 
     /**
-     * Get expiresAt
+     * Get expires
      *
      * @return integer
      */
