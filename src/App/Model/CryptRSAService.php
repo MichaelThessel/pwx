@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Crypt_RSA;
 
-class CryptRSAFactory {
+class CryptRSAService {
 
     /**
      * @param $length

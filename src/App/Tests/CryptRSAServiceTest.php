@@ -2,19 +2,19 @@
 
 namespace AppBundle\Tests\Model;
 
-use App\Model\CryptRSAFactory;
+use App\Model\CryptRSAService;
 
-class CryptRSAFactoryTest extends \PHPUnit_Framework_TestCase
+class CryptRSAServiceTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var CryptRSAFactory
+     * @var CryptRSAService
      */
     protected $rsa;
 
     public function setUp()
     {
-        $this->rsa = new CryptRSAFactory();
+        $this->rsa = new CryptRSAService();
     }
 
     public function testLengthHash()

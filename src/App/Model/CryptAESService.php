@@ -61,7 +61,7 @@ class CryptAESService {
         $expires = time() + $expires;
 
         // Use RSA 1024 bit private key to create random hash
-        $rsa = new CryptRSAFactory();
+        $rsa = new CryptRSAService();
         $hash = $rsa->createHash(10);
 
         if ($this->cipher) {
