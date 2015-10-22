@@ -37,7 +37,9 @@ if (file_exists(__DIR__ . '/config.php')) {
 
 // Make the app secret globally available
 // this is necessary to allow for entity level encryption
-define('APP_SECRET', isset($config['secret']) && !empty($config['secret']) ? $config['secret'] : false);
+if (!defined('APP_SECRET')) {
+    define('APP_SECRET', isset($config['secret']) && !empty($config['secret']) ? $config['secret'] : false);
+}
 
 // Initialize Silex
 $app = new App\Silex\Application($config);
