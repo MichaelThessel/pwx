@@ -119,11 +119,7 @@ class DefaultController
         $credentials = $this->credentialsRepository->find($hash);
 
         return $this->twig->render('view_password.twig', array(
-            'userName' => $credentials->getUsername(),
-            'password' => $credentials->getPassword(),
-            'comment' => $credentials->getComment(),
-            'expires' => $credentials->getExpires() * 1000,
-            'hash' => $hash,
+            'credentials' => $credentials,
         ));
     }
 
