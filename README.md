@@ -28,7 +28,22 @@ Create configuration file and adjust according to your environment:
 # cp app/config.php.sample app/config.php
 ```
 
-Create or update the database schema
+Create the database schema:
+```
+app/console orm:schema-tool:create
+```
+
+Update
+======
+
+If you are updating to a newer version follow these steps.
+
+Update dependencies:
+```
+# php composer.phar update
+```
+
+Update the database schema:
 ```
 app/console orm:schema-tool:update --force
 ```
