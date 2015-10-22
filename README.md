@@ -22,14 +22,14 @@ Install dependencies:
 # php composer.phar install
 ```
 
-Install the database dump (MySQL):
-```
-# cat install/install.sql | mysql -u [user] -h [host] -p [dbname]
-```
-
 Create configuration file and adjust according to your environment:
 ```
 # cp app/config.php.sample app/config.php
+```
+
+Create or update the database schema
+```
+app/console orm:schema-tool:update --force
 ```
 
 Tests

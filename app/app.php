@@ -44,6 +44,14 @@ $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 // Register DoctrineServiceProvider service
 $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
 
+// Register eventlistener to doctrine events
+$app['db.event_manager']->addEventListener(array(
+        \Doctrine\ORM\Events::prePersist,
+        \Doctrine\ORM\Events::postLoad
+    ),
+    new \App\EventListener\AESCrypter($config)
+);
+
 // Register DoctrineOrmServiceProvider service
 $app->register(new \Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), $config);
 
@@ -68,7 +76,7 @@ $app['translator'] = $app->share($app->extend('translator', function(\Silex\Tran
 // Register default controller
 $app['app.default_controller'] = $app->share(
     function () use ($app) {
-        return new \App\Controller\DefaultController($app, $app['twig'], $app['credential_service_em'], $app['request']);
+        return new \App\Controller\DefaultController($app, $app['twig'], $app['request']);
     }
 );
 
@@ -76,20 +84,6 @@ $app['app.default_controller'] = $app->share(
 if ($config['requireHttps']) {
     $app['controllers']->requireHttps();
 }
-
-// Register credential service
-$app['credential_service'] = $app->share(
-    function () use ($app, $config) {
-        return new \App\Model\CredentialService($app['db'], $config);
-    }
-);
-
-// Register credentialEM service
-$app['credential_service_em'] = $app->share(
-    function () use ($app, $config) {
-        return new \App\Model\CredentialServiceEM($app['orm.em'], $app['crypt_aes_service']);
-    }
-);
 
 // Register cryptAES service
 $app['crypt_aes_service'] = $app->share(

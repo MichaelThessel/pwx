@@ -5,7 +5,7 @@ namespace App\Entity;
 /**
  * UserCredentials
  *
- * @Table(name="entity_credentials_table")
+ * @Table()
  * @Entity(repositoryClass="App\Entity\CredentialsRepository")
  */
 class Credentials

@@ -2,31 +2,38 @@
 
 namespace App\Controller;
 
-use App\Model\CredentialServiceInterface;
+use App\Entity\Credentials;
+use App\Model\CredentialsFactory;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Twig_Environment;
 
 class DefaultController
 {
+    /** @var EntityManager */
+    protected $em;
+
+    /** @var \Pimple */
     protected $app;
+
+    /** @var Twig_Environment  */
     protected $twig;
-    protected $credentialService;
 
     /**
      * Constructor
      *
      * @param mixed $app
      * @param Twig_Environment $twig
-     * @param CredentialServiceInterface $credentialService
      */
-    public function __construct($app, Twig_Environment $twig, CredentialServiceInterface $credentialService)
+    public function __construct($app, Twig_Environment $twig)
     {
         $this->app = $app;
         $this->twig = $twig;
-        $this->credentialService = $credentialService;
+        $this->em = $app['orm.em'];
 
         // Clean the db on every request (workaround to not have to add cronjobs)
-        $this->credentialService->clean();
+        $this->em->getRepository('App\Entity\Credentials')
+            ->clean();
     }
 
     /**
@@ -57,9 +64,15 @@ class DefaultController
         }
 
         $period = $request->get('period', 60 * 60);
-        $hash = $this->credentialService->save($userName, $password, $comment, $period);
 
-        return $this->app->redirect($this->app['baseUrl'] . '/link/' . $hash);
+        // Generate a new CredentialsObject
+        $credentials = CredentialsFactory::createCredentials($userName, $password, $comment, $period);
+
+        /** @var EntityManager $em */
+        $this->em->persist($credentials);
+        $this->em->flush();
+
+        return $this->app->redirect($this->app['baseUrl'] . '/link/' . $credentials->getHash());
     }
 
     /**
@@ -83,13 +96,29 @@ class DefaultController
      */
     public function viewPasswordAction($hash)
     {
-        $credentials = $this->credentialService->get($hash);
+        /** @var Credentials $credentials $credentials */
+        $credentials = $this->em->getRepository('App\Entity\Credentials')
+            ->findNotExpiredByHash($hash);
+
+        if (!$credentials)
+        {
+            /**
+             * ToDo
+             * Throw a resourceNotFoundException
+             * Or render a resourceNotFound-Template
+             * passing a password=null keeps the behavior and let pass the functional tests
+             */
+            return $this->twig->render('view_password.twig', array(
+                'password' => null,
+                'hash' => $hash,
+            ));
+        }
 
         return $this->twig->render('view_password.twig', array(
-            'userName' => $credentials['userName'],
-            'password' => $credentials['password'],
-            'comment' => $credentials['comment'],
-            'expires' => $credentials['expires'] * 1000,
+            'userName' => $credentials->getUsername(),
+            'password' => $credentials->getPassword(),
+            'comment' => $credentials->getComment(),
+            'expires' => $credentials->getExpires() * 1000,
             'hash' => $hash,
         ));
     }
@@ -105,7 +134,15 @@ class DefaultController
         $hash = $request->get('hash');
 
         if ($hash) {
-            $this->credentialService->delete($hash);
+            $credentials = $this->em->getRepository('App\Entity\Credentials')
+                ->findOneBy(array(
+                    'hash' => $hash
+                ));
+            if ($credentials)
+            {
+                $this->em->remove($credentials);
+                $this->em->flush();
+            }
         }
 
         return $this->app->redirect($this->app['baseUrl'] . '/');
