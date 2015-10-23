@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Factory;
 
 use App\Entity\Credentials;
 

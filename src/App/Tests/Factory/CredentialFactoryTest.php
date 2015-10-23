@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Tests\Model;
+namespace AppBundle\Tests\Factory;
 
 use PHPUnit_Framework_TestCase;
 

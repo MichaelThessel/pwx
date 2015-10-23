@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Credentials;
 use App\Entity\CredentialsRepository;
-use App\Model\CredentialsFactory;
+use App\Factory\CredentialsFactory;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Twig_Environment;

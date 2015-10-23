@@ -74,7 +74,7 @@ $app['translator'] = $app->share($app->extend('translator', function(Silex\Trans
 // Register Credentials factory
 $app['credentials_factory'] = $app->share(
     function () {
-        return new App\Model\CredentialsFactory();
+        return new App\Factory\CredentialsFactory();
     }
 );
 
@@ -99,7 +99,7 @@ if ($config['requireHttps']) {
 // Register theme service & set user theme
 $app['theme_service'] = $app->share(
     function () use ($app){
-        return new App\Model\ThemeService($app);
+        return new App\Service\ThemeService($app);
     }
 );
 $app['theme_service']->setUserTheme();
