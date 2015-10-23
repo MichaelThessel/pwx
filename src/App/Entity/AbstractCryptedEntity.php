@@ -51,7 +51,7 @@ abstract class AbstractCryptedEntity extends CryptAES
             throw new \InvalidArgumentException('Invalid mode specified');
         }
 
-        if (!isset($this->cryptedProperties) or empty($this->cryptedProperties)) return;
+        if (!isset($this->cryptedProperties) || empty($this->cryptedProperties)) return;
 
         foreach ($this->cryptedProperties as $cryptedProperty) {
             $this->$cryptedProperty = $this->$mode($this->$cryptedProperty);
