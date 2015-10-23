@@ -14,6 +14,8 @@ before_install:
   - cp app/config.php.travisci app/config.php
 
   # Set up the database
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS `pwx`;' -u root
+  - mysql -e 'GRANT ALL ON `pwx`.* TO `pwx`@`localhost` IDENTIFIED BY "pwx";' -u root
   - app/console orm:schema-tool:create
 
 script:
