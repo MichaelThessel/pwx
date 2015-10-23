@@ -73,7 +73,7 @@ $app['translator'] = $app->share($app->extend('translator', function(Silex\Trans
 
 // Register Credentials factory
 $app['credentials_factory'] = $app->share(
-    function () use ($app, $config) {
+    function () {
         return new App\Model\CredentialsFactory();
     }
 );
