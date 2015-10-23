@@ -40,6 +40,8 @@ class Credentials
      */
     protected $expires;
 
+    protected $isEncrypted;
+
     /**
      * Set hash
      *
@@ -162,5 +164,26 @@ class Credentials
     public function getExpires()
     {
         return $this->expires;
+    }
+
+    /**
+     * Get encryption state
+     *
+     * @return bool Encrypion state
+     */
+    public function isEncrypted()
+    {
+        return $this->isEncrypted;
+    }
+
+    /**
+     * Set encryption state
+     *
+     * @param bool $isEncrypted Whether or not the entity is encrypted
+     * @return void
+     */
+    public function setIsEncrypted($isEncrypted)
+    {
+        $this->isEncrypted = $isEncrypted;
     }
 }

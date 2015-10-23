@@ -29,9 +29,7 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
      */
     public function testSave()
     {
-        $credentials = $this->credentialsService->save(
-            $this->credentials
-        );
+        $credentials = $this->credentialsService->save($this->credentials);
 
         $this->assertSame($credentials->getUsername(), $this->credentials['userName']);
         $this->assertSame($credentials->getPassword(), $this->credentials['password']);
@@ -43,12 +41,11 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test find credentials
-     *
-     * @depends testSave
      */
-    public function testFind($hash)
+    public function testFind()
     {
-        $credentials = $this->credentialsService->find($hash);
+        $credentials = $this->credentialsService->save($this->credentials);
+        $credentials = $this->credentialsService->find($credentials->getHash());
 
         $this->assertSame($credentials->getUsername(), $this->credentials['userName']);
         $this->assertSame($credentials->getPassword(), $this->credentials['password']);
@@ -62,11 +59,12 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test delete credentials
-     *
-     * @depends testSave
      */
-    public function testDelete($hash)
+    public function testDelete()
     {
+        $credentials = $this->credentialsService->save($this->credentials);
+        $hash = $credentials->getHash();
+
         $this->assertTrue(is_object($this->credentialsService->find($hash)));
         $credentials = $this->credentialsService->delete($hash);
         $this->assertTrue(is_null($this->credentialsService->find($hash)));
