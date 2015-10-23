@@ -6,12 +6,12 @@
         "silex/silex": "~1.2",
         "aptoma/silex-extras": "~1.2",
         "symfony/twig-bridge": "~2.3",
-        "doctrine/dbal": "~2.2",
         "phpseclib/phpseclib": "0.3.10",
         "symfony/translation": "~2.7",
         "symfony/config": "~2.7",
         "symfony/yaml": "~2.7",
-        "phpunit/phpunit": "4.8.*"
+        "phpunit/phpunit": "4.8.*",
+        "dflydev/doctrine-orm-service-provider": "1.0.*"
     },
     "autoload": {
         "psr-0": {

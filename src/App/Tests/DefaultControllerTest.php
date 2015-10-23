@@ -49,7 +49,7 @@ class DefaultControllerTest extends WebTestCase
     /**
      * Test redirect after credential creation
      *
-     * @return void
+     * @return Link
      */
     public function testSaveCredentialsAndRedirectToSharePage()
     {
@@ -64,6 +64,9 @@ class DefaultControllerTest extends WebTestCase
 
         // Follow redirect to share link page
         $crawler = $client->followRedirect();
+
+        // Test URI and Link-Url
+        $hash = substr(strrchr($crawler->filter('#passwordlink')->text(), '/'),1);
         $this->assertTrue($client->getResponse()->isOk());
 
         $link = $crawler->filter('#passwordlink')->link()->getUri();
@@ -76,7 +79,7 @@ class DefaultControllerTest extends WebTestCase
     /**
      * Test credential viewing
      *
-     * @param Symfony\Component\DomCrawler\Link $link Link to test
+     * @param Link $link Link to test
      *
      * @depends testSaveCredentialsAndRedirectToSharePage
      */
@@ -94,7 +97,7 @@ class DefaultControllerTest extends WebTestCase
     /**
      * Test credential deletion
      *
-     * @param Symfony\Component\DomCrawler\Link $link Link to test
+     * @param Link $link to test
      *
      * @depends testSaveCredentialsAndRedirectToSharePage
      */
