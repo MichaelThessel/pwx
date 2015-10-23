@@ -26,4 +26,17 @@ class CredentialsFactory extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('App\Entity\Credentials', $instance);
     }
+
+    /**
+     * Test if hash is initalized
+     *
+     * @return void
+     */
+    public function testHashIsInitialized()
+    {
+        $instance = $this->credentialsFactory->getInstance();
+
+        $this->assertNotEmpty($instance->getHash());
+        $this->assertSame(10, strlen($instance->getHash()));
+    }
 }
