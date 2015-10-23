@@ -73,7 +73,7 @@ class CredentialsService extends AbstractCryptService
     public function find($hash)
     {
         $credentials = $this->credentialsRepository->find($hash);
-        $this->decryptProperties($credentials);
+        if ($credentials) $this->decryptProperties($credentials);
 
         return $credentials;
     }
