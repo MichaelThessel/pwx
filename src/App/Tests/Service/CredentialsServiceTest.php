@@ -39,6 +39,8 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
             $credentials->getExpires() - 2 <= $expires &&
             $credentials->getExpires() + 2 >= $expires
         );
+
+        $this->credentialsService->delete($credentials->getHash());
     }
 
     /**
@@ -52,6 +54,8 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
         $this->assertSame($credentials->getUserName(), $this->credentials['userName']);
         $this->assertSame($credentials->getPassword(), $this->credentials['password']);
         $this->assertSame($credentials->getcomment(), $this->credentials['comment']);
+
+        $this->credentialsService->delete($credentials->getHash());
     }
 
     /**
@@ -85,5 +89,7 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
         $credentials = $this->credentialsService->save($testCredentials);
 
         $this->assertNotSame($credentials->getExpires(), $testCredentials['expires'] + time());
+
+        $this->credentialsService->delete($credentials->getHash());
     }
 }

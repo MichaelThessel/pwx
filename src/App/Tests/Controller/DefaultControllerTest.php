@@ -65,12 +65,14 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
 
         // Test URI and Link-Url
-        $hash = substr(strrchr($crawler->filter('#passwordlink')->text(), '/'),1);
+        $hash = substr(strrchr($crawler->filter('#passwordlink')->text(), '/'), 1);
         $this->assertTrue($client->getResponse()->isOk());
 
         $link = $crawler->filter('#passwordlink')->link()->getUri();
         $hash = array();
         $this->assertEquals(1, preg_match('/pw\/(.*)$/', $link, $hash));
+
+        $this->credentialsService->delete($hash[1]);
     }
 
     /**
@@ -87,6 +89,8 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName > span')->text());
         $this->assertEquals($this->credentials['password'], $crawler->filter('#password > span')->text());
         $this->assertEquals($this->credentials['comment'], trim($crawler->filter('#comment')->text()));
+
+        $this->credentialsService->delete($credentials->getHash());
     }
 
     /**
