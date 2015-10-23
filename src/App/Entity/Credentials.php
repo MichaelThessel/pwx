@@ -182,7 +182,7 @@ class Credentials
      * @param bool $isEncrypted Whether or not the entity is encrypted
      * @return void
      */
-    public function setIsEncrypted($isEncrypted)
+    public function setEncrypted($isEncrypted)
     {
         $this->isEncrypted = $isEncrypted;
     }

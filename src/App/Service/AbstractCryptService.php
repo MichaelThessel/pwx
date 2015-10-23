@@ -21,7 +21,7 @@ abstract class AbstractCryptService extends CryptAES
         if (!is_null($item->isEncrypted()) && $item->isEncrypted()) return;
 
         $this->cryptProperties('encrypt', $item);
-        $item->setIsEncrypted(true);
+        $item->setEncrypted(true);
     }
 
     /**
@@ -34,7 +34,7 @@ abstract class AbstractCryptService extends CryptAES
         if (!is_null($item->isEncrypted()) && !$item->isEncrypted()) return;
 
         $this->cryptProperties('decrypt', $item);
-        $item->setIsEncrypted(false);
+        $item->setEncrypted(false);
     }
 
     /**
