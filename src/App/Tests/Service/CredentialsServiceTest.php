@@ -24,8 +24,6 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test saving of credentials
-     *
-     * @return string Hash of new credentials
      */
     public function testSave()
     {
@@ -41,8 +39,6 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
             $credentials->getExpires() - 2 <= $expires &&
             $credentials->getExpires() + 2 >= $expires
         );
-
-        return $credentials->getHash();
     }
 
     /**
@@ -77,5 +73,17 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_object($this->credentialsService->find($hash)));
         $credentials = $this->credentialsService->delete($hash);
         $this->assertTrue(is_null($this->credentialsService->find($hash)));
+    }
+
+    /**
+     * Test expires limitation
+     */
+    public function testLimitExpires()
+    {
+        $testCredentials = $this->credentials;
+        $testCredentials['expires'] = 0;
+        $credentials = $this->credentialsService->save($testCredentials);
+
+        $this->assertNotSame($credentials->getExpires(), $testCredentials['expires'] + time());
     }
 }
