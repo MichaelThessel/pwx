@@ -48,6 +48,12 @@ class CredentialsService extends AbstractCryptService
      */
     public function save($args)
     {
+        // Limit expiry times
+        if ($args['expires'] < 60 * 60 || $args['expires'] > 60 * 60 * 24 * 30) {
+            $args['expires'] = 60 * 60;
+        }
+        $args['expires'] = time() + $args['expires'];
+
         $credentials = $this->credentialsFactory->getInstance();
 
         $credentials->setUserName($args['userName']);

@@ -2,14 +2,11 @@
 
 namespace App\Entity;
 
-use Crypt_RSA;
-
 /**
  * UserCredentials
  *
  * @Table(name="credentials")
  * @Entity(repositoryClass="App\Entity\CredentialsRepository")
- * @HasLifecycleCallbacks()
  */
 class Credentials
 {
@@ -51,19 +48,6 @@ class Credentials
     public function setHash($hash)
     {
         $this->hash = $hash;
-    }
-
-    /**
-     * Initialize hash
-     * @PrePersist
-     *
-     * @return void
-     */
-    public function initHash()
-    {
-        $rsa = new Crypt_RSA();
-        $key = $rsa->createKey();
-        $this->hash = substr(md5($key['privatekey']), 0, 10);
     }
 
     /**
@@ -147,12 +131,6 @@ class Credentials
      */
     public function setExpires($expires)
     {
-        if ($expires < 60 * 60 || $expires > 60 * 60 * 24 * 30) {
-            $expires = 60 * 60;
-        }
-
-        $expires = time() + $expires;
-
         $this->expires = $expires;
     }
 
