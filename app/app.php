@@ -78,15 +78,24 @@ $app['credentials_factory'] = $app->share(
     }
 );
 
+// Register Credentials service
+$app['credentials_service'] = $app->share(
+    function () use ($app) {
+        return new App\Service\CredentialsService(
+            $app['orm.em'],
+            $app['credentials_factory'],
+            $app['orm.em']->getRepository('App\Entity\Credentials')
+        );
+    }
+);
+
 // Register default controller
 $app['app.default_controller'] = $app->share(
     function () use ($app) {
         return new App\Controller\DefaultController(
             $app,
             $app['twig'],
-            $app['orm.em'],
-            $app['credentials_factory'],
-            $app['orm.em']->getRepository('App\Entity\Credentials')
+            $app['credentials_service']
         );
     }
 );
