@@ -7,19 +7,20 @@ use Symfony\Component\DomCrawler\Link;
 
 class DefaultControllerTest extends WebTestCase
 {
+    protected $credentialsService;
 
     protected $credentials = array(
-            'userName' => 'nameOfUser',
-            'password' => 'passwordOfUser',
-            'comment' => 'commentOfUser',
-            'period' => 3600
+        'userName' => 'nameOfUser',
+        'password' => 'passwordOfUser',
+        'comment' => 'commentOfUser',
+        'period' => 3600,
     );
 
     public function createApplication()
     {
         $app = require __DIR__.'/../../../../app/app.php';
 
-        $app['debug'] = true;
+        $this->credentialsService = $app['credentials_service'];
 
         unset($app['exception_handler']);
 
@@ -48,8 +49,6 @@ class DefaultControllerTest extends WebTestCase
 
     /**
      * Test redirect after credential creation
-     *
-     * @return Link
      */
     public function testSaveCredentialsAndRedirectToSharePage()
     {
@@ -72,21 +71,17 @@ class DefaultControllerTest extends WebTestCase
         $link = $crawler->filter('#passwordlink')->link()->getUri();
         $hash = array();
         $this->assertEquals(1, preg_match('/pw\/(.*)$/', $link, $hash));
-
-        return '/pw/' . $hash[1];
     }
 
     /**
      * Test credential viewing
-     *
-     * @param Link $link Link to test
-     *
-     * @depends testSaveCredentialsAndRedirectToSharePage
      */
-    public function testViewCredentials($link)
+    public function testViewCredentials()
     {
+        $credentials = $this->credentialsService->save($this->credentials);
+
         $client = $this->createClient();
-        $crawler = $client->request('GET', $link);
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
 
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName > span')->text());
@@ -96,15 +91,13 @@ class DefaultControllerTest extends WebTestCase
 
     /**
      * Test credential deletion
-     *
-     * @param Link $link to test
-     *
-     * @depends testSaveCredentialsAndRedirectToSharePage
      */
-    public function testDeleteCredentials($link)
+    public function testDeleteCredentials()
     {
+        $credentials = $this->credentialsService->save($this->credentials);
+
         $client = $this->createClient();
-        $crawler = $client->request('GET', $link);
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
 
         // Delete credential
         $form = $crawler->filter('#deleteCredentialsForm')->form();
@@ -117,7 +110,7 @@ class DefaultControllerTest extends WebTestCase
 
         // Visit the link page again and see of the entry is deleted
         $client = $this->createClient();
-        $crawler = $client->request('GET', $link);
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
     }
 }
