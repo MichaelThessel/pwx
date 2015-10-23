@@ -23,7 +23,7 @@ class Credentials
     /**
      * @Column(name="username", type="text", length=65535)
      */
-    protected $username;
+    protected $userName;
 
     /**
      * @Column(name="password", type="text", length=65535)
@@ -77,24 +77,24 @@ class Credentials
     }
 
     /**
-     * Set username
+     * Set userName
      *
-     * @param string $username
+     * @param string $userName
      * @return void
      */
-    public function setUsername($username)
+    public function setUserName($userName)
     {
-        $this->username = $username;
+        $this->userName = $userName;
     }
 
     /**
-     * Get username
+     * Get userName
      *
      * @return string
      */
-    public function getUsername()
+    public function getUserName()
     {
-        return $this->username;
+        return $this->userName;
     }
 
     /**

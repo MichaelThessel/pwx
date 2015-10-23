@@ -15,7 +15,7 @@ class CredentialsService extends AbstractCryptService
     protected $credentialsRepository;
 
     protected $cryptedProperties = array(
-        'username',
+        'userName',
         'password',
         'comment',
     );
@@ -50,7 +50,7 @@ class CredentialsService extends AbstractCryptService
     {
         $credentials = $this->credentialsFactory->getInstance();
 
-        $credentials->setUsername($args['userName']);
+        $credentials->setUserName($args['userName']);
         $credentials->setPassword($args['password']);
         $credentials->setComment($args['comment']);
         $credentials->setExpires($args['expires']);
