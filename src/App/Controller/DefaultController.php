@@ -134,7 +134,7 @@ class DefaultController
         $hash = $request->get('hash');
 
         if ($hash) {
-            $credentials = $this->credentialsRepository->findOneBy(array('hash' => $hash));
+            $credentials = $this->credentialsRepository->find($hash);
             if ($credentials) {
                 $this->em->remove($credentials);
                 $this->em->flush();
