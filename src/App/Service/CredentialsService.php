@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\CredentialsRepository;
 use App\Factory\CredentialsFactory;
-#use App\Service\AbstractCryptService;
 use Doctrine\ORM\EntityManager;
 
 class CredentialsService extends AbstractCryptService
