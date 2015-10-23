@@ -34,7 +34,13 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
         $this->assertSame($credentials->getUserName(), $this->credentials['userName']);
         $this->assertSame($credentials->getPassword(), $this->credentials['password']);
         $this->assertSame($credentials->getcomment(), $this->credentials['comment']);
-        $this->assertSame($credentials->getExpires(), $this->credentials['expires'] + time());
+
+        // Test that expires is within 4s of what its supposed to be, to avoid timing issues when testing
+        $expires = $this->credentials['expires'] + time();
+        $this->assertTrue(
+            $credentials->getExpires() - 2 <= $expires &&
+            $credentials->getExpires() + 2 >= $expires
+        );
 
         return $credentials->getHash();
     }
