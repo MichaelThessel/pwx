@@ -52,6 +52,9 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
         $this->assertSame($credentials->getcomment(), $this->credentials['comment']);
     }
 
+    /**
+     * Test find non-existing credentials
+     */
     public function testFindNoResult()
     {
         $this->assertNull($this->credentialsService->find('test'));
