@@ -4,7 +4,7 @@ app.name: Passwort Austausch
 app.data.username: Nutzername
 app.data.password: Passwort
 app.data.comment: Kommentar
-app.data.period: Gültig für
+app.data.expires: Gültig für
 app.data.seconds: Sekunden
 app.data.minutes: Minuten
 app.data.hour: Stunde
@@ -29,6 +29,6 @@ view_link.view: Link Anzeigen
 view_link.share: Diesen Link versenden
 
 view_password.view: Passwort Anzeigen
-view_password.period: Dieser Eintrag erlischt in
+view_password.expires: Dieser Eintrag erlischt in
 view_password.delete: Löschen
 view_password.expired: Dieser Eintrag ist erloschen!

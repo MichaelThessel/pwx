@@ -4,7 +4,7 @@ app.name: Password Exchange
 app.data.username: User Name
 app.data.password: Password
 app.data.comment: Comment
-app.data.period: Valid for
+app.data.expires: Valid for
 app.data.seconds: seconds
 app.data.minutes: minutes
 app.data.hour: hour
@@ -33,6 +33,6 @@ view_link.view: View Link
 view_link.share: Share this link
 
 view_password.view: View Password
-view_password.period: This listing will be removed in
+view_password.expires: This listing will be removed in
 view_password.delete: Delete
 view_password.expired: The requested record has expired!

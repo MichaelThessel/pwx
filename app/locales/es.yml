@@ -4,7 +4,7 @@ app.name: Intercambio de contraseñas
 app.data.username: Nombre de usuario
 app.data.password: Contraseña
 app.data.comment: Nota
-app.data.period: Válido por
+app.data.expires: Válido por
 app.data.seconds: segundos
 app.data.minutes: minutos
 app.data.hour: hora
@@ -29,6 +29,6 @@ view_link.view: Ver enlace
 view_link.share: Compartir este enlace
 
 view_password.view: Ver contraseña
-view_password.period: Este registro se eliminará en
+view_password.expires: Este registro se eliminará en
 view_password.delete: Eliminar
 view_password.expired: ¡El registro solicitado ha caducado!

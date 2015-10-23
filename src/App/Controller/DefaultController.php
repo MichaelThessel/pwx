@@ -59,13 +59,13 @@ class DefaultController
             return $this->twig->render('index.twig');
         }
 
-        $period = $request->get('period', 60 * 60);
+        $expires = $request->get('expires', 60 * 60);
 
         $credentials = $this->credentialsService->save(array(
             'userName' => $userName,
             'password' => $password,
             'comment' => $comment,
-            'expires' => $period,
+            'expires' => $expires,
         ));
 
         return $this->app->redirect($this->app['baseUrl'] . '/link/' . $credentials->getHash());

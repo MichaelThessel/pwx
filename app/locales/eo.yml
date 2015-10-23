@@ -4,7 +4,7 @@ app.name: Pasvort-interŝanĝo
 app.data.username: Salutnomo
 app.data.password: Pasvorto
 app.data.comment: Noto
-app.data.period: Valida por
+app.data.expires: Valida por
 app.data.seconds: sekundoj
 app.data.minutes: minutoj
 app.data.hour: horo
@@ -29,6 +29,6 @@ view_link.view: Vidi ligilon
 view_link.share: Kundividi ĉi tiun ligilon
 
 view_password.view: Vidi pasvorton
-view_password.period: Ĉi tiu rikordo malaperos post
+view_password.expires: Ĉi tiu rikordo malaperos post
 view_password.delete: Malaperigi
 view_password.expired: La petita rikordo eksvalidiĝis!

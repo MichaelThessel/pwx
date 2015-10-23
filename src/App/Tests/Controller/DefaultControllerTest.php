@@ -13,7 +13,7 @@ class DefaultControllerTest extends WebTestCase
         'userName' => 'nameOfUser',
         'password' => 'passwordOfUser',
         'comment' => 'commentOfUser',
-        'period' => 3600,
+        'expires' => 3600,
     );
 
     public function createApplication()
@@ -43,7 +43,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('input[name="userName"]')->count());
         $this->assertEquals(1, $crawler->filter('input[name="password"]')->count());
         $this->assertEquals(1, $crawler->filter('textarea[name="comment"]')->count());
-        $this->assertEquals(1, $crawler->filter('select[name="period"]')->count());
+        $this->assertEquals(1, $crawler->filter('select[name="expires"]')->count());
         $this->assertEquals(1, $crawler->filter('button[type="submit"]')->count());
     }
 
