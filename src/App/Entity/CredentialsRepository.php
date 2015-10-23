@@ -9,7 +9,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class CredentialsRepository extends EntityRepository
 {
-    public function clean()
+    /**
+     * Delete expired entries
+     *
+     * @return void
+     */
+    public function deleteExpired()
     {
         $qb = $this->createQueryBuilder('c');
         $qb ->delete()

@@ -26,6 +26,7 @@ class CredentialsService extends AbstractCryptService
      * @param EntityManager $em
      * @param CredentialsFactory $credentialsFactory
      * @param CredentialsRepository $credentialsRepository
+     * @param array $config
      */
     public function __construct(
         EntityManager $em,
@@ -109,6 +110,6 @@ class CredentialsService extends AbstractCryptService
      */
     public function deleteExpired()
     {
-        $this->credentialsRepository->clean();
+        $this->credentialsRepository->deleteExpired();
     }
 }

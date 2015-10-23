@@ -5,7 +5,8 @@ namespace App\Service;
 use App\Model\CryptAES;
 
 /**
- * Handles encryption of properties. Properties specified in $cryptedProperties
+ * Handles encryption of properties. Item properties specified in
+ * $cryptedProperties will be encrypted/decrypted
  */
 abstract class AbstractCryptService extends CryptAES
 {
@@ -14,6 +15,12 @@ abstract class AbstractCryptService extends CryptAES
     /**
      * Encrypt properties that have been flagged in $cryptedProperties
      *
+     * @return void
+     */
+    /**
+     * encryptProperties
+     *
+     * @param mixed $item Item to encrypt
      * @return void
      */
     public function encryptProperties($item)
@@ -27,6 +34,7 @@ abstract class AbstractCryptService extends CryptAES
     /**
      * Decrypt properties that have been flagged in $cryptedProperties
      *
+     * @param mixed $item Item to decrypt
      * @return void
      */
     public function decryptProperties($item)
@@ -41,6 +49,7 @@ abstract class AbstractCryptService extends CryptAES
      * En/DecryptProperties
      *
      * @param mixed $mode encrypt/decrypt
+     * @param mixed $item Item to encrypt/decrypt
      * @return void
      */
     protected function cryptProperties($mode, $item)

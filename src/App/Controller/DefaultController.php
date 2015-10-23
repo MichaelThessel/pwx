@@ -17,6 +17,7 @@ class DefaultController
      *
      * @param mixed $app
      * @param Twig_Environment $twig
+     * @param CredentialsService $credentialsService
      */
     public function __construct(
         $app,

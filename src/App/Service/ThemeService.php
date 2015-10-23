@@ -5,7 +5,7 @@ namespace App\Service;
 /**
  * Theme service
  *
- * handles theme selection
+ * Handles theme selection
  */
 class ThemeService {
 
