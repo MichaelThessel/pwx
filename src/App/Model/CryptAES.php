@@ -17,11 +17,9 @@ class CryptAES {
     public function setCipher()
     {
         // Encrypt passwords with AES if secret is set
-        // TODO: ideally the secret wouldn't be passed in a constant. I haven't
-        // found a acceptable way of passing the secret otherwise
-        if (defined('APP_SECRET')) {
+        if (isset($this->config['secret']) || $this->config['secret']) {
             $this->cipher = new Crypt_AES(CRYPT_AES_MODE_ECB);
-            $this->cipher->setKey(APP_SECRET);
+            $this->cipher->setKey($this->config['secret']);
             return true;
         }
 

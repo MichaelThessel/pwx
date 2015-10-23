@@ -4,15 +4,22 @@ namespace App\Service;
 
 use App\Entity\CredentialsRepository;
 use App\Factory\CredentialsFactory;
+#use App\Service\AbstractCryptService;
 use Doctrine\ORM\EntityManager;
 
-class CredentialsService
+class CredentialsService extends AbstractCryptService
 {
     protected $em;
 
     protected $credentialsFactory;
 
     protected $credentialsRepository;
+
+    protected $cryptedProperties = array(
+        'username',
+        'password',
+        'comment',
+    );
 
     /**
      * Constructor
@@ -24,13 +31,14 @@ class CredentialsService
     public function __construct(
         EntityManager $em,
         CredentialsFactory $credentialsFactory,
-        CredentialsRepository $credentialsRepository
+        CredentialsRepository $credentialsRepository,
+        $config
     )
     {
         $this->em = $em;
         $this->credentialsFactory = $credentialsFactory;
         $this->credentialsRepository = $credentialsRepository;
-
+        $this->config = $config;
     }
 
     /**
@@ -39,19 +47,21 @@ class CredentialsService
      * @param array $credentials Credentials to save
      * @return Credentials
      */
-    public function save($credentials)
+    public function save($args)
     {
-        $instance = $this->credentialsFactory->getInstance();
+        $credentials = $this->credentialsFactory->getInstance();
 
-        $instance->setUsername($credentials['userName']);
-        $instance->setPassword($credentials['password']);
-        $instance->setComment($credentials['comment']);
-        $instance->setExpires($credentials['period']);
+        $credentials->setUsername($args['userName']);
+        $credentials->setPassword($args['password']);
+        $credentials->setComment($args['comment']);
+        $credentials->setExpires($args['period']);
 
-        $this->em->persist($instance);
+        $this->encryptProperties($credentials);
+
+        $this->em->persist($credentials);
         $this->em->flush();
 
-        return $instance;
+        return $credentials;
     }
 
     /**
@@ -62,7 +72,10 @@ class CredentialsService
      */
     public function find($hash)
     {
-        return $this->credentialsRepository->find($hash);
+        $credentials = $this->credentialsRepository->find($hash);
+        $this->decryptProperties($credentials);
+
+        return $credentials;
     }
 
     /**

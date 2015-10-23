@@ -35,12 +35,6 @@ if (file_exists(__DIR__ . '/config.php')) {
     include __DIR__ . '/config.php';
 }
 
-// Make the app secret globally available
-// this is necessary to allow for entity level encryption
-if (!defined('APP_SECRET')) {
-    define('APP_SECRET', isset($config['secret']) && !empty($config['secret']) ? $config['secret'] : false);
-}
-
 // Initialize Silex
 $app = new App\Silex\Application($config);
 
@@ -80,11 +74,12 @@ $app['credentials_factory'] = $app->share(
 
 // Register Credentials service
 $app['credentials_service'] = $app->share(
-    function () use ($app) {
+    function () use ($app, $config) {
         return new App\Service\CredentialsService(
             $app['orm.em'],
             $app['credentials_factory'],
-            $app['orm.em']->getRepository('App\Entity\Credentials')
+            $app['orm.em']->getRepository('App\Entity\Credentials'),
+            $config
         );
     }
 );

@@ -1,42 +1,34 @@
 <?php
 
-namespace App\Entity;
+namespace App\Service;
 
 use App\Model\CryptAES;
 
 /**
  * Handles encryption of properties. Properties specified in $cryptedProperties
- * will be automaitically de/encrypted when stored and retrieved from the
- * database
- *
- * @HasLifecycleCallbacks()
  */
-abstract class AbstractCryptedEntity extends CryptAES
+abstract class AbstractCryptService extends CryptAES
 {
     protected $cryptedProperties = array();
 
     /**
      * Encrypt properties that have been flagged in $cryptedProperties
      *
-     * @PreUpdate
-     * @PrePersist
-     *
      * @return void
      */
-    public function encryptProperties()
+    public function encryptProperties($item)
     {
-        $this->cryptProperties('encrypt');
+        $this->cryptProperties('encrypt', $item);
     }
 
     /**
      * Decrypt properties that have been flagged in $cryptedProperties
-     * @PostLoad
      *
      * @return void
      */
-    public function decryptProperties()
+    public function decryptProperties($item)
     {
-        $this->cryptProperties('decrypt');
+        $this->cryptProperties('decrypt', $item);
     }
 
     /**
@@ -45,7 +37,7 @@ abstract class AbstractCryptedEntity extends CryptAES
      * @param mixed $mode encrypt/decrypt
      * @return void
      */
-    protected function cryptProperties($mode)
+    protected function cryptProperties($mode, $item)
     {
         if (!in_array($mode, array('encrypt', 'decrypt'))) {
             throw new \InvalidArgumentException('Invalid mode specified');
@@ -54,7 +46,9 @@ abstract class AbstractCryptedEntity extends CryptAES
         if (!isset($this->cryptedProperties) || empty($this->cryptedProperties)) return;
 
         foreach ($this->cryptedProperties as $cryptedProperty) {
-            $this->$cryptedProperty = $this->$mode($this->$cryptedProperty);
+            $get = 'get' . ucfirst($cryptedProperty);
+            $set = 'set' . ucfirst($cryptedProperty);
+            $item->$set($this->$mode($item->$get()));
         }
     }
 }

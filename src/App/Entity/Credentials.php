@@ -11,7 +11,7 @@ use Crypt_RSA;
  * @Entity(repositoryClass="App\Entity\CredentialsRepository")
  * @HasLifecycleCallbacks()
  */
-class Credentials extends AbstractCryptedEntity
+class Credentials
 {
     /**
      * @Column(name="hash", type="string", length=10, options={"default" = ""})
@@ -39,12 +39,6 @@ class Credentials extends AbstractCryptedEntity
      * @Column(name="expires", type="integer")
      */
     protected $expires;
-
-    protected $cryptedProperties = array(
-        'username',
-        'password',
-        'comment',
-    );
 
     /**
      * Set hash
