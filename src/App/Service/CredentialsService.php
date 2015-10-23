@@ -54,12 +54,14 @@ class CredentialsService extends AbstractCryptService
         $credentials->setUsername($args['userName']);
         $credentials->setPassword($args['password']);
         $credentials->setComment($args['comment']);
-        $credentials->setExpires($args['period']);
+        $credentials->setExpires($args['expires']);
 
         $this->encryptProperties($credentials);
 
         $this->em->persist($credentials);
         $this->em->flush();
+
+        $this->decryptProperties($credentials);
 
         return $credentials;
     }

@@ -65,7 +65,7 @@ class DefaultController
             'userName' => $userName,
             'password' => $password,
             'comment' => $comment,
-            'period' => $period,
+            'expires' => $period,
         ));
 
         return $this->app->redirect($this->app['baseUrl'] . '/link/' . $credentials->getHash());

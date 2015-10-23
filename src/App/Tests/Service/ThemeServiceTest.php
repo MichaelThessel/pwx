@@ -3,7 +3,6 @@
 namespace AppBundle\Tests\Service;
 
 use PHPUnit_Framework_TestCase;
-use App\Service\ThemeService;
 
 class ThemeServiceTest extends PHPUnit_Framework_TestCase
 {
