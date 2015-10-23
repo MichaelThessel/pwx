@@ -17,7 +17,7 @@ class DefaultControllerTest extends WebTestCase
 
     public function createApplication()
     {
-        $app = require __DIR__.'/../../../app/app.php';
+        $app = require __DIR__.'/../../../../app/app.php';
 
         $app['debug'] = true;
 
