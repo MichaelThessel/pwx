@@ -42,7 +42,7 @@ class RoboFile extends \Robo\Tasks
             ->monitor(
                 ['web/js/script.js', 'web/css/style.css'],
                 function() {
-                    $this->taskComposerUpdate()->run();
+                    $this->build();
                 }
             )
             ->run();
