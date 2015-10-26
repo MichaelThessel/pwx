@@ -20,7 +20,7 @@ class RoboFile extends \Robo\Tasks
             ->run();
 
         // Concat JS
-        $this->taskConcat([
+        $this->taskConcat(array(
             'web/js/jquery.min.js',
             'web/js/bootstrap.min.js',
             'web/js/jquery.countdown.min.js',
@@ -28,7 +28,7 @@ class RoboFile extends \Robo\Tasks
             'web/js/js.cookie.min.js',
             'web/js/hideShowPassword.min.js',
             'web/js/script.js',
-        ])
+        ))
             ->to('web/js/scripts.min.js')
             ->run();
     }
@@ -40,7 +40,7 @@ class RoboFile extends \Robo\Tasks
     {
         $this->taskWatch()
             ->monitor(
-                ['web/js/script.js', 'web/css/style.css'],
+                array('web/js/script.js', 'web/css/style.css'),
                 function() {
                     $this->build();
                 }
