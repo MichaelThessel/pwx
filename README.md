@@ -30,7 +30,7 @@ Create configuration file and adjust according to your environment:
 
 Create the database schema:
 ```
-app/console orm:schema-tool:create
+# app/console orm:schema-tool:create
 ```
 
 Update
@@ -45,15 +45,7 @@ Update dependencies:
 
 Update the database schema:
 ```
-app/console orm:schema-tool:update --force
-```
-
-Tests
-=====
-
-To run the integrated test suite please run
-```
-# vendor/bin/phpunit
+# app/console orm:schema-tool:update --force
 ```
 
 Translations
@@ -68,7 +60,7 @@ Currently:
 are supported by PWX. Please set locale according to your requirements in the
 configuration. I'm happy to accept pull requests for additional translations.
 
-If you can use a locale get parameter when linking to PWX. I.e.
+You can use a GET parameter when linking to PWX. I.e.
 
 https://example.com?locale=es
 
@@ -88,7 +80,7 @@ PWX uses the [Robo](http://robo.li) task runner. After making changes to the JS
 or CSS files run:
 
 ```
-vendor/bin/robo build
+# vendor/bin/robo build
 ```
 
 to minify and concatenate the files.
@@ -96,15 +88,19 @@ to minify and concatenate the files.
 Alternatively you can run:
 
 ```
-vendor/bin/robo watch
+# vendor/bin/robo watch
 ```
 
 while developing which will automatically generate the minified and
 concatenated assets when style or script files are changed.
+
+To run the integrated test suite please run:
+```
+# vendor/bin/phpunit
+```
 
 Warning
 =======
 
 You will be responsible to secure your environment. The author of this software
 takes no responsiblity for any damage as a result of using this software.
-
