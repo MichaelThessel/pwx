@@ -37,8 +37,8 @@ class ThemeServiceTest extends PHPUnit_Framework_TestCase
     {
         $validThemes = $this->themeService->getValidThemes();
 
-        // Select a theme from the middle
-        $theme = (int ) round(count($validThemes) / 2);
+        // Select a random theme
+        $theme = rand(0, count($validThemes) - 1);
 
         $_COOKIE['theme'] = $validThemes[$theme];
 
