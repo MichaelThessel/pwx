@@ -47,7 +47,7 @@ var Pwx = {
 
     // Init countdown
     initCountdown: function() {
-        $('#expires').countdown($('#expires').data('expires'), this.countdownCallback);
+        $('#expires-countdown').countdown($('#expires-countdown').data('expires'), this.countdownCallback);
     },
 
     // Click event handler for password generation
