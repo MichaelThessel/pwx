@@ -11,7 +11,8 @@
         "symfony/config": "~2.7",
         "symfony/yaml": "~2.7",
         "phpunit/phpunit": "4.8.*",
-        "dflydev/doctrine-orm-service-provider": "1.0.*"
+        "dflydev/doctrine-orm-service-provider": "1.0.*",
+        "codegyre/robo": "^0.5.4"
     },
     "autoload": {
         "psr-0": {
