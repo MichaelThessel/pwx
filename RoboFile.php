@@ -27,7 +27,7 @@ class RoboFile extends \Robo\Tasks
             'web/js/jquery.zclip.min.js',
             'web/js/js.cookie.min.js',
             'web/js/hideShowPassword.min.js',
-            'web/js/script.js',
+            'web/js/script.min.js',
         ))
             ->to('web/js/scripts.min.js')
             ->run();
