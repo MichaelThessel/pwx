@@ -68,6 +68,13 @@ Currently:
 are supported by PWX. Please set locale according to your requirements in the
 configuration. I'm happy to accept pull requests for additional translations.
 
+If you can use a locale get parameter when linking to PWX. I.e.
+
+https://example.com?locale=es
+
+This allows for one instance of PWX dynamically to be accessed in different
+languages.
+
 Themes
 ======
 

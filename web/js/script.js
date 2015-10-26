@@ -16,7 +16,9 @@ var Pwx = {
             e.preventDefault();
             if ($(this).closest('li').hasClass('active')) { return; }
             Cookies.set('locale', $(this).data('locale'), { expires: 365 });
-            location.href = location.href;
+            window.location.href = window.location.href
+                .replace(/locale=[a-zA-Z]{2}&?/, '')
+                .replace(/[?&#]$/, '');
         });
     },
 

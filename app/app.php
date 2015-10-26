@@ -5,6 +5,10 @@ $startTime = microtime(true);
 // Bootstrap
 require_once __DIR__.'/../vendor/autoload.php';
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Silex\Application;
+
 // Config
 $config = array(
     'debug' => true,
@@ -47,18 +51,20 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
 // Register DoctrineOrmServiceProvider service
 $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), $config);
 
+// Register theme service & set user theme
+$app['i18n_service'] = $app->share(function () { return new App\Service\I18nService(); });
+
 // Register translation service
-$validLocales = array('de', 'en', 'eo', 'es');
 $app->register(new Silex\Provider\TranslationServiceProvider(), array(
     'locale_fallbacks'  => array('en'),
-    'locale' => isset($_COOKIE['locale']) && in_array($_COOKIE['locale'], $validLocales) ?  $_COOKIE['locale'] : $config['locale'],
+    'locale' => $app['i18n_service']->getLocale($config['locale']),
 ));
 
 // Register the yaml translations
-$app['translator'] = $app->share($app->extend('translator', function(Silex\Translator $translator, $app) use ($validLocales) {
+$app['translator'] = $app->share($app->extend('translator', function(Silex\Translator $translator, $app) {
     $translator->addLoader('yaml', new Symfony\Component\Translation\Loader\YamlFileLoader());
 
-    foreach ($validLocales as $locale) {
+    foreach ($app['i18n_service']->getValidLocales() as $locale) {
         $translator->addResource('yaml', __DIR__ . '/locales/' . $locale . '.yml', $locale);
     }
 
@@ -107,6 +113,12 @@ $app['theme_service'] = $app->share(
     }
 );
 $app['theme_service']->setUserTheme();
+
+// After middleware
+$app->after(function (Request $request, Response $response) use ($app) {
+    // Set the locale cookie
+    $app['i18n_service']->setLocaleCookie($request, $response);
+});
 
 // Map routes to controllers
 include __DIR__ . '/routing.php';
