@@ -28,7 +28,8 @@ var Pwx = {
             e.preventDefault();
             if ($(this).closest('li').hasClass('active')) { return; }
             Cookies.set('theme', $(this).data('theme'), { expires: 365 });
-            location.href = location.href;
+            window.location.href = window.location.href
+                .replace(/[#]$/, '');
         });
     },
 
