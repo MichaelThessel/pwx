@@ -74,6 +74,27 @@ Themes
 PWX supports all [Bootswatch](https://bootswatch.com/) themes. You can adjust
 the appearance of the application to your liking by a simple config switch.
 
+Developers
+==========
+
+PWX uses the [Robo](http://robo.li) task runner. After making changes to the JS
+or CSS files run:
+
+```
+vendor/bin/robo build
+```
+
+to minify and concatenate the files.
+
+Alternatively you can run:
+
+```
+vendor/bin/robo watch
+```
+
+while developing which will automatically generate the minified and
+concatenated assets when style or script files are changed.
+
 Warning
 =======
 
