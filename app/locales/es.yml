@@ -5,6 +5,7 @@ app.data.username: Nombre de usuario
 app.data.password: Contraseña
 app.data.comment: Nota
 app.data.expires: Válido por
+app.data.onetimeview: Visible una vez
 app.data.seconds: segundos
 app.data.minutes: minutos
 app.data.hour: hora
