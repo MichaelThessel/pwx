@@ -8,7 +8,7 @@ namespace App\Entity;
  * @Table(name="credentials")
  * @Entity(repositoryClass="App\Entity\CredentialsRepository")
  */
-class Credentials
+class Credentials implements \JsonSerializable
 {
     /**
      * @Column(name="hash", type="string", length=10, options={"default" = ""})
@@ -163,5 +163,16 @@ class Credentials
     public function setEncrypted($isEncrypted)
     {
         $this->isEncrypted = $isEncrypted;
+    }
+
+    public function jsonSerialize()
+    {
+        $data = array(
+            'hash' => $this->hash,
+            'userName' => $this->userName,
+            'password' => $this->password,
+            'comment' => $this->comment
+        );
+        return $data;
     }
 }
