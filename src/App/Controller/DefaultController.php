@@ -51,16 +51,23 @@ class DefaultController
      */
     public function indexPostAction(Request $request)
     {
+        $isApiCall = preg_match('/api/', $request->getUri());
+
         $userName = $request->get('userName');
         $password = $request->get('password');
         $comment = $request->get('comment');
+        $expires = $request->get('expires', 60 * 60);
 
         // Exit if we got no password
         if (empty($password)) {
-            return $this->twig->render('index.twig');
+            if ($isApiCall)
+            {
+                return json_encode(array('Please submit password'));
+            } else
+            {
+                return $this->twig->render('index.twig');
+            }
         }
-
-        $expires = $request->get('expires', 60 * 60);
 
         /** @var \App\Entity\Credentials $credentials */
         $credentials = $this->credentialsService->save(array(
@@ -70,7 +77,14 @@ class DefaultController
             'expires' => $expires,
         ));
 
-        return $this->app->redirect($this->app['baseUrl'] . '/link/' . $credentials->getHash());
+        if ($isApiCall)
+        {
+            return json_encode(array(
+                'link' => $this->app['baseUrl'] . '/api/' . $credentials->getHash()
+            ));
+        } else {
+            return $this->app->redirect($this->app['baseUrl'] . '/link/' . $credentials->getHash());
+        }
     }
 
     /**

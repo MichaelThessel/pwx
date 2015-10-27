@@ -101,6 +101,16 @@ $app['app.default_controller'] = $app->share(
     }
 );
 
+// Register default api controller
+$app['app.default_api_controller'] = $app->share(
+    function () use ($app) {
+        return new App\Controller\DefaultApiController(
+            $app,
+            $app['credentials_service']
+        );
+    }
+);
+
 // Force to use SSL
 if ($config['requireHttps']) {
     $app['controllers']->requireHttps();
