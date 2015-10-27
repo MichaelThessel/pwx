@@ -3,10 +3,10 @@
 namespace AppBundle\Tests\Controller;
 
 use Silex\WebTestCase;
-use Symfony\Component\DomCrawler\Link;
 
 class DefaultControllerTest extends WebTestCase
 {
+    /** @var  \App\Service\CredentialsService */
     protected $credentialsService;
 
     protected $credentials = array(
@@ -65,7 +65,6 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
 
         // Test URI and Link-Url
-        $hash = substr(strrchr($crawler->filter('#passwordlink')->text(), '/'), 1);
         $this->assertTrue($client->getResponse()->isOk());
 
         $link = $crawler->filter('#passwordlink')->link()->getUri();

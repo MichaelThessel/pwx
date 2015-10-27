@@ -62,6 +62,7 @@ class DefaultController
 
         $expires = $request->get('expires', 60 * 60);
 
+        /** @var \App\Entity\Credentials $credentials */
         $credentials = $this->credentialsService->save(array(
             'userName' => $userName,
             'password' => $password,

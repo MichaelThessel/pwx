@@ -6,6 +6,7 @@ use PHPUnit_Framework_TestCase;
 
 class CredentialsServiceTest extends PHPUnit_Framework_TestCase
 {
+    /** @var  \App\Service\CredentialsService */
     protected $credentialsService;
     protected $app;
 

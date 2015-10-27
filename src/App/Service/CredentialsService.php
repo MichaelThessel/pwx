@@ -8,10 +8,13 @@ use Doctrine\ORM\EntityManager;
 
 class CredentialsService extends AbstractCryptService
 {
+    /** @var EntityManager $em */
     protected $em;
 
+    /** @var CredentialsFactory $credentialsFactory */
     protected $credentialsFactory;
 
+    /** @var CredentialsRepository $credentialsRepository */
     protected $credentialsRepository;
 
     protected $cryptedProperties = array(
@@ -44,8 +47,8 @@ class CredentialsService extends AbstractCryptService
     /**
      * Save credentials
      *
-     * @param array $credentials Credentials to save
-     * @return Credentials
+     * @param array $args Credentials to save
+     * @return \App\Entity\Credentials
      */
     public function save($args)
     {
@@ -76,7 +79,7 @@ class CredentialsService extends AbstractCryptService
      * Find credentials by hash
      *
      * @param string $hash Hash to find
-     * @return Credentials
+     * @return \App\Entity\Credentials
      */
     public function find($hash)
     {

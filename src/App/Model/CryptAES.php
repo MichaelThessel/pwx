@@ -9,6 +9,7 @@ use Crypt_AES;
  */
 class CryptAES {
 
+    /** @var Crypt_AES */
     protected $cipher;
 
     /**
