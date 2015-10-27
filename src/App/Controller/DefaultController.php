@@ -54,6 +54,7 @@ class DefaultController
         $userName = $request->get('userName');
         $password = $request->get('password');
         $comment = $request->get('comment');
+        $oneTimeView = $request->get('oneTimeView') == 'on';
 
         // Exit if we got no password
         if (empty($password)) {
@@ -68,6 +69,7 @@ class DefaultController
             'password' => $password,
             'comment' => $comment,
             'expires' => $expires,
+            'oneTimeView' => $oneTimeView
         ));
 
         return $this->app->redirect($this->app['baseUrl'] . '/link/' . $credentials->getHash());
