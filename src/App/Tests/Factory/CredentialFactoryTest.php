@@ -6,7 +6,10 @@ use PHPUnit_Framework_TestCase;
 
 class CredentialsFactory extends PHPUnit_Framework_TestCase
 {
+    /** @var  \App\Factory\CredentialsFactory */
     protected $credentialsFactory;
+
+    /** @var  \Pimple */
     protected $app;
 
     public function setUp()
@@ -28,7 +31,7 @@ class CredentialsFactory extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test if hash is initalized
+     * Test if hash is initialized
      *
      * @return void
      */

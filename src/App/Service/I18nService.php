@@ -34,6 +34,7 @@ class I18nService {
      * Get the current locale from request, cookie or config
      *
      * @param string $configLocale Configuration locale setting
+     * @throws \Exception
      * @return string Locale
      */
     public function getLocale($configLocale = 'en')
@@ -48,7 +49,6 @@ class I18nService {
         }
 
         throw new \Exception('Invalid locale set in config');
-
     }
 
     /**

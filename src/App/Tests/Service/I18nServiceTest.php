@@ -6,7 +6,10 @@ use PHPUnit_Framework_TestCase;
 
 class I18nServiceTest extends PHPUnit_Framework_TestCase
 {
+    /** @var \App\Service\I18nService */
     protected $i18nService;
+
+    /** @var  \Pimple */
     protected $app;
 
     public function setUp()
@@ -88,7 +91,7 @@ class I18nServiceTest extends PHPUnit_Framework_TestCase
     /**
      * Tests if an invalid config locale will throw an exception
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      *
      * @return void
      */
@@ -99,8 +102,6 @@ class I18nServiceTest extends PHPUnit_Framework_TestCase
 
     /**
      * Returns a random valid locale
-     *
-     * @return void
      */
     protected function getRandomLocale()
     {
