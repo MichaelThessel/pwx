@@ -14,6 +14,7 @@ class DefaultControllerTest extends WebTestCase
         'password' => 'passwordOfUser',
         'comment' => 'commentOfUser',
         'expires' => 3600,
+        'oneTimeView' => false
     );
 
     public function createApplication()
@@ -44,6 +45,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('input[name="password"]')->count());
         $this->assertEquals(1, $crawler->filter('textarea[name="comment"]')->count());
         $this->assertEquals(1, $crawler->filter('select[name="expires"]')->count());
+        $this->assertEquals(1, $crawler->filter('input[name="oneTimeView"]')->count());
         $this->assertEquals(1, $crawler->filter('button[type="submit"]')->count());
     }
 
@@ -59,6 +61,7 @@ class DefaultControllerTest extends WebTestCase
         // Save credentials
         $form = $crawler->filter('#submitCredentialsForm')->form();
         $form->setValues($this->credentials);
+
         $client->submit($form);
 
         // Follow redirect to share link page
@@ -114,6 +117,45 @@ class DefaultControllerTest extends WebTestCase
         // Visit the link page again and see of the entry is deleted
         $client = $this->createClient();
         $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
+        $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
+    }
+
+    /**
+     * Test oneTimeView Off
+     */
+    public function testOneTimeViewOff()
+    {
+        $credentials = $this->credentialsService->save($this->credentials);
+
+        // Access resource first time
+        $client = $this->createClient();
+        $client->request('GET', '/pw/' . $credentials->getHash());
+        $this->assertTrue($client->getResponse()->isOk());
+
+        // Visit the link page again and see of the entry is deleted
+        $client = $this->createClient();
+        $client->request('GET', '/pw/' . $credentials->getHash());
+        $this->assertTrue($client->getResponse()->isOk());
+    }
+
+    /**
+     * Test oneTimeView On
+     */
+    public function testOneTimeViewOn()
+    {
+        $this->credentials['oneTimeView'] = true;
+        $credentials = $this->credentialsService->save($this->credentials);
+
+        // Access resource first time
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertEquals(0, $crawler->filter('#credentialsExpired')->count());
+
+        // Visit the link page again and see of the entry is deleted
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
+        $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
     }
 }

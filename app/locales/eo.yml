@@ -5,6 +5,7 @@ app.data.username: Salutnomo
 app.data.password: Pasvorto
 app.data.comment: Noto
 app.data.expires: Valida por
+app.data.onetimeview: One time view (please translate)
 app.data.seconds: sekundoj
 app.data.minutes: minutoj
 app.data.hour: horo
