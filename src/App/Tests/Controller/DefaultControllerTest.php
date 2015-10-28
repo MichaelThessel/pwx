@@ -3,7 +3,6 @@
 namespace AppBundle\Tests\Controller;
 
 use Silex\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class DefaultControllerTest extends WebTestCase
 {

@@ -98,6 +98,11 @@ class DefaultController
     {
         $credentials = $this->credentialsService->find($hash);
 
+        if ($credentials && $credentials->getOneTimeView())
+        {
+            $this->credentialsService->delete($credentials->getHash());
+        }
+
         return $this->twig->render('view_password.twig', array(
             'credentials' => $credentials,
         ));

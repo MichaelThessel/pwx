@@ -88,7 +88,6 @@ class CredentialsService extends AbstractCryptService
         /** @var Credentials $credentials */
         $credentials = $this->credentialsRepository->find($hash);
         if ($credentials) $this->decryptProperties($credentials);
-        if ($credentials && $credentials->getOneTimeView()) $this->delete($credentials->getHash());
 
         return $credentials;
     }
