@@ -2,49 +2,51 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * UserCredentials
  *
- * @Table(name="credentials")
- * @Entity(repositoryClass="App\Entity\CredentialsRepository")
+ * @ORM\Table(name="credentials")
+ * @ORM\Entity(repositoryClass="App\Entity\CredentialsRepository")
  */
 class Credentials
 {
     /**
      * @var string
-     * @Column(name="hash", type="string", length=10, options={"default" = ""})
-     * @Id
-     * @GeneratedValue(strategy="NONE")
+     * @ORM\Column(name="hash", type="string", length=10, options={"default" = ""})
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $hash;
 
     /**
      * @var string
-     * @Column(name="username", type="text", length=65535)
+     * @ORM\Column(name="username", type="text", length=65535)
      */
     protected $userName;
 
     /**
      * @var string
-     * @Column(name="password", type="text", length=65535)
+     * @ORM\Column(name="password", type="text", length=65535)
      */
     protected $password;
 
     /**
      * @var string
-     * @Column(name="comment", type="text", length=65535)
+     * @ORM\Column(name="comment", type="text", length=65535)
      */
     protected $comment;
 
     /**
      * @var integer
-     * @Column(name="expires", type="integer")
+     * @ORM\Column(name="expires", type="integer")
      */
     protected $expires;
 
     /**
      * @var boolean
-     * @Column(name="one_time_view", type="boolean")
+     * @ORM\Column(name="one_time_view", type="boolean")
      */
     protected $oneTimeView;
 
@@ -53,7 +55,7 @@ class Credentials
     /**
      * Set hash
      *
-     * @param string $hash
+     * @ORM\param string $hash
      * @return void
      */
     public function setHash($hash)

@@ -30,6 +30,7 @@ $config = array(
                 'type' => 'annotation',
                 'namespace' => 'App\Entity',
                 'path' => __DIR__. '/../src/App/Entity',
+                'use_simple_annotation_reader' => false,
             ),
         ),
     ),
