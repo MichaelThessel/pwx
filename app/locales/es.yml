@@ -5,7 +5,7 @@ app.data.username: Nombre de usuario
 app.data.password: Contraseña
 app.data.comment: Nota
 app.data.expires: Válido por
-app.data.onetimeview: Visible una vez
+app.data.onetimeview: Eliminar el registro la primera vez que se visualice
 app.data.seconds: segundos
 app.data.minutes: minutos
 app.data.hour: hora
@@ -16,6 +16,8 @@ app.data.week: semana
 app.data.month: mes
 
 app.language: Idioma
+
+app.theme: Tema
 
 index.generate: Generar
 index.insert_password_start: Crear una contraseña de
