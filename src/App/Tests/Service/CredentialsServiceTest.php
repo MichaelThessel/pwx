@@ -15,6 +15,7 @@ class CredentialsServiceTest extends PHPUnit_Framework_TestCase
         'password' => 'password',
         'comment' => 'comment',
         'expires' => 3600,
+        'oneTimeView' => false
     );
 
     public function setUp()

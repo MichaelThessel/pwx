@@ -11,6 +11,7 @@ namespace App\Entity;
 class Credentials
 {
     /**
+     * @var string
      * @Column(name="hash", type="string", length=10, options={"default" = ""})
      * @Id
      * @GeneratedValue(strategy="NONE")
@@ -18,24 +19,34 @@ class Credentials
     protected $hash;
 
     /**
+     * @var string
      * @Column(name="username", type="text", length=65535)
      */
     protected $userName;
 
     /**
+     * @var string
      * @Column(name="password", type="text", length=65535)
      */
     protected $password;
 
     /**
+     * @var string
      * @Column(name="comment", type="text", length=65535)
      */
     protected $comment;
 
     /**
+     * @var integer
      * @Column(name="expires", type="integer")
      */
     protected $expires;
+
+    /**
+     * @var boolean
+     * @Column(name="one_time_view", type="boolean")
+     */
+    protected $oneTimeView;
 
     protected $isEncrypted;
 
@@ -147,7 +158,7 @@ class Credentials
     /**
      * Get encryption state
      *
-     * @return bool Encrypion state
+     * @return bool Encryption state
      */
     public function isEncrypted()
     {
@@ -163,5 +174,21 @@ class Credentials
     public function setEncrypted($isEncrypted)
     {
         $this->isEncrypted = $isEncrypted;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getOneTimeView()
+    {
+        return $this->oneTimeView;
+    }
+
+    /**
+     * @param boolean $oneTimeView
+     */
+    public function setOneTimeView($oneTimeView)
+    {
+        $this->oneTimeView = $oneTimeView;
     }
 }
