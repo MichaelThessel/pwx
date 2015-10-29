@@ -38,6 +38,8 @@ Create the database schema:
 Update
 ======
 
+Download the latest source code.
+
 If you are updating to a newer version follow these steps.
 
 Update dependencies:
@@ -57,6 +59,7 @@ Currently:
 
  * English (en)
  * Spanish (es)
+ * Esperanto (eo)
  * and German (de)
 
 are supported by PWX. Please set locale according to your requirements in the
@@ -66,7 +69,7 @@ You can use a GET parameter when linking to PWX. I.e.
 
 https://example.com?locale=es
 
-This allows for one instance of PWX dynamically to be accessed in different
+This allows for one instance of PWX dynamically being accessed in different
 languages.
 
 Themes
