@@ -5,6 +5,7 @@ app.data.username: Salutnomo
 app.data.password: Pasvorto
 app.data.comment: Noto
 app.data.expires: Valida por
+app.data.onetimeview: Forigi rekordo post kiam ĝi estis rigardita
 app.data.seconds: sekundoj
 app.data.minutes: minutoj
 app.data.hour: horo
