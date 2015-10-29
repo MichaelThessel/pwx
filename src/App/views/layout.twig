@@ -16,18 +16,12 @@
 
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-        <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar">
+        <div class="" id="navbar">
           <ul class="nav navbar-nav navbar-right">
             <li id="language-selector" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'app.language'|trans }} <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-globe" title="{{ 'app.language'|trans }}" ></span>
+              </a>
               <ul class="dropdown-menu">
                 <li {% if app['locale'] == 'en' %}class="active"{% endif %}><a href="#" data-locale="en">{{ 'app.language.english'|trans }}</a></li>
                 <li {% if app['locale'] == 'eo' %}class="active"{% endif %}><a href="#" data-locale="eo">{{ 'app.language.esperanto'|trans }}</a></li>
