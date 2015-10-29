@@ -18,6 +18,8 @@ https://pwx.io
 Installation
 ============
 
+Download the current stable release (here)[https://github.com/MichaelThessel/pwx/archive/v1.0.zip] or clone the repository.
+
 Install dependencies:
 ```
 # php composer.phar install
