@@ -48,9 +48,11 @@
             </select>
         </div>
         <div class="form-group">
-          <label for="oneTimeView">
-            <input type="checkbox" id="oneTimeView" name="oneTimeView"> {{ 'app.data.onetimeview'|trans }}
-          </label>
+          <div class="checkbox">
+            <label for="oneTimeView">
+              <input type="checkbox" id="oneTimeView" name="oneTimeView" value="1"> {{ 'app.data.onetimeview'|trans }}
+            </label>
+          </div>
         </div>
         <button type="submit" class="btn btn-default" tabindex="5">{{ 'index.generate_link'|trans }}</button>
       </form>

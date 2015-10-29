@@ -54,7 +54,7 @@ class DefaultController
         $userName = $request->get('userName');
         $password = $request->get('password');
         $comment = $request->get('comment');
-        $oneTimeView = $request->get('oneTimeView') == 'on';
+        $oneTimeView = (int) $request->get('oneTimeView') == 1;
 
         // Exit if we got no password
         if (empty($password)) {

@@ -134,8 +134,9 @@ class DefaultControllerTest extends WebTestCase
 
         // Visit the link page again and see of the entry is deleted
         $client = $this->createClient();
-        $client->request('GET', '/pw/' . $credentials->getHash());
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
         $this->assertTrue($client->getResponse()->isOk());
+        $this->assertEquals(1, $crawler->filter('#deleteCredentialsForm')->count());
     }
 
     /**
@@ -157,5 +158,6 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
+        $this->assertEquals(0, $crawler->filter('#deleteCredentialsForm')->count());
     }
 }
