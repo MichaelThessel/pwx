@@ -17,8 +17,6 @@ app.data.month: Monat
 
 app.language: Sprache
 
-app.theme: Theme
-
 index.generate: Generieren
 index.insert_password_start: Zufälliges
 index.insert_password_end: Zeichen langes Passwort einfügen

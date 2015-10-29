@@ -21,8 +21,6 @@ app.language.esperanto: Esperanto
 app.language.german: Deutsch
 app.language.spanish: Español
 
-app.theme: Theme
-
 index.generate: Generate
 index.insert_password_start: Insert random
 index.insert_password_end: character password

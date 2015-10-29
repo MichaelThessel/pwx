@@ -17,8 +17,6 @@ app.data.month: mes
 
 app.language: Idioma
 
-app.theme: Tema
-
 index.generate: Generar
 index.insert_password_start: Crear una contraseña de
 index.insert_password_end: caracteres al azar

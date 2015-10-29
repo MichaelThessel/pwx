@@ -17,8 +17,6 @@ app.data.month: monato
 
 app.language: Lingvo
 
-app.theme: Etoso
-
 index.generate: Krei
 index.insert_password_start: Krei pasvorton el
 index.insert_password_end: hazardaj signoj

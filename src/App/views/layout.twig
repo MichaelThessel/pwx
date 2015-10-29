@@ -26,14 +26,6 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="nav navbar-nav navbar-right">
-            <li id="theme-selector" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'app.theme'|trans }} <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                {% for theme in app['theme_service'].getValidThemes() %}
-                  <li {% if theme == app['theme'] %}class="active"{% endif %}><a href="#" data-theme="{{ theme }}">{{ theme|capitalize }}</a></li>
-                {% endfor %}
-              </ul>
-            </li>
             <li id="language-selector" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'app.language'|trans }} <span class="caret"></span></a>
               <ul class="dropdown-menu">

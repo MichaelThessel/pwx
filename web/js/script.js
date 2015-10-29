@@ -3,7 +3,6 @@ var Pwx = {
     // Initialize app
     init: function() {
         this.initLanguageSelector();
-        this.initThemeSelector();
         this.initClipboard();
         this.initCountdown();
         this.initPasswordGenerator();
@@ -19,17 +18,6 @@ var Pwx = {
             window.location.href = window.location.href
                 .replace(/locale=[a-zA-Z]{2}&?/, '')
                 .replace(/[?&#]$/, '');
-        });
-    },
-
-    // Init theme selector
-    initThemeSelector: function() {
-        $('#theme-selector li a').click(function(e) {
-            e.preventDefault();
-            if ($(this).closest('li').hasClass('active')) { return; }
-            Cookies.set('theme', $(this).data('theme'), { expires: 365 });
-            window.location.href = window.location.href
-                .replace(/[#]$/, '');
         });
     },
 
