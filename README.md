@@ -103,6 +103,41 @@ To run the integrated test suite please run:
 ```
 # vendor/bin/phpunit
 ```
+API
+===
+
+PWX offers a simple API with the following endpoints:
+
+**Save an entry**
+Request Methoud: PUT
+End Point: https://example.com/api
+Params:
+    userName: string (default: "")
+    password: string (reqired)
+    comment: string (default: "")
+    expires: int (time in s from when the entry will expire, min: 1h, max: 30days, default: 3600)
+    oneTimeView: bool (whether or not the entry will be deleted after viewing it once, default: false)
+Response:
+    hash string (id of entry)
+
+**Retrieve an entry**
+Request Methoud: GET
+End Point: https://example.com/api/[hash]
+Params:
+    n/a
+Response:
+    hash: string
+    userName: string
+    password: string
+    comment: string
+
+**Delete an entry**
+Request Methoud: DELETE
+End Point: https://example.com/api/[hash]
+Params:
+    n/a
+Response:
+    n/a
 
 Warning
 =======
