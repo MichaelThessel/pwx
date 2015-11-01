@@ -160,4 +160,64 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
         $this->assertEquals(0, $crawler->filter('#deleteCredentialsForm')->count());
     }
+
+    /**
+     * Test API, submit credentials and get link to password-page
+     */
+    public function testApiPostCredentialsAndGetLinkToPasswordPage()
+    {
+        // Load index page
+        $client = $this->createClient();
+        $client->request(
+            'POST',
+            '/api/',
+            $this->credentials
+        );
+
+        $this->assertTrue($client->getResponse()->isOk());
+        $link = json_decode($client->getResponse()->getContent(), true)['link'];
+        $hash = array();
+
+        $this->assertEquals(1, preg_match('/api\/(.*)$/', $link, $hash));
+        $this->credentialsService->delete($hash[1]);
+    }
+
+    /**
+     * Test API, show credentials by hash
+     */
+    public function testApiGetCredentials()
+    {
+        $credentials = $this->credentialsService->save($this->credentials);
+
+        $client = $this->createClient();
+        $client->request('GET', '/api/' . $credentials->getHash());
+        $credentialsArray = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertTrue($client->getResponse()->isOk());
+        $this->assertEquals($this->credentials['userName'], $credentialsArray['userName']);
+        $this->assertEquals($this->credentials['password'], $credentialsArray['password']);
+        $this->assertEquals($this->credentials['comment'], $credentialsArray['comment']);
+        $this->credentialsService->delete($credentials->getHash());
+    }
+
+    /**
+     * Test API, delete credentials by hash
+     */
+    public function testApiDeleteCredentials()
+    {
+        $credentials = $this->credentialsService->save($this->credentials);
+
+        $client = $this->createClient();
+        $client->request('GET', '/api/' . $credentials->getHash());
+        $this->assertTrue($client->getResponse()->isOk());
+
+        // Delete credential
+        // Response is empty with statusCode 204
+        $client->request('DELETE', '/api/' . $credentials->getHash());
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
+
+        // Visit the link page again and see of the entry is deleted
+        $client->request('GET', '/api/' . $credentials->getHash());
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
 }
