@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Twig_Environment;
 use App\Service\CredentialsService;
 
@@ -51,28 +52,34 @@ class DefaultController
      */
     public function indexPostAction(Request $request)
     {
-        $userName = $request->get('userName');
-        $password = $request->get('password');
-        $comment = $request->get('comment');
-        $oneTimeView = (int) $request->get('oneTimeView') == 1;
-
         // Exit if we got no password
-        if (empty($password)) {
-            return $this->twig->render('index.twig');
+        if (empty($request->get('password'))) {
+            return $this->app->redirect('/');
         }
 
-        $expires = $request->get('expires', 60 * 60);
-
-        /** @var \App\Entity\Credentials $credentials */
-        $credentials = $this->credentialsService->save(array(
-            'userName' => $userName,
-            'password' => $password,
-            'comment' => $comment,
-            'expires' => $expires,
-            'oneTimeView' => $oneTimeView
-        ));
+        $credentials = $this->saveCredentials($request);
 
         return $this->app->redirect($this->app['baseUrl'] . '/link/' . $credentials->getHash());
+    }
+
+    /**
+     * Api call to submit new data
+     *
+     * @param Request $request
+     * @return string JSON Response
+     */
+    public function apiPutAction(Request $request)
+    {
+        // Exit if we got no password
+        if (empty($request->get('password'))) {
+            $error = array('message' => 'The password cannot be empty');
+            return $this->app->json($error, Response::HTTP_BAD_REQUEST);
+        }
+
+        $credentials = $this->saveCredentials($request);
+
+        $link = array('hash' => $credentials->getHash());
+        return $this->app->json($link);
     }
 
     /**
@@ -96,16 +103,31 @@ class DefaultController
      */
     public function viewPasswordAction($hash)
     {
-        $credentials = $this->credentialsService->find($hash);
-
-        if ($credentials && $credentials->getOneTimeView())
-        {
-            $this->credentialsService->delete($credentials->getHash());
-        }
+        $credentials = $this->getCredentials($hash);
 
         return $this->twig->render('view_password.twig', array(
             'credentials' => $credentials,
         ));
+    }
+
+    /**
+     * Api call to view an entry
+     *
+     * @param mixed $hash Hash that identifies the entry
+     * @return string JSON Response
+     */
+    public function apiViewAction($hash)
+    {
+        $credentials = $this->getCredentials($hash);
+
+        if (!$credentials) {
+            return $this->app->json(
+                array('message' => 'This recored has expired'),
+                Response::HTTP_GONE
+            );
+        }
+
+        return $this->app->json($credentials);
     }
 
     /**
@@ -116,10 +138,66 @@ class DefaultController
      */
     public function deleteAction(Request $request)
     {
-        $hash = $request->get('hash');
-
-        $this->credentialsService->delete($hash);
+        $this->deleteCredentials($request->get('hash'));
 
         return $this->app->redirect($this->app['baseUrl'] . '/');
     }
+
+    /**
+     * Api call to delete an entry
+     *
+     * @param $hash
+     * @return string JSON Response
+     */
+    public function apiDeleteAction($hash)
+    {
+        $this->deleteCredentials($hash);
+
+        return $this->app->json('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Extract credentialParameter from Post-Request and save it
+     *
+     * @param Request $request
+     * @return \App\Entity\Credentials
+     */
+    protected function saveCredentials(Request $request)
+    {
+        return $this->credentialsService->save(array(
+            'userName' => $request->get('userName'),
+            'password' => $request->get('password'),
+            'comment' => $request->get('comment'),
+            'expires' => $request->get('expires', 60 * 60),
+            'oneTimeView' => (int) $request->get('oneTimeView') == 1,
+        ));
+    }
+
+    /**
+     * Get credentials by hash from the credentialService
+     *
+     * @param $hash
+     * @return \App\Entity\Credentials
+     */
+    protected function getCredentials($hash)
+    {
+        $credentials = $this->credentialsService->find($hash);
+
+        if ($credentials && $credentials->getOneTimeView()) {
+            $this->credentialsService->delete($credentials->getHash());
+        }
+
+        return $credentials;
+    }
+
+    /**
+     * Delete credentials by hash in the credentialService
+     *
+     * @param $hash
+     */
+    protected function deleteCredentials($hash)
+    {
+        $this->credentialsService->delete($hash);
+    }
+
 }

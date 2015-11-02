@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="credentials")
  * @ORM\Entity(repositoryClass="App\Entity\CredentialsRepository")
  */
-class Credentials
+class Credentials implements \JsonSerializable
 {
     /**
      * @var string
@@ -193,4 +193,20 @@ class Credentials
     {
         $this->oneTimeView = $oneTimeView;
     }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $data = array(
+            'hash' => $this->hash,
+            'userName' => $this->userName,
+            'password' => $this->password,
+            'comment' => $this->comment
+        );
+        return $data;
+    }
+
 }
+
