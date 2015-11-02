@@ -53,7 +53,8 @@ class DefaultController
     public function indexPostAction(Request $request)
     {
         // Exit if we got no password
-        if (empty($request->get('password'))) {
+        $password = $request->get('password');
+        if (empty($password)) {
             return $this->app->redirect('/');
         }
 
@@ -71,7 +72,8 @@ class DefaultController
     public function apiPutAction(Request $request)
     {
         // Exit if we got no password
-        if (empty($request->get('password'))) {
+        $password = $request->get('password');
+        if (empty($password)) {
             $error = array('message' => 'The password cannot be empty');
             return $this->app->json($error, Response::HTTP_BAD_REQUEST);
         }
