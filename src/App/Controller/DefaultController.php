@@ -69,7 +69,7 @@ class DefaultController
      * @param Request $request
      * @return string JSON Response
      */
-    public function apiPutAction(Request $request)
+    public function apiPostAction(Request $request)
     {
         // Exit if we got no password
         $password = $request->get('password');

@@ -7,6 +7,6 @@ $app->get('/pw/{hash}', 'app.default_controller:viewPasswordAction');
 $app->post('/delete', 'app.default_controller:deleteAction');
 
 // Api
-$app->put('/api', 'app.default_controller:apiPutAction');
+$app->post('/api', 'app.default_controller:apiPostAction');
 $app->get('/api/{hash}', 'app.default_controller:apiViewAction');
 $app->delete('/api/{hash}', 'app.default_controller:apiDeleteAction');

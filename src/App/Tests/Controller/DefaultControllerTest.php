@@ -164,12 +164,12 @@ class DefaultControllerTest extends WebTestCase
     /**
      * Test API, submit credentials and get link to password-page
      */
-    public function testApiPutCredentialsAndGetLinkToPasswordPage()
+    public function testApiPostCredentialsAndGetLinkToPasswordPage()
     {
         // Load index page
         $client = $this->createClient();
         $client->request(
-            'PUT',
+            'POST',
             '/api',
             $this->credentials
         );
@@ -188,12 +188,12 @@ class DefaultControllerTest extends WebTestCase
     /**
      * Test API, submit empty credentials
      */
-    public function testApiPutCredentialsEmpty()
+    public function testApiPostCredentialsEmpty()
     {
         // Load index page
         $client = $this->createClient();
         $client->request(
-            'PUT',
+            'POST',
             '/api',
             array()
         );

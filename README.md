@@ -111,7 +111,7 @@ PWX offers a simple API with the following endpoints:
 **Save an entry**
 
 ```
-Request Methoud: PUT
+Request Methoud: POST
 End Point: https://example.com/api
 Params:
     userName: string (default: "")
