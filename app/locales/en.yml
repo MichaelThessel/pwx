@@ -1,6 +1,9 @@
 app.poweredby: Powered by
 app.name: Password Exchange
 
+app.meta.description: Online password exchange service
+app.meta.keywords: Password, Exchange, Online, Credentials, Transfer, Email
+
 app.data.username: User Name
 app.data.password: Password
 app.data.comment: Comment
