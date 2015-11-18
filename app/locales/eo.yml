@@ -1,5 +1,8 @@
 app.poweredby: Funkcianta per
 app.name: Pasvort-interŝanĝo
+    
+app.meta.description: Interreta pasvort-interŝanĝa servo
+app.meta.keywords: Pasvorto, Interŝanĝo, Interrete, Akreditilo, Transdoni, Retpoŝto
 
 app.data.username: Salutnomo
 app.data.password: Pasvorto
