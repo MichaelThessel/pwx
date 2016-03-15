@@ -34,6 +34,10 @@ Create the database schema:
 ```
 # app/console orm:schema-tool:create
 ```
+Web server configuration
+========================
+
+The [Silex Documentation](http://silex.sensiolabs.org/doc/web_servers.html) has example configurations for Apache, nginx, IIS & Lighttpd.
 
 Update
 ======
