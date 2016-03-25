@@ -7,6 +7,7 @@
         "aptoma/silex-extras": "~1.2",
         "symfony/twig-bridge": "~2.3",
         "phpseclib/phpseclib": "0.3.10",
+        "symfony/symfony": "~2.7",
         "symfony/translation": "~2.7",
         "symfony/config": "~2.7",
         "symfony/yaml": "~2.7",
