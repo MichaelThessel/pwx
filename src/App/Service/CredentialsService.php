@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Credentials;
 use App\Entity\CredentialsRepository;
 use App\Factory\CredentialsFactory;
 use Doctrine\ORM\EntityManager;
@@ -64,6 +65,7 @@ class CredentialsService extends AbstractCryptService
         $credentials->setPassword($args['password']);
         $credentials->setComment($args['comment']);
         $credentials->setExpires($args['expires']);
+        $credentials->setOneTimeView($args['oneTimeView']);
 
         $this->encryptProperties($credentials);
 
@@ -83,6 +85,7 @@ class CredentialsService extends AbstractCryptService
      */
     public function find($hash)
     {
+        /** @var Credentials $credentials */
         $credentials = $this->credentialsRepository->find($hash);
         if ($credentials) $this->decryptProperties($credentials);
 

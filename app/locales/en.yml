@@ -1,10 +1,14 @@
 app.poweredby: Powered by
 app.name: Password Exchange
 
+app.meta.description: Online password exchange service
+app.meta.keywords: Password, Exchange, Online, Credentials, Transfer, Email
+
 app.data.username: User Name
 app.data.password: Password
 app.data.comment: Comment
 app.data.expires: Valid for
+app.data.onetimeview: Delete record after it has been viewed
 app.data.seconds: seconds
 app.data.minutes: minutes
 app.data.hour: hour
@@ -19,8 +23,6 @@ app.language.english: English
 app.language.esperanto: Esperanto
 app.language.german: Deutsch
 app.language.spanish: Español
-
-app.theme: Theme
 
 index.generate: Generate
 index.insert_password_start: Insert random

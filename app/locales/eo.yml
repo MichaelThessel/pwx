@@ -1,10 +1,14 @@
 app.poweredby: Funkcianta per
 app.name: Pasvort-interŝanĝo
+    
+app.meta.description: Interreta pasvort-interŝanĝa servo
+app.meta.keywords: Pasvorto, Interŝanĝo, Interrete, Akreditilo, Transdoni, Retpoŝto
 
 app.data.username: Salutnomo
 app.data.password: Pasvorto
 app.data.comment: Noto
 app.data.expires: Valida por
+app.data.onetimeview: Forigi la rekordon la unuan fojon ĝi estas montrata
 app.data.seconds: sekundoj
 app.data.minutes: minutoj
 app.data.hour: horo
@@ -15,8 +19,6 @@ app.data.week: semajno
 app.data.month: monato
 
 app.language: Lingvo
-
-app.theme: Etoso
 
 index.generate: Krei
 index.insert_password_start: Krei pasvorton el

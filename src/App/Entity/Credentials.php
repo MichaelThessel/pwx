@@ -2,47 +2,60 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * UserCredentials
  *
- * @Table(name="credentials")
- * @Entity(repositoryClass="App\Entity\CredentialsRepository")
+ * @ORM\Table(name="credentials")
+ * @ORM\Entity(repositoryClass="App\Entity\CredentialsRepository")
  */
-class Credentials
+class Credentials implements \JsonSerializable
 {
     /**
-     * @Column(name="hash", type="string", length=10, options={"default" = ""})
-     * @Id
-     * @GeneratedValue(strategy="NONE")
+     * @var string
+     * @ORM\Column(name="hash", type="string", length=10, options={"default" = ""})
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     protected $hash;
 
     /**
-     * @Column(name="username", type="text", length=65535)
+     * @var string
+     * @ORM\Column(name="username", type="text", length=65535)
      */
     protected $userName;
 
     /**
-     * @Column(name="password", type="text", length=65535)
+     * @var string
+     * @ORM\Column(name="password", type="text", length=65535)
      */
     protected $password;
 
     /**
-     * @Column(name="comment", type="text", length=65535)
+     * @var string
+     * @ORM\Column(name="comment", type="text", length=65535)
      */
     protected $comment;
 
     /**
-     * @Column(name="expires", type="integer")
+     * @var integer
+     * @ORM\Column(name="expires", type="integer")
      */
     protected $expires;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="one_time_view", type="boolean")
+     */
+    protected $oneTimeView;
 
     protected $isEncrypted;
 
     /**
      * Set hash
      *
-     * @param string $hash
+     * @ORM\param string $hash
      * @return void
      */
     public function setHash($hash)
@@ -147,7 +160,7 @@ class Credentials
     /**
      * Get encryption state
      *
-     * @return bool Encrypion state
+     * @return bool Encryption state
      */
     public function isEncrypted()
     {
@@ -164,4 +177,36 @@ class Credentials
     {
         $this->isEncrypted = $isEncrypted;
     }
+
+    /**
+     * @return boolean
+     */
+    public function getOneTimeView()
+    {
+        return $this->oneTimeView;
+    }
+
+    /**
+     * @param boolean $oneTimeView
+     */
+    public function setOneTimeView($oneTimeView)
+    {
+        $this->oneTimeView = $oneTimeView;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $data = array(
+            'hash' => $this->hash,
+            'userName' => $this->userName,
+            'password' => $this->password,
+            'comment' => $this->comment
+        );
+        return $data;
+    }
+
 }
+

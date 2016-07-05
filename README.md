@@ -13,10 +13,12 @@ For more information please check out my [blog](http://michaelthessel.com/tag/pw
 Example
 ============
 
-https://pwx.michaelthessel.com
+https://pwx.io
 
 Installation
 ============
+
+Download the current stable release [here](https://github.com/MichaelThessel/pwx/archive/v1.0.zip) or clone the repository.
 
 Install dependencies:
 ```
@@ -32,9 +34,15 @@ Create the database schema:
 ```
 # app/console orm:schema-tool:create
 ```
+Web server configuration
+========================
+
+The [Silex Documentation](http://silex.sensiolabs.org/doc/web_servers.html) has example configurations for Apache, nginx, IIS & Lighttpd.
 
 Update
 ======
+
+Download the latest source code.
 
 If you are updating to a newer version follow these steps.
 
@@ -55,6 +63,7 @@ Currently:
 
  * English (en)
  * Spanish (es)
+ * Esperanto (eo)
  * and German (de)
 
 are supported by PWX. Please set locale according to your requirements in the
@@ -64,7 +73,7 @@ You can use a GET parameter when linking to PWX. I.e.
 
 https://example.com?locale=es
 
-This allows for one instance of PWX dynamically to be accessed in different
+This allows for one instance of PWX dynamically being accessed in different
 languages.
 
 Themes
@@ -97,6 +106,50 @@ concatenated assets when style or script files are changed.
 To run the integrated test suite please run:
 ```
 # vendor/bin/phpunit
+```
+API
+===
+
+PWX offers a simple API with the following endpoints:
+
+**Save an entry**
+
+```
+Request Methoud: POST
+End Point: https://example.com/api
+Params:
+    userName: string (default: "")
+    password: string (reqired)
+    comment: string (default: "")
+    expires: int (time in s from when the entry will expire, min: 1h, max: 30days, default: 3600)
+    oneTimeView: bool (whether or not the entry will be deleted after viewing it once, default: false)
+Response:
+    hash string (id of entry)
+```
+
+**Retrieve an entry**
+
+```
+Request Methoud: GET
+End Point: https://example.com/api/[hash]
+Params:
+    n/a
+Response:
+    hash: string
+    userName: string
+    password: string
+    comment: string
+```
+
+**Delete an entry**
+
+```
+Request Methoud: DELETE
+End Point: https://example.com/api/[hash]
+Params:
+    n/a
+Response:
+    n/a
 ```
 
 Warning

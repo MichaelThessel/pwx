@@ -30,6 +30,7 @@ $config = array(
                 'type' => 'annotation',
                 'namespace' => 'App\Entity',
                 'path' => __DIR__. '/../src/App/Entity',
+                'use_simple_annotation_reader' => false,
             ),
         ),
     ),
@@ -51,7 +52,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), $config);
 // Register DoctrineOrmServiceProvider service
 $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), $config);
 
-// Register theme service & set user theme
+// Register register I18n service
 $app['i18n_service'] = $app->share(function () { return new App\Service\I18nService(); });
 
 // Register translation service
@@ -105,14 +106,6 @@ $app['app.default_controller'] = $app->share(
 if ($config['requireHttps']) {
     $app['controllers']->requireHttps();
 }
-
-// Register theme service & set user theme
-$app['theme_service'] = $app->share(
-    function () use ($app){
-        return new App\Service\ThemeService($app);
-    }
-);
-$app['theme_service']->setUserTheme();
 
 // After middleware
 $app->after(function (Request $request, Response $response) use ($app) {

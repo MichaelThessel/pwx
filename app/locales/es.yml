@@ -1,10 +1,14 @@
 app.poweredby: Funciona con
 app.name: Intercambio de contraseñas
 
+app.meta.description: Servicio para el intercambio de contraseñas a través de Internet
+app.meta.keywords: Contraseña, Intercambio, Online, En línea, Credenciales, Transferir, Email, Correo electrónico
+
 app.data.username: Nombre de usuario
 app.data.password: Contraseña
 app.data.comment: Nota
 app.data.expires: Válido por
+app.data.onetimeview: Eliminar el registro la primera vez que se visualice
 app.data.seconds: segundos
 app.data.minutes: minutos
 app.data.hour: hora

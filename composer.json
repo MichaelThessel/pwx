@@ -5,9 +5,10 @@
     "require": {
         "silex/silex": "~1.2",
         "aptoma/silex-extras": "~1.2",
+        "symfony/config": "~2.7",
+        "symfony/symfony": "~2.7",
         "symfony/twig-bridge": "~2.3",
         "symfony/translation": "~2.7",
-        "symfony/config": "~2.7",
         "symfony/yaml": "~2.7",
         "phpunit/phpunit": "4.8.*",
         "dflydev/doctrine-orm-service-provider": "1.0.*",
