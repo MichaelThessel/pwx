@@ -35,6 +35,7 @@ class DefaultControllerTest extends WebTestCase
     public function testIndex()
     {
         $client = $this->createClient();
+        $client->followRedirects();
         $crawler = $client->request('GET', '/');
 
         $this->assertTrue($client->getResponse()->isOk());
@@ -54,7 +55,9 @@ class DefaultControllerTest extends WebTestCase
     {
         // Load index page
         $client = $this->createClient();
+        $client->followRedirects();
         $crawler = $client->request('GET', '/');
+        $client->followRedirects(false);
 
         // Save credentials
         $form = $crawler->filter('#submitCredentialsForm')->form();
@@ -82,6 +85,7 @@ class DefaultControllerTest extends WebTestCase
         $credentials = $this->credentialsService->save($this->credentials);
 
         $client = $this->createClient();
+        $client->followRedirects();
         $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
 
         $this->assertTrue($client->getResponse()->isOk());
@@ -100,12 +104,12 @@ class DefaultControllerTest extends WebTestCase
         $credentials = $this->credentialsService->save($this->credentials);
 
         $client = $this->createClient();
+        $client->followRedirects();
         $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
 
         // Delete credential
         $form = $crawler->filter('#deleteCredentialsForm')->form();
         $client->submit($form);
-        $client->followRedirect();
         $this->assertTrue($client->getResponse()->isOk());
 
         // Test if redirects to '/'
@@ -113,6 +117,7 @@ class DefaultControllerTest extends WebTestCase
 
         // Visit the link page again and see of the entry is deleted
         $client = $this->createClient();
+        $client->followRedirects();
         $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
     }

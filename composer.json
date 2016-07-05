@@ -6,7 +6,6 @@
         "silex/silex": "~1.2",
         "aptoma/silex-extras": "~1.2",
         "symfony/twig-bridge": "~2.3",
-        "phpseclib/phpseclib": "0.3.10",
         "symfony/translation": "~2.7",
         "symfony/config": "~2.7",
         "symfony/yaml": "~2.7",
@@ -14,7 +13,8 @@
         "dflydev/doctrine-orm-service-provider": "1.0.*",
         "codegyre/robo": "^0.5.4",
         "patchwork/jsqueeze": "^2.0",
-        "natxet/CssMin": "^3.0"
+        "natxet/CssMin": "^3.0",
+        "phpseclib/phpseclib": "^2.0"
     },
     "autoload": {
         "psr-0": {

@@ -3,7 +3,7 @@
 namespace App\Factory;
 
 use App\Entity\Credentials;
-use Crypt_RSA;
+use phpseclib\Crypt\RSA;
 
 class CredentialsFactory {
 
@@ -15,7 +15,7 @@ class CredentialsFactory {
     public function getInstance() {
         $credentials = new Credentials();
 
-        $rsa = new Crypt_RSA();
+        $rsa = new RSA();
         $key = $rsa->createKey();
         $credentials->setHash(substr(md5($key['privatekey']), 0, 10));
 

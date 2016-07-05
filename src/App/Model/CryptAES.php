@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Model;
+use phpseclib\Crypt\AES;
 
-use Crypt_AES;
 
 /**
  * Handles AES encryption
  */
 class CryptAES {
 
-    /** @var Crypt_AES */
+    /** @var AES */
     protected $cipher;
 
     /**
@@ -19,7 +19,7 @@ class CryptAES {
     {
         // Encrypt passwords with AES if secret is set
         if (isset($this->config['secret']) || $this->config['secret']) {
-            $this->cipher = new Crypt_AES(CRYPT_AES_MODE_ECB);
+            $this->cipher = new AES(AES::MODE_ECB);
             $this->cipher->setKey($this->config['secret']);
             return true;
         }
@@ -37,7 +37,7 @@ class CryptAES {
     {
         if (!$this->cipher && !$this->setCipher()) return $crypt;
 
-        return $this->cipher->decrypt($crypt);
+        return $this->cipher->decrypt(base64_decode($crypt));
     }
 
     /**
@@ -50,6 +50,6 @@ class CryptAES {
     {
         if (!$this->cipher && !$this->setCipher()) return $crypt;
 
-        return $this->cipher->encrypt($crypt);
+        return base64_encode($this->cipher->encrypt($crypt));
     }
 }
