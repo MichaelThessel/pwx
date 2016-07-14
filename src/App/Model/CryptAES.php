@@ -37,7 +37,7 @@ class CryptAES {
     {
         if (!$this->cipher && !$this->setCipher()) return $crypt;
 
-        return $this->cipher->decrypt(base64_decode($crypt));
+        return $this->cipher->decrypt($crypt);
     }
 
     /**
@@ -50,6 +50,6 @@ class CryptAES {
     {
         if (!$this->cipher && !$this->setCipher()) return $crypt;
 
-        return base64_encode($this->cipher->encrypt($crypt));
+        return $this->cipher->encrypt($crypt);
     }
 }
