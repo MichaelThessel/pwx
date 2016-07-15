@@ -9,6 +9,8 @@ class DefaultControllerTest extends WebTestCase
     /** @var  \App\Service\CredentialsService */
     protected $credentialsService;
 
+    protected $app;
+
     protected $credentials = array(
         'userName' => 'nameOfUser',
         'password' => 'passwordOfUser',
@@ -19,17 +21,17 @@ class DefaultControllerTest extends WebTestCase
 
     public function createApplication()
     {
-        $app = require __DIR__.'/../../../../app/app.php';
+        $this->app = require __DIR__.'/../../../../app/app.php';
 
-        $this->credentialsService = $app['credentials_service'];
+        $this->credentialsService = $this->app['credentials_service'];
 
-        unset($app['exception_handler']);
+        unset($this->app['exception_handler']);
 
-        return $app;
+        return $this->app;
     }
 
     /**
-     * Test credential creation
+     * Test HTTP/S redirects
      *
      * @return void
      */
@@ -37,7 +39,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = $this->createClient();
         $client->request('GET', '/');
-        $this->assertTrue($client->getResponse()->isRedirect('https://localhost/'));
+        $this->assertSame($client->getResponse()->isRedirect(), $this->app['requireHttps']);
     }
 
     /**
