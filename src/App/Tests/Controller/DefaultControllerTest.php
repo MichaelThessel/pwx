@@ -33,10 +33,22 @@ class DefaultControllerTest extends WebTestCase
      *
      * @return void
      */
+    public function testHttpRequestRedirectsToHttps()
+    {
+        $client = $this->createClient();
+        $client->request('GET', '/');
+        $this->assertTrue($client->getResponse()->isRedirect('https://localhost/'));
+    }
+
+    /**
+     * Test credential creation
+     *
+     * @return void
+     */
     public function testIndex()
     {
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/');
+        $crawler = $client->request('GET', '/', array(), array(), array('HTTPS' => true));
 
         $this->assertTrue($client->getResponse()->isOk());
 
@@ -56,7 +68,7 @@ class DefaultControllerTest extends WebTestCase
     {
         // Load index page
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/');
+        $crawler = $client->request('GET', '/', array(), array(), array('HTTPS' => true));
 
         // Save credentials
         $form = $crawler->filter('#submitCredentialsForm')->form();
@@ -85,7 +97,7 @@ class DefaultControllerTest extends WebTestCase
         $credentials = $this->credentialsService->save($this->credentials);
 
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
 
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals($this->credentials['userName'], $crawler->filter('#userName > span')->text());
@@ -103,7 +115,7 @@ class DefaultControllerTest extends WebTestCase
         $credentials = $this->credentialsService->save($this->credentials);
 
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
 
         // Delete credential
         $form = $crawler->filter('#deleteCredentialsForm')->form();
@@ -116,7 +128,7 @@ class DefaultControllerTest extends WebTestCase
 
         // Visit the link page again and see of the entry is deleted
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
     }
 
@@ -129,12 +141,12 @@ class DefaultControllerTest extends WebTestCase
 
         // Access resource first time
         $client = $this->createClient();
-        $client->request('GET', '/pw/' . $credentials->getHash());
+        $client->request('GET', '/pw/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
         $this->assertTrue($client->getResponse()->isOk());
 
         // Visit the link page again and see of the entry is deleted
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals(1, $crawler->filter('#deleteCredentialsForm')->count());
     }
@@ -149,13 +161,13 @@ class DefaultControllerTest extends WebTestCase
 
         // Access resource first time
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals(0, $crawler->filter('#credentialsExpired')->count());
 
         // Visit the link page again and see of the entry is deleted
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/pw/' . $credentials->getHash());
+        $crawler = $client->request('GET', '/pw/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
         $this->assertTrue($client->getResponse()->isOk());
         $this->assertEquals(1, $crawler->filter('#credentialsExpired')->count());
         $this->assertEquals(0, $crawler->filter('#deleteCredentialsForm')->count());
@@ -171,12 +183,12 @@ class DefaultControllerTest extends WebTestCase
         $client->request(
             'POST',
             '/api',
-            $this->credentials
+            $this->credentials,
+            array(),
+            array('HTTPS' => true)
         );
 
         $this->assertTrue($client->getResponse()->isOk());
-        $resonse = json_decode($client->getResponse()->getContent(), true);
-
         $response = json_decode($client->getResponse()->getContent(), true);
         $this->assertSame(200, $client->getResponse()->getStatusCode());
         $this->assertTrue(is_array($response));
@@ -195,7 +207,9 @@ class DefaultControllerTest extends WebTestCase
         $client->request(
             'POST',
             '/api',
-            array()
+            array(),
+            array(),
+            array('HTTPS' => true)
         );
 
         $response = json_decode($client->getResponse()->getContent(), true);
@@ -212,7 +226,7 @@ class DefaultControllerTest extends WebTestCase
         $credentials = $this->credentialsService->save($this->credentials);
 
         $client = $this->createClient();
-        $client->request('GET', '/api/' . $credentials->getHash());
+        $client->request('GET', '/api/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
         $response = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertTrue($client->getResponse()->isOk());
@@ -230,7 +244,7 @@ class DefaultControllerTest extends WebTestCase
     {
 
         $client = $this->createClient();
-        $client->request('GET', '/api/invalid');
+        $client->request('GET', '/api/invalid', array(), array(), array('HTTPS' => true));
 
         $response = json_decode($client->getResponse()->getContent(), true);
         $this->assertSame(410, $client->getResponse()->getStatusCode());
@@ -246,16 +260,16 @@ class DefaultControllerTest extends WebTestCase
         $credentials = $this->credentialsService->save($this->credentials);
 
         $client = $this->createClient();
-        $client->request('GET', '/api/' . $credentials->getHash());
+        $client->request('GET', '/api/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
         $this->assertTrue($client->getResponse()->isOk());
 
         // Delete credential
         // Response is empty with statusCode 204
-        $client->request('DELETE', '/api/' . $credentials->getHash());
+        $client->request('DELETE', '/api/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
         // Visit the link page again and see of the entry is deleted
-        $client->request('GET', '/api/' . $credentials->getHash());
+        $client->request('GET', '/api/' . $credentials->getHash(), array(), array(), array('HTTPS' => true));
         $this->assertEquals(410, $client->getResponse()->getStatusCode());
     }
 }
