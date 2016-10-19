@@ -9,7 +9,7 @@ class RoboFile extends \Robo\Tasks
     /**
      * Build PWX
      */
-    function build()
+    public function build()
     {
         // Minify JS
         $this->taskMinify('web/js/script.js')
@@ -36,7 +36,7 @@ class RoboFile extends \Robo\Tasks
     /**
      * Watch CSS and JS assets for changes and compile minfied assets on change
      */
-    function watch()
+    public function watch()
     {
         $this->taskWatch()
             ->monitor(
