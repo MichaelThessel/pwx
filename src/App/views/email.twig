@@ -1,0 +1,12 @@
+{% set url = (app.request.scheme ~ '://' ~ app.request.host ~ app.request.baseUrl ~ '/pw/' ~ hash) %}
+{{ 'email.salutation'|trans }}, <br />
+ <br />
+{{ 'email.explanation'|trans }}. {{ 'email.from'|trans }} {{ 'app.name'|trans }} {{ 'app.poweredby'|trans }} <br />
+ <br />
+{{ 'email.passwordUrl'|trans }} <br />
+<a id="passwordlink" href="{{ url }}">{{ url }}</a> <br />
+
+
+
+
+

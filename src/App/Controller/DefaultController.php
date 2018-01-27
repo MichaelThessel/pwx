@@ -1,14 +1,22 @@
 <?php
-
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig_Environment;
 use App\Service\CredentialsService;
+use \Swift_SmtpTransport;
+use \Swift_MailTransport;
+use \Swift_SendmailTransport;
+use \Swift_Mailer;
+use \Swift_Message;
 
 class DefaultController
 {
+
+	private $transport;
+	private $message;
+
     protected $app;
     protected $twig;
     protected $credentialsService;
@@ -52,14 +60,59 @@ class DefaultController
      */
     public function indexPostAction(Request $request)
     {
-        // Exit if we got no password
+        
         $password = $request->get('password');
-        if (empty($password)) {
-            return $this->app->redirect('/');
-        }
+        $sendByEmail = $request->get('sendByEmail');
+		$userEmail = $request->get('userEmail');
+		
+		// Exit if we got no password
+		if (empty($password))
+			// fix, redirect to base url not to root.
+            return $this->app->redirect($this->app['baseUrl']);
+        // Exit if we got no email adress
+		if($sendByEmail == true && empty($userEmail))
+			return $this->app->redirect($this->app['baseUrl']);
 
         $credentials = $this->saveCredentials($request);
-
+		
+		$sendByEmail = $request->get('sendByEmail');
+		
+		// check if this records needs to be send out and is allowed
+		if($sendByEmail == true && $this->app['email_active'] == true) {
+			
+			$sendMethod = $this->app['email']['method'];
+			
+			switch ($sendMethod) {
+				case "local":
+					$this->transport = Swift_MailTransport::newInstance();
+					break;
+				case "smtp":
+					$this->transport = new Swift_SmtpTransport($this->app['email']['server'], $this->app['email']['port'], 'ssl');
+					$this->transport->setUsername($this->app['email']['username']);
+					$this->transport->setPassword($this->app['email']['password']);
+					break;
+				case "sendmail": 
+					$this->transport = new Swift_SendmailTransport('/usr/sbin/sendmail -bs');
+					break;
+			}
+				
+			// Create the Mailer using your created Transport
+			$mailer = new Swift_Mailer($this->transport);
+			
+			$this->message = (new Swift_Message($this->app['email']['subject']));
+			$this->message->setFrom($this->app['email']['from_address']);
+			$this->message->setTo(array($request->get('userEmail')));
+			
+			$body = $this->twig->render('email.twig', array(
+				'hash' => $credentials->getHash(),
+				));
+			
+			$this->message->setBody($body, 'text/html');
+			$mailer->send($this->message, $failedRecipients);
+			
+		}
+		
+		
         return $this->app->redirect($this->app['baseUrl'] . '/link/' . $credentials->getHash());
     }
 
@@ -166,13 +219,19 @@ class DefaultController
      */
     protected function saveCredentials(Request $request)
     {
-        return $this->credentialsService->save(array(
+        
+		
+		return $this->credentialsService->save(array(
             'userName' => $request->get('userName'),
             'password' => $request->get('password'),
             'comment' => $request->get('comment'),
             'expires' => $request->get('expires', 60 * 60),
             'oneTimeView' => (int) $request->get('oneTimeView') == 1,
         ));
+		
+		
+		
+		
     }
 
     /**

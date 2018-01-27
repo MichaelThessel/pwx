@@ -15,7 +15,9 @@
         "codegyre/robo": "^0.5.4",
         "patchwork/jsqueeze": "^2.0",
         "natxet/CssMin": "^3.0",
-        "phpseclib/phpseclib": "^2.0"
+        "phpseclib/phpseclib": "^2.0",
+		"symfony/swiftmailer-bundle" : "^3.1.4",
+		"swiftmailer/swiftmailer": "^6.0.0"
     },
     "autoload": {
         "psr-0": {

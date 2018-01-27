@@ -1,5 +1,6 @@
-app.poweredby: Gesponsord door
+app.poweredby: verzorgd door
 app.name: Password Exchange Portal
+app.owner: Onze Cloud
 
 app.meta.description: Online Password Exchange Portal
 app.meta.keywords: Password, Uitwisseling, Online, Inloggegevens, Email
@@ -17,6 +18,8 @@ app.data.day: dag
 app.data.days: dagen
 app.data.week: week
 app.data.month: maand
+app.data.sendbyemail: Automatische per email toezenden
+app.data.useremail: E-mail adres:
 
 app.language: Taal
 app.language.english: Engels
@@ -39,3 +42,9 @@ view_password.view: Wachtwoord weergeven
 view_password.expires: Dit wachtwoord zal worden verwijderd in
 view_password.delete: Verwijder
 view_password.expired: Deze link is verlopen!
+
+
+email.salutation: Geachte heer/mevrouw
+email.explanation: Dit is een automatische verzonden bericht om u op een veilige manier uw wachtwoord te verstrekken.
+email.from: Deze email is afkomstig van
+email.passwordUrl: U kunt uw wachtwoord opvragen door op de volgende URL te klikken.
