@@ -18,6 +18,7 @@ class I18nService {
         'de',
         'eo',
         'es',
+		'nl'
     );
 
     /**

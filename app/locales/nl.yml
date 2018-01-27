@@ -23,6 +23,7 @@ app.language.english: Engels
 app.language.esperanto: Esperanto
 app.language.german: Duits
 app.language.spanish: Spaans
+app.language.dutch: Nederlands
 
 index.generate: Genereren
 index.insert_password_start: Maak willekeurig aan
