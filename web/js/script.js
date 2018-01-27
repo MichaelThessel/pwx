@@ -70,20 +70,17 @@ var Pwx = {
             e.stopPropagation();
         });
     },
-	
-	initShowEmail: function() {
+
+    initShowEmail: function() {
         $('#sendByEmail').click(function(e) {
-            var toggle = $(this).data('show-email'); 
-			
-			
-			if ($('#sendByEmail').is(":checked")) {
-				$('#sendByEmailGroup').fadeIn();
-				
-			} else {
-				$(this).data('show-email', false);
-				$('#sendByEmailGroup').fadeOut();
-			}	
-						
+            var toggle = $(this).data('show-email');
+
+            if ($('#sendByEmail').is(":checked")) {
+                $('#sendByEmailGroup').fadeIn();
+            } else {
+                $(this).data('show-email', false);
+                $('#sendByEmailGroup').fadeOut();
+            }
         });
     },
 

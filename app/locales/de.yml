@@ -1,5 +1,6 @@
 app.poweredby: Powered by
 app.name: Passwort Austausch
+app.owner: 
 
 app.meta.description: Internet Passwort Austausch Dienst
 app.meta.keywords: Passwort, Austausch, Login, Zugangsdaten, Übermittlung, Email
@@ -17,8 +18,15 @@ app.data.day: Tag
 app.data.days: Tage
 app.data.week: Woche
 app.data.month: Monat
+app.data.sendbyemail: Automatisch per E-Mail senden
+app.data.useremail: E-mail Adresse:
 
 app.language: Sprache
+app.language.english: English
+app.language.esperanto: Esperanto
+app.language.german: Deutsch
+app.language.spanish: Español
+app.language.dutch: Nederlands
 
 index.generate: Generieren
 index.insert_password_start: Zufälliges
@@ -34,3 +42,8 @@ view_password.view: Passwort Anzeigen
 view_password.expires: Dieser Eintrag erlischt in
 view_password.delete: Löschen
 view_password.expired: Dieser Eintrag ist erloschen!
+
+email.salutation: Sehr geehrter Herr / Frau
+email.explanation: Dies ist eine automatisch gesendete Nachricht, um Ihr Kennwort sicher zu vergeben.
+email.from: Diese E-Mail kommt von
+email.passwordUrl: Sie können Ihr Kennwort anfordern, indem Sie auf die folgende URL klicken.
