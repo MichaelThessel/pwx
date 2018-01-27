@@ -1,0 +1,40 @@
+app.poweredby: Gesponsord door
+app.name: Password Exchange Portal
+
+app.meta.description: Online Password Exchange Portal
+app.meta.keywords: Password, Uitwisseling, Online, Inloggegevens, Email
+
+app.data.username: Gebruikersnaam
+app.data.password: Wachtwoord
+app.data.comment: Opmerking
+app.data.expires: Geldigheidsduur
+app.data.onetimeview: Verwijderen na inzage
+app.data.seconds: seconden
+app.data.minutes: minuten
+app.data.hour: uur
+app.data.hours: uren
+app.data.day: dag
+app.data.days: dagen
+app.data.week: week
+app.data.month: maand
+
+app.language: Taal
+app.language.english: Engels
+app.language.esperanto: Esperanto
+app.language.german: Duits
+app.language.spanish: Spaans
+
+index.generate: Genereren
+index.insert_password_start: Maak willekeurig aan
+index.insert_password_end: tekens wachtwoord.
+index.show_password: Wachtwoord weergeven
+index.hide_password: Wachtwoord verbergen
+index.generate_link: Genereer link
+
+view_link.view: Bekijk link
+view_link.share: Deel deze link
+
+view_password.view: Wachtwoord weergeven
+view_password.expires: Dit wachtwoord zal worden verwijderd in
+view_password.delete: Verwijder
+view_password.expired: Deze link is verlopen!
