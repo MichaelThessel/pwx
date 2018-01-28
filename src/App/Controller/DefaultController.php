@@ -76,9 +76,6 @@ class DefaultController
             $sendMethod = $this->app['email']['method'];
 
             switch ($sendMethod) {
-            case "local":
-                $this->transport = \Swift_MailTransport::newInstance();
-                break;
             case "smtp":
                 $this->transport = new \Swift_SmtpTransport($this->app['email']['server'], $this->app['email']['port'], 'ssl');
                 $this->transport->setUsername($this->app['email']['username']);

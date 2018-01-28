@@ -30,7 +30,7 @@ $config['secret'] = 'yourPasswordEncryptionKey';
 $config['locale'] = 'en';
 
 // email configuration
-// server options: local (php), smtp, sendmail
+// server options: smtp, sendmail
 $config["email_active"] = false;
 $config['email']['method'] = 'sendmail';
 $config['email']['sendmail_path'] = '/usr/sbin/sendmail -bs'; // only needed when using sendmail
