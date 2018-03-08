@@ -34,3 +34,6 @@ a, a:hover, a:visited {
   margin-top: 0.5em;
   font-size: 0.8em;
 }
+.defaulthide {
+	display: none;
+}

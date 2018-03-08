@@ -7,6 +7,7 @@ var Pwx = {
         this.initCountdown();
         this.initPasswordGenerator();
         this.initShowPassword();
+		this.initShowEmail();
     },
 
     // Init language selector
@@ -70,6 +71,19 @@ var Pwx = {
         });
     },
 
+    initShowEmail: function() {
+        $('#sendByEmail').click(function(e) {
+            var toggle = $(this).data('show-email');
+
+            if ($('#sendByEmail').is(":checked")) {
+                $('#sendByEmailGroup').fadeIn();
+            } else {
+                $(this).data('show-email', false);
+                $('#sendByEmailGroup').fadeOut();
+            }
+        });
+    },
+
     // Callback function for the countdown timer
     countdownCallback: function(e) {
       $(this).html(e.strftime('<span>%D</span> ' + LOCALE.app.data.days + ' ' + '<span>%H</span> ' + LOCALE.app.data.hours + ' ' + '<span>%M</span> ' + LOCALE.app.data.minutes + ' ' + '<span>%S</span> ' + LOCALE.app.data.seconds));
@@ -95,7 +109,7 @@ var Pwx = {
 
         return hasFlash;
     },
-
+	
     // Generate random password string
     generatePassword: function(length) {
         var i, password,

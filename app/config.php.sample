@@ -14,17 +14,34 @@ $config['requireHttps'] = true;
 
 // Database settings
 $config['db.options']['driver'] = 'pdo_mysql';
-$config['db.options']['host'] = 'localhost';
+$config['db.options']['host'] = '';
 $config['db.options']['dbname'] = '';
 $config['db.options']['user'] = '';
 $config['db.options']['password'] = '';
+// Database settings when using sqlite
+//$config['db.options']['driver'] = 'pdo_sqlite';
+//$config['db.options']['path'] = __DIR__.'/app.db';
 
 // Add your secret key here. This is used to encrypt database content
 $config['secret'] = 'yourPasswordEncryptionKey';
 
 // Set your locale
-// supported locales: en, es, de
+// supported locales: en, es, de, nl
 $config['locale'] = 'en';
+
+// email configuration
+// server options: smtp, sendmail
+$config["email_active"] = false;
+$config['email']['method'] = 'sendmail';
+$config['email']['sendmail_path'] = '/usr/sbin/sendmail -bs'; // only needed when using sendmail
+$config['email']['hostname'] = '';
+$config['email']['port'] = '25';
+$config['email']['authentication'] = true;
+$config['email']['username'] = '';
+$config['email']['password'] = '';
+$config['email']['from_address'] = 'sample@example.org';
+$config['email']['subject'] = '';
+
 
 // Theme
 // PWX uses themes from https://bootswatch.com/
