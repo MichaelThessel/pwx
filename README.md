@@ -13,7 +13,7 @@ For more information please check out my [blog](http://michaelthessel.com/tag/pw
 Example
 ============
 
-https://pwx.io
+https://pwx.michaelthessel.com
 
 Installation
 ============
