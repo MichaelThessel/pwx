@@ -105,6 +105,12 @@ class DefaultController
      */
     public function viewPasswordAction($hash)
     {
+        // check if the page is loaded by a crawler, e.g. a Slack of Whatsapp preview
+        $crawlerDetect = $this->app['crawlerDetect'];
+        if ($crawlerDetect->isCrawler()) {
+            return $this->twig->render('view_crawler.twig');
+        }
+
         $credentials = $this->getCredentials($hash);
 
         return $this->twig->render('view_password.twig', array(

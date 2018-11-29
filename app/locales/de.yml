@@ -34,3 +34,5 @@ view_password.view: Passwort Anzeigen
 view_password.expires: Dieser Eintrag erlischt in
 view_password.delete: Löschen
 view_password.expired: Dieser Eintrag ist erloschen!
+
+view_crawler.info: Ein Kennwort wurde mit Ihnen geteilt, als Sicherheitsmaßnahme ist die Vorschau deaktiviert.

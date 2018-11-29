@@ -61,6 +61,13 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
     'locale' => $app['i18n_service']->getLocale($config['locale']),
 ));
 
+// Add Crawler Detect
+$app['crawlerDetect'] = $app->share(
+    function() {
+        return new Jaybizzle\CrawlerDetect\CrawlerDetect;
+    }
+);
+
 // Register the yaml translations
 $app['translator'] = $app->share($app->extend('translator', function(Silex\Translator $translator, $app) {
     $translator->addLoader('yaml', new Symfony\Component\Translation\Loader\YamlFileLoader());

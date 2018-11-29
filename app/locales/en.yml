@@ -38,3 +38,5 @@ view_password.view: View Password
 view_password.expires: This listing will be removed in
 view_password.delete: Delete
 view_password.expired: The requested record has expired!
+
+view_crawler.info: A password has been shared with you, as a security measure the preview is disabled.
